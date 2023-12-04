@@ -32,6 +32,8 @@ const globalStyle = css`
       color: hsl(0, 0%, 10%);
       margin: 0rem;
       padding: 0rem;
+      background-image: linear-gradient(to right bottom, hsl(220, 90%, 98%), hsl(320, 95%, 98%));
+      background-attachment: fixed;
       line-height: 1;
       text-decoration-skip-ink: none;
     }
