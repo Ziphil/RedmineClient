@@ -1,5 +1,5 @@
 <div align="center">
-<h1>ぼくのかんがえたさいきょうの Redmine クライント</h1>
+<h1>ぼくのかんがえたさいきょうの Redmine クライアント</h1>
 </div>
 
 
