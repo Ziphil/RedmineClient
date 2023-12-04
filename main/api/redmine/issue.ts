@@ -1,6 +1,5 @@
 //
 
-import dayjs from "dayjs";
 import {
   client
 } from "/main/api/client";
@@ -9,7 +8,7 @@ import {
 } from "/main/type";
 
 
-export async function fetchIssues({}: {}): Promise<any> {
+export async function fetchIssues({}: {}): Promise<Array<Issue>> {
   const response = await client.get("/issues.json", {params: {assignedToId: "me", limit: 100}});
   const rawIssues = response.data.issues as Array<any>;
   const issues = rawIssues.map((rawIssue) => createIssue(rawIssue));
@@ -21,7 +20,7 @@ function createIssue(raw: any): Issue {
     id: raw.id,
     project: raw.project,
     subject: raw.subject,
-    startDate: raw.startDate !== null ? dayjs(raw.startDate) : null,
-    dueDate: raw.dueDate !== null ? dayjs(raw.dueDate) : null
+    startDate: raw.startDate,
+    dueDate: raw.dueDate
   };
 }
