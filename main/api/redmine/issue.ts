@@ -6,7 +6,7 @@ import {
 } from "/main/api/client";
 import {
   Issue
-} from "/main/api/type/issue";
+} from "/main/type";
 
 
 export async function fetchIssues({}: {}): Promise<any> {
