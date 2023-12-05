@@ -4,7 +4,7 @@ import {css} from "@linaria/core";
 import {Dayjs} from "dayjs";
 import {ReactElement} from "react";
 import {Project} from "/main/type";
-import {IssueView} from "/renderer/component/module/issue-chart/issue-view";
+import {IssueView} from "./issue-view";
 
 
 const styles = {

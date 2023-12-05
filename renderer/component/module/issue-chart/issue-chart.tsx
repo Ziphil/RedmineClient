@@ -6,7 +6,7 @@ import {ReactElement, useMemo} from "react";
 import {Project} from "/main/type";
 import {getBusinessDays} from "/renderer/util/date";
 import {IssueChartHeader} from "./issue-chart-header";
-import {ProjectView} from "/renderer/component/module/issue-chart/project-view";
+import {ProjectView} from "./project-view";
 
 
 const styles = {
@@ -26,7 +26,7 @@ export const IssueChart = function ({
   projects: Array<Project>
 }): ReactElement {
 
-  const businessDays = useMemo(() => getBusinessDays(dayjs().subtract(7, "day"), 30), []);
+  const businessDays = useMemo(() => getBusinessDays(dayjs().startOf("day").subtract(4, "day"), 25), []);
 
   return (
     <div className={styles.root}>

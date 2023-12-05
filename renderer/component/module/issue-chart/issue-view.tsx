@@ -30,7 +30,7 @@ export const IssueView = function ({
 
   return (
     <>
-      <IssueRow issue={issue} level={level} businessDays={businessDays}/>
+      <IssueRow issue={issue} level={level} parent={issue.childIssues.length > 0} businessDays={businessDays}/>
       {issue.childIssues.map((childIssue) => (
         <IssueView key={childIssue.id} issue={childIssue} level={level + 1} businessDays={businessDays}/>
       ))}
