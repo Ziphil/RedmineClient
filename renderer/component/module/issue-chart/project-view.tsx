@@ -4,6 +4,7 @@ import {css} from "@linaria/core";
 import {Dayjs} from "dayjs";
 import {ReactElement} from "react";
 import {Project} from "/main/type";
+import {borderColor} from "/renderer/util/css";
 import {IssueView} from "./issue-view";
 
 
@@ -17,7 +18,7 @@ const styles = {
     padding-block: 4px; 
     font-size: 12px;
     font-weight: bold;
-    border-block-end: solid 1px hsla(0, 0%, 0%, 0.07);
+    border-block-end: solid 1px ${borderColor()};
   `,
   list: css`
     display: flex;

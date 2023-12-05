@@ -5,11 +5,13 @@ import dayjs, {Dayjs} from "dayjs";
 import {ReactElement} from "react";
 import {Issue} from "/main/type";
 import {data} from "/renderer/util/data";
+import {borderColor, gradientBackground} from "/renderer/util/css";
 
 
 const styles = {
   root: css`
-    border-block-end: solid 1px hsla(0, 0%, 0%, 0.07);
+    height: 28px;
+    border-block-end: solid 1px ${borderColor()};
     grid-template-columns: 30% repeat(25, 1fr);
     display: grid;
     align-items: center;
@@ -17,8 +19,7 @@ const styles = {
     position: relative;
     &::before {
       inset: 0px;
-      background-image: linear-gradient(to right bottom, hsl(220, 90%, 96%), hsl(320, 95%, 96%));
-      background-attachment: fixed;
+      ${gradientBackground(0.96)}
       opacity: 0;
       transition: opacity 0.1s ease;
       content: "";
@@ -30,22 +31,21 @@ const styles = {
     }
   `,
   subjectContainer: css`
-    margin-block: 4px;
     display: flex;
     align-items: center;
     grid-column: 1 / 2;
   `,
   id: css`
-    width: 32px;
+    width: 3em;
+    padding-block: 0.1em;
     margin-inline-end: 6px;
-    padding-block: 1px;
     font-size: 12px;
-    border-radius: 2px;
+    letter-spacing: -0.05em;
+    border-radius: 1em;
+    ${gradientBackground(0.9)}
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-image: linear-gradient(to right bottom, hsl(220, 90%, 90%), hsl(320, 95%, 90%));
-    background-attachment: fixed;
     flex-grow: 0;
     flex-shrink: 0;
   `,
@@ -69,8 +69,7 @@ const styles = {
   meter: css`
     height: 16px;
     border-radius: 4px;
-    background-image: linear-gradient(to right bottom, hsl(220, 90%, 70%), hsl(320, 95%, 70%));
-    background-attachment: fixed;
+    ${gradientBackground(0.6)}
     grid-row: 1;
     &[data-parent] {
       height: 8px;
@@ -89,14 +88,13 @@ const styles = {
   `,
   borderItem: css`
     height: 100%;
-    border-inline-start: dotted 1px hsla(0, 0%, 0%, 0.05);
+    border-inline-start: solid 1px ${borderColor()};
     grid-row: 1;
-    &:nth-of-type(1) {
-      border-inline-start: solid 1px hsla(0, 0%, 0%, 0.05);
+    &:last-of-type {
+      border-inline-end: solid 1px ${borderColor()};
     }
     &[data-today] {
-      background-image: linear-gradient(to right bottom, hsl(220, 90%, 96%), hsl(320, 95%, 96%));
-      background-attachment: fixed;
+      ${gradientBackground(0.92)}
     }
   `
 };

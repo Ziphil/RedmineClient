@@ -4,24 +4,24 @@ import {css} from "@linaria/core";
 import dayjs, {Dayjs} from "dayjs";
 import {ReactElement} from "react";
 import {data} from "/renderer/util/data";
+import {borderColor, gradientBackground} from "/renderer/util/css";
 
 
 const styles = {
   root: css`
-    border-block-end: solid 1px hsla(0, 0%, 0%, 0.07);
+    border-block-end: solid 1px ${borderColor()};
     grid-template-columns: 30% repeat(25, 1fr);
     display: grid;
   `,
   item: css`
-    padding-block-end: 4px;
+    padding-block: 4px;
     row-gap: 2px;
     display: flex;
     flex-direction: column;
     align-items: center;
     &[data-today] {
       font-weight: bold;
-      background-image: linear-gradient(to right bottom, hsl(220, 90%, 96%), hsl(320, 95%, 96%));
-      background-attachment: fixed;
+      ${gradientBackground(0.92)}
     }
   `,
   hairia: css`

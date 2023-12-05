@@ -1,40 +1,29 @@
 //
 
-import {
-  css
-} from "@linaria/core";
+import {css} from "@linaria/core";
 import {
   Fragment,
   ReactElement,
   Suspense
 } from "react";
-import {
-  ErrorBoundary
-} from "react-error-boundary";
-import {
-  QueryClientProvider
-} from "react-query";
-import {
-  ChartPage
-} from "/renderer/component/page/chart-page";
-import {
-  queryClient
-} from "/renderer/hook/request";
+import {ErrorBoundary} from "react-error-boundary";
+import {QueryClientProvider} from "react-query";
+import {ChartPage} from "/renderer/component/page/chart-page";
+import {queryClient} from "/renderer/hook/request";
+import {gradientBackground, textColor} from "/renderer/util/css";
 
 
 const globalStyle = css`
-  @import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans:wght@400;700&display=swap");
   :global() {
     html {
-      font-family: "Commissioner", "Noto Sans JP", "Dubai", "Noto Sans", sans-serif;
+      font-family: "Nunito", "Zen Maru Gothic", "M PLUS Rounded 1c", sans-serif;
       font-size: 16px;
       font-feature-settings: "palt" 1, "pkna" 1, "lnum" 1, "kern" 1 !important;
-      color: hsl(0, 0%, 10%);
+      color: ${textColor()};
       margin: 0rem;
       padding: 0rem;
-      background-image: linear-gradient(to right bottom, hsl(220, 90%, 98%), hsl(320, 95%, 98%));
-      background-attachment: fixed;
       line-height: 1;
+      ${gradientBackground(0.98)}
       text-decoration-skip-ink: none;
     }
     html,
