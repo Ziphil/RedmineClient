@@ -3,7 +3,7 @@
 import {css} from "@linaria/core";
 import dayjs from "dayjs";
 import {ReactElement, useMemo} from "react";
-import {IssueGroup} from "/main/type";
+import {IssueGroup} from "/renderer/type";
 import {getBusinessDates} from "/renderer/util/date";
 import {IssueChartHeader} from "./issue-chart-header";
 import {IssueGroupView} from "./issue-group-view";

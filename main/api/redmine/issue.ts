@@ -3,11 +3,11 @@
 import {
   client
 } from "/main/api/client";
-import {
+import type {
   Issue,
   IssueGroup,
   Tracker
-} from "/main/type";
+} from "/renderer/type";
 
 
 export async function fetchIssues({}: {}): Promise<Array<IssueGroup>> {

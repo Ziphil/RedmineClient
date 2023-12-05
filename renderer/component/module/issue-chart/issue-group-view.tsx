@@ -3,7 +3,7 @@
 import {css} from "@linaria/core";
 import {Dayjs} from "dayjs";
 import {ReactElement} from "react";
-import {IssueGroup} from "/main/type";
+import {IssueGroup} from "/renderer/type";
 import {borderColor} from "/renderer/util/css";
 import {IssueView} from "./issue-view";
 

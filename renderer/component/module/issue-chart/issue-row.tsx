@@ -3,9 +3,10 @@
 import {css} from "@linaria/core";
 import dayjs, {Dayjs} from "dayjs";
 import {ReactElement} from "react";
-import {Issue} from "/main/type";
-import {data} from "/renderer/util/data";
+import {TrackerIcon} from "/renderer/component/module/tracker-icon";
+import {Issue} from "/renderer/type";
 import {borderColor, gradientBackground, gradientText, iconFont} from "/renderer/util/css";
+import {aria, data} from "/renderer/util/data";
 
 
 const styles = {
@@ -31,6 +32,7 @@ const styles = {
     }
   `,
   subjectContainer: css`
+    column-gap: 6px;
     display: flex;
     align-items: center;
     grid-column: 1 / 2;
@@ -38,8 +40,7 @@ const styles = {
   id: css`
     width: 3em;
     padding-block: 0.2em;
-    margin-inline-end: 6px;
-    font-size: 12px;
+    font-size: 70%;
     letter-spacing: -0.05em;
     border-radius: 1em;
     ${gradientBackground(0.9)}
@@ -50,29 +51,15 @@ const styles = {
     flex-shrink: 0;
   `,
   tracker: css`
-    width: 1em;
-    margin-inline-end: 6px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    ${gradientText(0.9)}
     flex-grow: 0;
     flex-shrink: 0;
-    &::before {
-      ${iconFont()}
-      ${gradientText(0.9)}
-    }
-    &[data-tracker="feature"]::before {
-      content: "\uF004";
-    }
-    &[data-tracker="bug"]::before {
-      content: "\uF188";
-    }
-    &[data-tracker="refactor"]::before {
-      content: "\uF005";
-    }
-    &[data-tracker="other"]::before {
-      content: "\uF068";
-    }
+  `,
+  subjectRow: css`
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    flex-shrink: 1;
   `,
   indent: css`
     display: flex;
@@ -150,13 +137,15 @@ export const IssueRow = function ({
     <li className={styles.root}>
       <div className={styles.subjectContainer}>
         <span className={styles.id}>{issue.id}</span>
-        <span className={styles.tracker} {...data({tracker: issue.tracker})}/>
-        <span className={styles.indent}>
-          {Array.from({length: level}).map((dummy, index) => (
-            <span key={index} className={styles.indentItem}/>
-          ))}
+        <span className={styles.tracker}><TrackerIcon tracker={issue.tracker}/></span>
+        <span className={styles.subjectRow}>
+          <span className={styles.indent} {...aria({hidden: true})}>
+            {Array.from({length: level}).map((dummy, index) => (
+              <span key={index} className={styles.indentItem}/>
+            ))}
+          </span>
+          <span className={styles.subject}>{issue.subject}</span>
         </span>
-        <span className={styles.subject}>{issue.subject}</span>
       </div>
       <div className={styles.border}>
         {businessDates.map((day, index) => (
@@ -165,6 +154,7 @@ export const IssueRow = function ({
             key={day.format("YYYY-MM-DD")}
             style={{gridColumnStart: index + 2, gridColumnEnd: index + 3}}
             {...data({today: day.isSame(dayjs(), "day")})}
+            {...aria({hidden: true})}
           />
         ))}
       </div>
@@ -173,6 +163,7 @@ export const IssueRow = function ({
           className={styles.meter}
           style={{gridColumnStart: startIndex + 2, gridColumnEnd: endIndex + 3}}
           {...data({parent, startOverflown, endOverflown})}
+          {...aria({hidden: true})}
         />
       )}
     </li>

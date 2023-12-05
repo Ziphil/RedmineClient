@@ -3,9 +3,9 @@
 import {css} from "@linaria/core";
 import dayjs, {Dayjs} from "dayjs";
 import {ReactElement} from "react";
-import {data} from "/renderer/util/data";
+import {DateView} from "/renderer/component/module/date-view";
 import {borderColor, gradientBackground} from "/renderer/util/css";
-import {DateView} from "../date-view";
+import {data} from "/renderer/util/data";
 
 
 const styles = {
@@ -16,28 +16,13 @@ const styles = {
   `,
   item: css`
     padding-block: 4px;
-    row-gap: 2px;
+    font-size: 12px;
     border-start-start-radius: 4px;
     border-start-end-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     &[data-today] {
       font-weight: bold;
       ${gradientBackground(0.92)}
     }
-  `,
-  hairia: css`
-    font-size: 12px;
-  `,
-  date: css`
-    font-size: 12px;
-  `,
-  month: css`
-    font-size: 10px;
-  `,
-  day: css`
-    font-size: 10px;
   `
 };
 

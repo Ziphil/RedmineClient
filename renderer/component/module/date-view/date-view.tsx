@@ -7,21 +7,20 @@ import {ReactElement} from "react";
 
 const styles = {
   root: css`
+    row-gap: 0.2em;
     display: flex;
     flex-direction: column;
     align-items: center;
   `,
   hairia: css`
-    font-size: 12px;
   `,
   date: css`
-    font-size: 12px;
   `,
   month: css`
-    font-size: 10px;
+    font-size: 80%;
   `,
   day: css`
-    font-size: 10px;
+    font-size: 80%;
   `
 };
 

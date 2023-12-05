@@ -2,7 +2,7 @@
 
 import {Dayjs} from "dayjs";
 import {ReactElement} from "react";
-import {Issue} from "/main/type";
+import {Issue} from "/renderer/type";
 import {IssueRow} from "./issue-row";
 
 
