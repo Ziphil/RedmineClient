@@ -19,6 +19,10 @@ const styles = {
   month: css`
     font-size: 80%;
   `,
+  slash: css`
+    margin-inline: 0.1em;
+    font-size: 80%;
+  `,
   day: css`
     font-size: 80%;
   `
@@ -37,7 +41,7 @@ export const DateView = function ({
       </div>
       <div className={styles.date}>
         <span className={styles.month}>{date.format("MM")}</span>
-        <span className={styles.month}>/</span>
+        <span className={styles.slash}>/</span>
         <span>{date.format("DD")}</span>
       </div>
       <div className={styles.day}>

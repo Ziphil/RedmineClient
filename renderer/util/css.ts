@@ -3,7 +3,7 @@
 
 export function gradientBackground(lightness: number): string {
   const css = `
-    background-image: linear-gradient(to right bottom, hsl(220, 80%, ${lightness * 100}%), hsl(320, 75%, ${lightness * 100}%));
+    background-image: linear-gradient(to right bottom, hsl(220, 70%, ${lightness * 100}%), hsl(320, 65%, ${lightness * 100}%));
     background-attachment: fixed;
 `;
   return css;
@@ -11,7 +11,7 @@ export function gradientBackground(lightness: number): string {
 
 export function gradientText(lightness: number): string {
   const css = `
-    background-image: linear-gradient(to right bottom, hsl(220, 80%, ${lightness * 100}%), hsl(320, 75%, ${lightness * 100}%));
+    background-image: linear-gradient(to right bottom, hsl(220, 70%, ${lightness * 100}%), hsl(320, 65%, ${lightness * 100}%));
     background-attachment: fixed;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -32,5 +32,5 @@ export function textColor(): string {
 }
 
 export function borderColor(): string {
-  return "hsla(270, 10%, 50%, 0.3)";
+  return "hsla(270, 10%, 50%, 0.25)";
 }

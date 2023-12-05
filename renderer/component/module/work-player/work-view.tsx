@@ -5,12 +5,14 @@ import dayjs from "dayjs";
 import {ReactElement} from "react";
 import {DateView} from "/renderer/component/module/date-view";
 import {TrackerIcon} from "/renderer/component/module/tracker-icon";
-import {Issue} from "/renderer/type";
+import {Work} from "/renderer/type";
 import {gradientBackground, gradientText, iconFont} from "/renderer/util/css";
 
 
 const styles = {
   root: css`
+    flex-grow: 1;
+    flex-shrink: 1;
   `,
   complement: css`
     column-gap: 8px;
@@ -55,31 +57,27 @@ const styles = {
   `
 };
 
-export const IssuePlayerIssueView = function ({
-  issue
+export const WorkView = function ({
+  work
 }: {
-  issue: Issue | null
+  work: Work
 }): ReactElement {
 
   return (
     <div className={styles.root}>
-      {(issue !== null) && (
-        <>
-          <div className={styles.complement}>
-            <span className={styles.id}>{issue.id}</span>
-            <span className={styles.tracker}><TrackerIcon tracker={issue.tracker}/></span>
-          </div>
-          <div className={styles.subject}>
-            {issue.subject}
-          </div>
-          {(issue.startDate !== null && issue.dueDate !== null) && (
-            <div className={styles.date}>
-              <DateView date={dayjs(issue.startDate)}/>
-              <div className={styles.dateArrow}/>
-              <DateView date={dayjs(issue.dueDate)}/>
-            </div>
-          )}
-        </>
+      <div className={styles.complement}>
+        <span className={styles.id}>{work.issue.id}</span>
+        <span className={styles.tracker}><TrackerIcon tracker={work.issue.tracker}/></span>
+      </div>
+      <div className={styles.subject}>
+        {work.issue.subject}
+      </div>
+      {(work.issue.startDate !== null && work.issue.dueDate !== null) && (
+        <div className={styles.date}>
+          <DateView date={dayjs(work.issue.startDate)}/>
+          <div className={styles.dateArrow}/>
+          <DateView date={dayjs(work.issue.dueDate)}/>
+        </div>
       )}
     </div>
   );

@@ -2,9 +2,10 @@
 
 import {css} from "@linaria/core";
 import {ReactElement} from "react";
-import {Issue} from "/renderer/type";
+import {WorkTimer} from "/renderer/component/module/work-player/work-timer";
+import {Work} from "/renderer/type";
 import {gradientBackground} from "/renderer/util/css";
-import {IssuePlayerIssueView} from "./issue-player-issue-view";
+import {WorkView} from "./work-view";
 
 
 const styles = {
@@ -15,18 +16,25 @@ const styles = {
     border-end-end-radius: 16px;
     color: white;
     ${gradientBackground(0.5)}
+    display: flex;
+    align-items: center;
   `
 };
 
-export const IssuePlayer = function ({
-  issue
+export const WorkPlayer = function ({
+  work
 }: {
-  issue: Issue | null
+  work: Work | null
 }): ReactElement {
 
   return (
     <div className={styles.root}>
-      <IssuePlayerIssueView issue={issue}/>
+      {work !== null && (
+        <>
+          <WorkView work={work}/>
+          <WorkTimer work={work}/>
+        </>
+      )}
     </div>
   );
 

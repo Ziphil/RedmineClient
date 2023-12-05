@@ -1,11 +1,12 @@
 //
 
 import {css} from "@linaria/core";
+import dayjs from "dayjs";
 import {ReactElement, useState} from "react";
 import {IssueChart} from "/renderer/component/module/issue-chart";
-import {IssuePlayer} from "/renderer/component/module/issue-player";
+import {WorkPlayer} from "/renderer/component/module/work-player";
 import {useSuspenseQuery} from "/renderer/hook/request";
-import {Issue} from "/renderer/type";
+import {Work} from "/renderer/type";
 
 
 const styles = {
@@ -25,11 +26,11 @@ export const ChartPage = function ({
 }): ReactElement {
 
   const [issueGroups] = useSuspenseQuery("fetchIssues", window.api.fetchIssues, {refetchInterval: 1000 * 60});
-  const [issue, setIssue] = useState<Issue | null>(issueGroups[0].issues[0]);
+  const [work, setWork] = useState<Work | null>({issue: issueGroups[0].issues[0], startDate: dayjs()});
 
   return (
     <div className={styles.root}>
-      <IssuePlayer issue={issue}/>
+      <WorkPlayer work={work}/>
       <div className={styles.chartContainer}>
         <IssueChart issueGroups={issueGroups}/>
       </div>
