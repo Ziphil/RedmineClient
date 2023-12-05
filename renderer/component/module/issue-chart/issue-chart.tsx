@@ -3,10 +3,10 @@
 import {css} from "@linaria/core";
 import dayjs from "dayjs";
 import {ReactElement, useMemo} from "react";
-import {Project} from "/main/type";
-import {getBusinessDays} from "/renderer/util/date";
+import {IssueGroup} from "/main/type";
+import {getBusinessDates} from "/renderer/util/date";
 import {IssueChartHeader} from "./issue-chart-header";
-import {ProjectView} from "./project-view";
+import {IssueGroupView} from "./issue-group-view";
 
 
 const styles = {
@@ -21,19 +21,19 @@ const styles = {
 };
 
 export const IssueChart = function ({
-  projects
+  issueGroups
 }: {
-  projects: Array<Project>
+  issueGroups: Array<IssueGroup>
 }): ReactElement {
 
-  const businessDays = useMemo(() => getBusinessDays(dayjs().startOf("day"), 2, 22), []);
+  const businessDates = useMemo(() => getBusinessDates(dayjs().startOf("day"), 2, 22), []);
 
   return (
     <div className={styles.root}>
-      <IssueChartHeader businessDays={businessDays}/>
+      <IssueChartHeader businessDates={businessDates}/>
       <div className={styles.list}>
-        {projects.map((project) => (
-          <ProjectView key={project.id} project={project} businessDays={businessDays}/>
+        {issueGroups.map((issueGroup) => (
+          <IssueGroupView key={issueGroup.id} issueGroup={issueGroup} businessDates={businessDates}/>
         ))}
       </div>
     </div>

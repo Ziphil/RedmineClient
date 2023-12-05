@@ -3,7 +3,7 @@
 import {css} from "@linaria/core";
 import {Dayjs} from "dayjs";
 import {ReactElement} from "react";
-import {Project} from "/main/type";
+import {IssueGroup} from "/main/type";
 import {borderColor} from "/renderer/util/css";
 import {IssueView} from "./issue-view";
 
@@ -26,20 +26,20 @@ const styles = {
   `
 };
 
-export const ProjectView = function ({
-  project,
-  businessDays
+export const IssueGroupView = function ({
+  issueGroup,
+  businessDates
 }: {
-  project: Project,
-  businessDays: Array<Dayjs>
+  issueGroup: IssueGroup,
+  businessDates: Array<Dayjs>
 }): ReactElement {
 
   return (
     <section className={styles.root}>
-      <h2 className={styles.name}>{project.name}</h2>
+      <h2 className={styles.name}>{issueGroup.name}</h2>
       <ul className={styles.list}>
-        {project.issues.map((issue) => (
-          <IssueView key={issue.id} issue={issue} level={0} businessDays={businessDays}/>
+        {issueGroup.issues.map((issue) => (
+          <IssueView key={issue.id} issue={issue} level={0} businessDates={businessDates}/>
         ))}
       </ul>
     </section>

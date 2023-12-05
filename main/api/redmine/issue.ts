@@ -5,12 +5,12 @@ import {
 } from "/main/api/client";
 import {
   Issue,
-  Project,
+  IssueGroup,
   Tracker
 } from "/main/type";
 
 
-export async function fetchIssues({}: {}): Promise<Array<Project>> {
+export async function fetchIssues({}: {}): Promise<Array<IssueGroup>> {
   const response = await client.get("/issues.json", {params: {assignedToId: "me", limit: 100}});
   const rawIssues = response.data.issues as Array<any>;
   const singleIssues = rawIssues.map((rawIssue) => createSingleIssue(rawIssue));
@@ -59,8 +59,8 @@ function hierarchizeSingleIssues(singleIssues: Array<SingleIssue>): Array<Issue>
   return rootIssues;
 }
 
-function groupIssuesToProject(issues: Array<Issue>): Array<Project> {
-  const projects = new Map<number, Project>();
+function groupIssuesToProject(issues: Array<Issue>): Array<IssueGroup> {
+  const projects = new Map<number, IssueGroup>();
   for (const issue of issues) {
     if (projects.has(issue.project.id)) {
       projects.get(issue.project.id)!.issues.push(issue);

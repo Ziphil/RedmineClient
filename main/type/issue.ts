@@ -14,7 +14,7 @@ export interface Issue {
 }
 
 
-export interface Project {
+export interface IssueGroup {
 
   id: number;
   name: string;

@@ -5,6 +5,7 @@ import dayjs, {Dayjs} from "dayjs";
 import {ReactElement} from "react";
 import {data} from "/renderer/util/data";
 import {borderColor, gradientBackground} from "/renderer/util/css";
+import {DateView} from "../date-view";
 
 
 const styles = {
@@ -41,39 +42,24 @@ const styles = {
 };
 
 export const IssueChartHeader = function ({
-  businessDays
+  businessDates
 }: {
-  businessDays: Array<Dayjs>
+  businessDates: Array<Dayjs>
 }): ReactElement {
 
   return (
     <div className={styles.root}>
-      {businessDays.map((day, index) => (
+      {businessDates.map((date, index) => (
         <div
           className={styles.item}
-          key={day.format("YYYY-MM-DD")}
+          key={date.format("YYYY-MM-DD")}
           style={{gridColumnStart: index + 2, gridColumnEnd: index + 3}}
-          {...data({today: day.isSame(dayjs(), "day")})}
+          {...data({today: date.isSame(dayjs(), "day")})}
         >
-          <div className={styles.hairia}>
-            {getHairia(day)}
-          </div>
-          <div className={styles.date}>
-            <span className={styles.month}>{day.format("MM")}</span>
-            <span className={styles.month}>/</span>
-            <span>{day.format("DD")}</span>
-          </div>
-          <div className={styles.day}>
-            {day.format("ddd")}
-          </div>
+          <DateView date={date}/>
         </div>
       ))}
     </div>
   );
 
 };
-
-
-function getHairia(day: Dayjs): number {
-  return day.diff(dayjs("2012-01-22"), "day");
-}

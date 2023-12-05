@@ -17,13 +17,13 @@ export const ChartPage = function ({
 }: {
 }): ReactElement {
 
-  const [projects] = useSuspenseQuery("fetchIssues", window.api.fetchIssues, {refetchInterval: 1000 * 60});
+  const [issueGroups] = useSuspenseQuery("fetchIssues", window.api.fetchIssues, {refetchInterval: 1000 * 60});
 
-  console.log(projects);
+  console.log(issueGroups);
 
   return (
     <div className={styles.root}>
-      <IssueChart projects={projects}/>
+      <IssueChart issueGroups={issueGroups}/>
     </div>
   );
 

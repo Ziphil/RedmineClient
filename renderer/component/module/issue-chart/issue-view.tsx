@@ -1,6 +1,5 @@
 //
 
-import {css} from "@linaria/core";
 import {Dayjs} from "dayjs";
 import {ReactElement} from "react";
 import {Issue} from "/main/type";
@@ -8,31 +7,23 @@ import {IssueRow} from "./issue-row";
 
 
 const styles = {
-  root: css`
-    display: flex;
-    flex-direction: column;
-  `,
-  list: css`
-    display: flex;
-    flex-direction: column;
-  `
 };
 
 export const IssueView = function ({
   issue,
   level,
-  businessDays
+  businessDates
 }: {
   issue: Issue,
   level: number,
-  businessDays: Array<Dayjs>
+  businessDates: Array<Dayjs>
 }): ReactElement {
 
   return (
     <>
-      <IssueRow issue={issue} level={level} parent={issue.childIssues.length > 0} businessDays={businessDays}/>
+      <IssueRow issue={issue} level={level} parent={issue.childIssues.length > 0} businessDates={businessDates}/>
       {issue.childIssues.map((childIssue) => (
-        <IssueView key={childIssue.id} issue={childIssue} level={level + 1} businessDays={businessDays}/>
+        <IssueView key={childIssue.id} issue={childIssue} level={level + 1} businessDates={businessDates}/>
       ))}
     </>
   );
