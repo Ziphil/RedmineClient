@@ -9,7 +9,7 @@ const styles = {
   `,
   colon: css`
     margin-inline: 0.1em;
-    inset-block-end: 0.1em;
+    inset-block-end: 0.08em;
     position: relative;
   `
 };

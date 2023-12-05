@@ -36,7 +36,7 @@ const styles = {
     ${gradientText(0.65)}
   `,
   project: css`
-    margin-block-start: 8px;
+    margin-block-start: 10px;
     font-size: 24px;
     font-weight: bold;    
   `,

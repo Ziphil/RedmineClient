@@ -11,13 +11,22 @@ import {Issue, Work} from "/renderer/type";
 
 const styles = {
   root: css`
+    row-gap: 24px;
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+  `,
+  playerContainer: css`
+    flex-grow: 0;
+    flex-shrink: 0;
   `,
   chartContainer: css`
-    padding-block-start: 32px;
-    padding-block-end: 32px;
     padding-inline: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
   `
 };
 
@@ -64,7 +73,9 @@ export const ChartPage = function ({
 
   return (
     <div className={styles.root}>
-      <WorkPlayer work={work} onPunch={handlePunch} onPause={handlePause} onCancel={handleCancel}/>
+      <div className={styles.playerContainer}>
+        <WorkPlayer work={work} onPunch={handlePunch} onPause={handlePause} onCancel={handleCancel}/>
+      </div>
       <div className={styles.chartContainer}>
         <IssueChart issueGroups={issueGroups} onIssueClick={handleIssueClick}/>
       </div>

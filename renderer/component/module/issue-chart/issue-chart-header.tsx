@@ -13,8 +13,11 @@ const styles = {
     border-block-end: solid 1px ${borderColor()};
     grid-template-columns: 30% repeat(25, 1fr);
     display: grid;
+    flex-grow: 0;
+    flex-shrink: 0;
   `,
   item: css`
+    margin-inline-end: -1px;
     padding-block: 4px;
     font-size: 12px;
     border-start-start-radius: 4px;

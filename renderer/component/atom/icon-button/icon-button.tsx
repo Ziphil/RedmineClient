@@ -33,7 +33,7 @@ const styles = {
     &::before {
       inset: 0px;
       ${gradientBackground(0.9)}
-      transition: opacity 0.2s ease;
+      transition: opacity 0.3s ease;
       opacity: 0;
       z-index: 1;
       content: "";

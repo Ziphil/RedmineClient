@@ -13,6 +13,9 @@ import {queryClient} from "/renderer/hook/request";
 import {gradientBackground, textColor} from "/renderer/util/css";
 
 
+require("simplebar-react/dist/simplebar.min.css");
+
+
 const globalStyle = css`
   :global() {
     html {
@@ -27,7 +30,8 @@ const globalStyle = css`
       text-decoration-skip-ink: none;
     }
     html,
-    body {
+    body,
+    #root {
       height: 100%;
     }
     *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {

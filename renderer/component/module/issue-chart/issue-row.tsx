@@ -21,7 +21,7 @@ const styles = {
     &::before {
       inset: 0px;
       ${gradientBackground(0.96)}
-      transition: opacity 0.2s ease;
+      transition: opacity 0.1s ease;
       opacity: 0;
       z-index: -1;
       content: "";
