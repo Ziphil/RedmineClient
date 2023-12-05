@@ -38,7 +38,7 @@ const styles = {
   `,
   subject: css`
     margin-block-start: 8px;
-    font-size: 32px;
+    font-size: 40px;
     font-weight: bold;
   `,
   date: css`

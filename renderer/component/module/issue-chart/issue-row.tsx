@@ -22,9 +22,9 @@ const styles = {
       inset: 0px;
       ${gradientBackground(0.96)}
       opacity: 0;
-      transition: opacity 0.1s ease;
-      content: "";
+      transition: opacity 0.2s ease;
       z-index: -1;
+      content: "";
       position: absolute;
     }
     &:hover::before {
