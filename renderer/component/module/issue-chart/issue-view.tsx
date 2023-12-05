@@ -1,8 +1,9 @@
 //
 
 import {Dayjs} from "dayjs";
-import {ReactElement} from "react";
+import {ReactElement, useMemo} from "react";
 import {Issue} from "/renderer/type";
+import {compareIssue} from "/renderer/util/issue";
 import {IssueRow} from "./issue-row";
 
 
@@ -21,10 +22,12 @@ export const IssueView = function ({
   onIssueClick: (issue: Issue) => unknown
 }): ReactElement {
 
+  const sortedChildIssues = useMemo(() => [...issue.childIssues].sort(compareIssue), [issue.childIssues]);
+
   return (
     <>
       <IssueRow issue={issue} level={level} parent={issue.childIssues.length > 0} businessDates={businessDates} onIssueClick={onIssueClick}/>
-      {issue.childIssues.map((childIssue) => (
+      {sortedChildIssues.map((childIssue) => (
         <IssueView key={childIssue.id} issue={childIssue} level={level + 1} businessDates={businessDates} onIssueClick={onIssueClick}/>
       ))}
     </>

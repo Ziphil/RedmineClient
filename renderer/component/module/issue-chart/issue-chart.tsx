@@ -42,13 +42,14 @@ export const IssueChart = function ({
 }): ReactElement {
 
   const businessDates = useMemo(() => getBusinessDates(dayjs().startOf("day"), 2, 22), []);
+  const sortedIssueGroups = useMemo(() => [...issueGroups].sort((first, second) => second.id - first.id), [issueGroups]);
 
   return (
     <div className={styles.root}>
       <IssueChartHeader businessDates={businessDates}/>
       <SimpleBar className={styles.outer}>
         <div className={styles.list}>
-          {issueGroups.map((issueGroup) => (
+          {sortedIssueGroups.map((issueGroup) => (
             <IssueGroupView key={issueGroup.id} issueGroup={issueGroup} businessDates={businessDates} onIssueClick={onIssueClick}/>
           ))}
         </div>

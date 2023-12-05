@@ -2,9 +2,10 @@
 
 import {css} from "@linaria/core";
 import {Dayjs} from "dayjs";
-import {ReactElement} from "react";
+import {ReactElement, useMemo} from "react";
 import {Issue, IssueGroup} from "/renderer/type";
 import {borderColor} from "/renderer/util/css";
+import {compareIssue} from "/renderer/util/issue";
 import {IssueView} from "./issue-view";
 
 
@@ -36,11 +37,13 @@ export const IssueGroupView = function ({
   onIssueClick: (issue: Issue) => unknown
 }): ReactElement {
 
+  const sortedIssues = useMemo(() => [...issueGroup.issues].sort(compareIssue), [issueGroup.issues]);
+
   return (
     <section className={styles.root}>
       <h2 className={styles.name}>{issueGroup.name}</h2>
       <ul className={styles.list}>
-        {issueGroup.issues.map((issue) => (
+        {sortedIssues.map((issue) => (
           <IssueView key={issue.id} issue={issue} level={0} businessDates={businessDates} onIssueClick={onIssueClick}/>
         ))}
       </ul>

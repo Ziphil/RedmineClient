@@ -47,7 +47,7 @@ export const WorkController = function ({
       <div className={styles.row}>
         <IconButton icon={"\uF04D"} size="medium" onClick={handlePunchWithoutDone}/>
         <IconButton icon={(work.startDate !== null) ? "\uF04C" : "\uF04B"} size="medium" onClick={onPause}/>
-        <IconButton icon={"\uF1F8"} size="medium" onClick={onCancel}/>
+        <IconButton icon={"\uF05E"} size="medium" onClick={onCancel}/>
       </div>
     </div>
   );
