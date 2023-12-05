@@ -8,6 +8,7 @@ import {Work} from "/renderer/type";
 
 const styles = {
   root: css`
+    width: 256px;
     font-size: 64px;
     font-weight: bold;
     flex-grow: 0;

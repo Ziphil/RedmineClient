@@ -40,6 +40,9 @@ const styles = {
     margin-block-start: 8px;
     font-size: 40px;
     font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   `,
   date: css`
     margin-block-start: 12px;
