@@ -80,6 +80,7 @@ const styles = {
     display: contents;
   `,
   borderItem: css`
+    height: 100%;
     border-inline-start: dotted 1px hsla(0, 0%, 0%, 0.05);
     grid-row: 1;
     &:nth-of-type(1) {

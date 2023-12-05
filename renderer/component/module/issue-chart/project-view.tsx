@@ -9,7 +9,7 @@ import {IssueView} from "./issue-view";
 
 const styles = {
   root: css`
-    margin-block-start: 8px;
+    margin-block-start: 12px;
     display: flex;
     flex-direction: column;
   `,
