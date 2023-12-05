@@ -11,6 +11,7 @@ const styles = {
     width: 256px;
     font-size: 64px;
     font-weight: bold;
+    text-align: end;
     flex-grow: 0;
     flex-shrink: 0;
   `,
@@ -35,7 +36,7 @@ export const WorkTimer = function ({
 
   useEffect(() => {
     const timer = setInterval(() => {
-      const ellapsedTime = dayjs().diff(work.startDate, "second") + 3907;
+      const ellapsedTime = dayjs().diff(work.startDate, "second");
       setEllapsedTime(ellapsedTime);
     }, 37);
     return () => {

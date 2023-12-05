@@ -4,7 +4,6 @@ import {css} from "@linaria/core";
 import dayjs from "dayjs";
 import {ReactElement} from "react";
 import {DateView} from "/renderer/component/module/date-view";
-import {TrackerIcon} from "/renderer/component/module/tracker-icon";
 import {Work} from "/renderer/type";
 import {gradientBackground, gradientText, iconFont} from "/renderer/util/css";
 
@@ -70,7 +69,6 @@ export const WorkView = function ({
     <div className={styles.root}>
       <div className={styles.complement}>
         <span className={styles.id}>{work.issue.id}</span>
-        <span className={styles.tracker}><TrackerIcon tracker={work.issue.tracker}/></span>
       </div>
       <div className={styles.subject}>
         {work.issue.subject}

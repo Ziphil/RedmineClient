@@ -3,7 +3,6 @@
 import {css} from "@linaria/core";
 import dayjs, {Dayjs} from "dayjs";
 import {ReactElement, useCallback} from "react";
-import {TrackerIcon} from "/renderer/component/module/tracker-icon";
 import {Issue} from "/renderer/type";
 import {borderColor, gradientBackground, gradientText, iconFont} from "/renderer/util/css";
 import {aria, data} from "/renderer/util/data";
@@ -144,7 +143,6 @@ export const IssueRow = function ({
     <button className={styles.root} type="button" onClick={handleClick}>
       <div className={styles.subjectContainer}>
         <span className={styles.id}>{issue.id}</span>
-        <span className={styles.tracker}><TrackerIcon tracker={issue.tracker}/></span>
         <span className={styles.subjectRow}>
           <span className={styles.indent} {...aria({hidden: true})}>
             {Array.from({length: level}).map((dummy, index) => (
