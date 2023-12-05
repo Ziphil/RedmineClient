@@ -16,6 +16,8 @@ const styles = {
   item: css`
     padding-block: 4px;
     row-gap: 2px;
+    border-start-start-radius: 4px;
+    border-start-end-radius: 4px;
     display: flex;
     flex-direction: column;
     align-items: center;
