@@ -5,7 +5,7 @@ import dayjs, {Dayjs} from "dayjs";
 import {ReactElement} from "react";
 import {Issue} from "/main/type";
 import {data} from "/renderer/util/data";
-import {borderColor, gradientBackground} from "/renderer/util/css";
+import {borderColor, gradientBackground, gradientText, iconFont} from "/renderer/util/css";
 
 
 const styles = {
@@ -37,7 +37,7 @@ const styles = {
   `,
   id: css`
     width: 3em;
-    padding-block: 0.1em;
+    padding-block: 0.2em;
     margin-inline-end: 6px;
     font-size: 12px;
     letter-spacing: -0.05em;
@@ -55,9 +55,15 @@ const styles = {
     flex-shrink: 0;
   `,
   indentItem: css`
-    width: 12px;
+    width: 16px;
+    padding-inline-start: 2px;
     flex-grow: 0;
     flex-shrink: 0;
+    &::before {
+      ${iconFont()}
+      ${gradientText(0.8)}
+      content: "\uF105";
+    }
   `,
   subject: css`
     overflow: hidden;
