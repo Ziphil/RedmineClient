@@ -12,14 +12,22 @@ export function isBusinessDay(date: Dayjs): boolean {
   return !isHoliday(date);
 }
 
-export function getBusinessDays(startDate: Dayjs, count: number): Array<Dayjs> {
+export function getBusinessDays(startDate: Dayjs, beforeCount: number, afterCount: number): Array<Dayjs> {
   const businessDays = [];
   let currentDate = startDate;
-  while (businessDays.length < count) {
+  while (businessDays.length < beforeCount) {
+    currentDate = currentDate.subtract(1, "day");
+    if (isBusinessDay(currentDate)) {
+      businessDays.unshift(currentDate.clone());
+    }
+  }
+  currentDate = startDate;
+  businessDays.push(currentDate.clone());
+  while (businessDays.length < beforeCount + afterCount + 1) {
+    currentDate = currentDate.add(1, "day");
     if (isBusinessDay(currentDate)) {
       businessDays.push(currentDate.clone());
     }
-    currentDate = currentDate.add(1, "day");
   }
   return businessDays;
 }

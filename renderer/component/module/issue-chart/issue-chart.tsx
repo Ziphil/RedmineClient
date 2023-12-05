@@ -26,7 +26,7 @@ export const IssueChart = function ({
   projects: Array<Project>
 }): ReactElement {
 
-  const businessDays = useMemo(() => getBusinessDays(dayjs().startOf("day").subtract(4, "day"), 25), []);
+  const businessDays = useMemo(() => getBusinessDays(dayjs().startOf("day"), 2, 22), []);
 
   return (
     <div className={styles.root}>

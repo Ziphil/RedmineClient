@@ -50,7 +50,7 @@ export const IssueChartHeader = function ({
         <div
           className={styles.item}
           key={day.format("YYYY-MM-DD")}
-          style={{gridColumnStart: index + 2, gridColumnEnd: index + 2}}
+          style={{gridColumnStart: index + 2, gridColumnEnd: index + 3}}
           {...data({today: day.isSame(dayjs(), "day")})}
         >
           <div className={styles.hairia}>

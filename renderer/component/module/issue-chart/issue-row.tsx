@@ -75,6 +75,14 @@ const styles = {
     &[data-parent] {
       height: 8px;
     }
+    &[data-start-overflown] {
+      border-start-start-radius: 0px;
+      border-end-start-radius: 0px;
+    }
+    &[data-end-overflown] {
+      border-start-end-radius: 0px;
+      border-end-end-radius: 0px;
+    }
   `,
   border: css`
     display: contents;
@@ -105,8 +113,8 @@ export const IssueRow = function ({
   businessDays: Array<Dayjs>
 }): ReactElement {
 
-  const startIndex = calcStartIndex(issue, businessDays);
-  const endIndex = calcEndIndex(issue, businessDays);
+  const [startIndex, startOverflown] = calcStartIndex(issue, businessDays);
+  const [endIndex, endOverflown] = calcEndIndex(issue, businessDays);
 
   return (
     <li className={styles.root}>
@@ -124,7 +132,7 @@ export const IssueRow = function ({
           <div
             className={styles.borderItem}
             key={day.format("YYYY-MM-DD")}
-            style={{gridColumnStart: index + 2, gridColumnEnd: index + 2}}
+            style={{gridColumnStart: index + 2, gridColumnEnd: index + 3}}
             {...data({today: day.isSame(dayjs(), "day")})}
           />
         ))}
@@ -132,8 +140,8 @@ export const IssueRow = function ({
       {(startIndex !== null && endIndex !== null) && (
         <div
           className={styles.meter}
-          style={{gridColumnStart: startIndex + 2, gridColumnEnd: endIndex + 2}}
-          {...data({parent})}
+          style={{gridColumnStart: startIndex + 2, gridColumnEnd: endIndex + 3}}
+          {...data({parent, startOverflown, endOverflown})}
         />
       )}
     </li>
@@ -142,22 +150,24 @@ export const IssueRow = function ({
 };
 
 
-function calcStartIndex(issue: Issue, businessDays: Array<Dayjs>): number | null {
+function calcStartIndex(issue: Issue, businessDays: Array<Dayjs>): [number | null, boolean] {
   if (issue.startDate !== null) {
     const rawStartIndex = businessDays.findIndex((day) => day.isSame(issue.startDate, "day") || day.isAfter(issue.startDate, "day"));
     const startIndex = (rawStartIndex < 0) ? 0 : rawStartIndex;
-    return startIndex;
+    const startOverflown = businessDays[0].isAfter(issue.startDate, "day");
+    return [startIndex, startOverflown];
   } else {
-    return null;
+    return [null, false];
   }
 }
 
-function calcEndIndex(issue: Issue, businessDays: Array<Dayjs>): number | null {
+function calcEndIndex(issue: Issue, businessDays: Array<Dayjs>): [number | null, boolean] {
   if (issue.dueDate !== null) {
     const rawEndIndex = businessDays.findIndex((day) => day.isAfter(issue.dueDate, "day")) - 1;
     const endIndex = (rawEndIndex < 0) ? businessDays.length - 1 : rawEndIndex;
-    return endIndex;
+    const endOverflown = businessDays[businessDays.length - 1].isBefore(issue.dueDate, "day");
+    return [endIndex, endOverflown];
   } else {
-    return null;
+    return [null, false];
   }
 }

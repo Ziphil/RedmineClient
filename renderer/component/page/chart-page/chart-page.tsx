@@ -8,8 +8,8 @@ import {IssueChart} from "/renderer/component/module/issue-chart";
 
 const styles = {
   root: css`
-    margin-block: 8px;
-    margin-inline: 8px;
+    padding-block: 16px;
+    padding-inline: 16px;
   `
 };
 
