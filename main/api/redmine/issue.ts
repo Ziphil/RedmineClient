@@ -5,8 +5,7 @@ import {
 } from "/main/api/client";
 import {
   Issue,
-  Project,
-  SingleIssue
+  Project
 } from "/main/type";
 
 
@@ -18,18 +17,19 @@ export async function fetchIssues({}: {}): Promise<Array<Project>> {
   return projects;
 }
 
-function createSingleIssue(raw: any): SingleIssue {
+type SingleIssue = Omit<Issue, "childIssues"> & {parentId: number | null};
+type InnerIssue = Issue & {parentId: number | null, actualParentId: number | null};
+
+function createSingleIssue(rawIssue: any): SingleIssue {
   return {
-    id: raw.id,
-    parentId: raw.parent ? raw.parent.id : null,
-    project: raw.project,
-    subject: raw.subject,
-    startDate: raw.startDate,
-    dueDate: raw.dueDate
+    id: rawIssue.id,
+    parentId: rawIssue.parent ? rawIssue.parent.id : null,
+    project: rawIssue.project,
+    subject: rawIssue.subject,
+    startDate: rawIssue.startDate,
+    dueDate: rawIssue.dueDate
   };
 }
-
-type InnerIssue = Issue & {parentId: number | null, actualParentId: number | null};
 
 function hierarchizeSingleIssues(singleIssues: Array<SingleIssue>): Array<Issue> {
   const issueMap = new Map<number, InnerIssue>(singleIssues.map((singleIssue) => [singleIssue.id, {...singleIssue, actualParentId: null, childIssues: []}]));

@@ -1,18 +1,6 @@
 //
 
 
-export interface SingleIssue {
-
-  id: number;
-  parentId: number | null;
-  subject: string;
-  project: {id: number, name: string};
-  startDate: string | null;
-  dueDate: string | null;
-
-}
-
-
 export interface Issue {
 
   id: number;
