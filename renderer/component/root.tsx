@@ -33,6 +33,7 @@ const globalStyle = css`
     body,
     #root {
       height: 100%;
+      user-select: none;
     }
     *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
       all: unset;
