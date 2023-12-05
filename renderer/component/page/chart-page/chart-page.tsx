@@ -17,7 +17,7 @@ export const ChartPage = function ({
 }: {
 }): ReactElement {
 
-  const [projects] = useSuspenseQuery("fetchIssues", window.api.fetchIssues, {});
+  const [projects] = useSuspenseQuery("fetchIssues", window.api.fetchIssues, {refetchInterval: 1000 * 60});
 
   console.log(projects);
 
