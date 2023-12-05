@@ -10,6 +10,9 @@ import type {
 } from "/renderer/type";
 
 
+/** 自分が担当のイシューを取得します。
+ * イシューはプロジェクトごとにグループ化されます。
+ * イシューやイシューグループの順番は一定とは限らないので、適宜ソートしてください。 */
 export async function fetchIssues({}: {}): Promise<Array<IssueGroup>> {
   const params = {
     assignedToId: "me",
@@ -18,10 +21,11 @@ export async function fetchIssues({}: {}): Promise<Array<IssueGroup>> {
   const response = await client.get("/issues.json", {params});
   const rawIssues = response.data.issues as Array<any>;
   const singleIssues = rawIssues.map((rawIssue) => createSingleIssue(rawIssue));
-  const projects = groupIssuesToProject(hierarchizeSingleIssues(singleIssues));
-  return projects;
+  const issueGroups = groupIssues(hierarchizeSingleIssues(singleIssues));
+  return issueGroups;
 }
 
+/** 指定されたイシューの状態を「終了 (ID 5)」にします。 */
 export async function makeIssueDone(id: number): Promise<void> {
   const body = {
     issue: {
@@ -31,6 +35,8 @@ export async function makeIssueDone(id: number): Promise<void> {
   const response = await client.put(`/issues/${id}.json`, body);
 }
 
+/** 指定されたイシューに作業時間を追加します。
+ * 追加される作業時間の種類は「開発作業 (ID 9)」になります。 */
 export async function addSpentTime(id: number, time: number): Promise<void> {
   const body = {
     timeEntry: {
@@ -51,6 +57,8 @@ function createSingleIssue(rawIssue: any): SingleIssue {
     parentId: rawIssue.parent ? rawIssue.parent.id : null,
     project: rawIssue.project,
     tracker: getTracker(rawIssue.tracker.id),
+    ratio: rawIssue.doneRatio,
+    spentTime: rawIssue.spentHours * 1000 * 60 * 60,
     subject: rawIssue.subject,
     startDate: rawIssue.startDate,
     dueDate: rawIssue.dueDate
@@ -83,7 +91,7 @@ function hierarchizeSingleIssues(singleIssues: Array<SingleIssue>): Array<Issue>
   return rootIssues;
 }
 
-function groupIssuesToProject(issues: Array<Issue>): Array<IssueGroup> {
+function groupIssues(issues: Array<Issue>): Array<IssueGroup> {
   const projects = new Map<number, IssueGroup>();
   for (const issue of issues) {
     if (projects.has(issue.project.id)) {
