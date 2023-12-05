@@ -31,8 +31,8 @@ export const WorkController = function ({
     <div className={styles.root}>
       <IconButton icon="&#xF00C;" size="large"/>
       <div className={styles.row}>
-        <IconButton icon="&#xF00D;" size="medium"/>
-        <IconButton icon="&#xF00E;" size="medium"/>
+        <IconButton icon="&#xF04D;" size="medium"/>
+        <IconButton icon="&#xF04C;" size="medium"/>
       </div>
     </div>
   );

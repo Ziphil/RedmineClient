@@ -2,7 +2,7 @@
 
 import {css} from "@linaria/core";
 import dayjs, {Dayjs} from "dayjs";
-import {ReactElement} from "react";
+import {ReactElement, useCallback} from "react";
 import {TrackerIcon} from "/renderer/component/module/tracker-icon";
 import {Issue} from "/renderer/type";
 import {borderColor, gradientBackground, gradientText, iconFont} from "/renderer/util/css";
@@ -17,12 +17,13 @@ const styles = {
     display: grid;
     align-items: center;
     z-index: 0;
+    cursor: pointer;
     position: relative;
     &::before {
       inset: 0px;
       ${gradientBackground(0.96)}
-      opacity: 0;
       transition: opacity 0.2s ease;
+      opacity: 0;
       z-index: -1;
       content: "";
       position: absolute;
@@ -122,19 +123,25 @@ export const IssueRow = function ({
   issue,
   level,
   parent,
-  businessDates
+  businessDates,
+  onIssueClick
 }: {
   issue: Issue,
   level: number,
   parent: boolean,
-  businessDates: Array<Dayjs>
+  businessDates: Array<Dayjs>,
+  onIssueClick: (issue: Issue) => unknown
 }): ReactElement {
 
   const [startIndex, startOverflown] = calcStartIndex(issue, businessDates);
   const [endIndex, endOverflown] = calcEndIndex(issue, businessDates);
 
+  const handleClick = useCallback(function (): void {
+    onIssueClick(issue);
+  }, [issue, onIssueClick]);
+
   return (
-    <li className={styles.root}>
+    <button className={styles.root} type="button" onClick={handleClick}>
       <div className={styles.subjectContainer}>
         <span className={styles.id}>{issue.id}</span>
         <span className={styles.tracker}><TrackerIcon tracker={issue.tracker}/></span>
@@ -166,7 +173,7 @@ export const IssueRow = function ({
           {...aria({hidden: true})}
         />
       )}
-    </li>
+    </button>
   );
 
 };

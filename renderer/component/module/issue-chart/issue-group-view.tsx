@@ -3,7 +3,7 @@
 import {css} from "@linaria/core";
 import {Dayjs} from "dayjs";
 import {ReactElement} from "react";
-import {IssueGroup} from "/renderer/type";
+import {Issue, IssueGroup} from "/renderer/type";
 import {borderColor} from "/renderer/util/css";
 import {IssueView} from "./issue-view";
 
@@ -28,10 +28,12 @@ const styles = {
 
 export const IssueGroupView = function ({
   issueGroup,
-  businessDates
+  businessDates,
+  onIssueClick
 }: {
   issueGroup: IssueGroup,
-  businessDates: Array<Dayjs>
+  businessDates: Array<Dayjs>,
+  onIssueClick: (issue: Issue) => unknown
 }): ReactElement {
 
   return (
@@ -39,7 +41,7 @@ export const IssueGroupView = function ({
       <h2 className={styles.name}>{issueGroup.name}</h2>
       <ul className={styles.list}>
         {issueGroup.issues.map((issue) => (
-          <IssueView key={issue.id} issue={issue} level={0} businessDates={businessDates}/>
+          <IssueView key={issue.id} issue={issue} level={0} businessDates={businessDates} onIssueClick={onIssueClick}/>
         ))}
       </ul>
     </section>
