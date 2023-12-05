@@ -7,8 +7,9 @@ import {ReactElement} from "react";
 
 const styles = {
   root: css`
-    display: grid;
+    border-block-end: solid 1px hsla(0, 0%, 0%, 0.07);
     grid-template-columns: 30% repeat(30, 1fr);
+    display: grid;
   `,
   item: css`
     margin-block-end: 4px;

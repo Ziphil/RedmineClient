@@ -17,11 +17,13 @@ export const ChartPage = function ({
 }: {
 }): ReactElement {
 
-  const [issues] = useSuspenseQuery("fetchIssues", window.api.fetchIssues, {});
+  const [projects] = useSuspenseQuery("fetchIssues", window.api.fetchIssues, {});
+
+  console.log(projects);
 
   return (
     <div className={styles.root}>
-      <IssueChart issues={issues}/>
+      <IssueChart projects={projects}/>
     </div>
   );
 
