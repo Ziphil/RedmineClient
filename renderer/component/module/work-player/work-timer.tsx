@@ -30,19 +30,19 @@ export const WorkTimer = function ({
 
   const [ellapsedTime, setEllapsedTime] = useState(0);
 
-  const second = ellapsedTime % 60;
-  const minute = Math.floor(ellapsedTime / 60) % 60;
-  const hour = Math.floor(ellapsedTime / 60 / 60);
+  const second = Math.floor(ellapsedTime / 1000) % 60;
+  const minute = Math.floor(ellapsedTime / 1000 / 60) % 60;
+  const hour = Math.floor(ellapsedTime / 1000 / 60 / 60);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      const ellapsedTime = dayjs().diff(work.startDate, "second");
+      const ellapsedTime = ((work.startDate !== null) ? dayjs().diff(work.startDate, "millisecond") : 0) + work.additionalTime;
       setEllapsedTime(ellapsedTime);
     }, 23);
     return () => {
       clearInterval(timer);
     };
-  }, [work.startDate]);
+  }, [work.startDate, work.additionalTime]);
 
   return (
     <div className={styles.root}>

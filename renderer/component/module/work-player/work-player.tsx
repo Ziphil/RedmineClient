@@ -13,7 +13,7 @@ const styles = {
   root: css`
     height: 208px;
     padding-block: 24px;
-    padding-inline: 32px;
+    padding-inline: 24px;
     column-gap: 32px;
     border-end-start-radius: 16px;
     border-end-end-radius: 16px;
@@ -32,9 +32,15 @@ const styles = {
 };
 
 export const WorkPlayer = function ({
-  work
+  work,
+  onPunch,
+  onPause,
+  onCancel
 }: {
-  work: Work | null
+  work: Work | null,
+  onPunch: (done: boolean) => unknown,
+  onPause: () => unknown,
+  onCancel: () => unknown
 }): ReactElement {
 
   return (
@@ -44,7 +50,7 @@ export const WorkPlayer = function ({
           <WorkView work={work}/>
           <div className={styles.right}>
             <WorkTimer work={work}/>
-            <WorkController work={work}/>
+            <WorkController work={work} onPunch={onPunch} onPause={onPause} onCancel={onCancel}/>
           </div>
         </>
       )}

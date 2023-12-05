@@ -11,11 +11,35 @@ import type {
 
 
 export async function fetchIssues({}: {}): Promise<Array<IssueGroup>> {
-  const response = await client.get("/issues.json", {params: {assignedToId: "me", limit: 100}});
+  const params = {
+    assignedToId: "me",
+    limit: 100
+  };
+  const response = await client.get("/issues.json", {params});
   const rawIssues = response.data.issues as Array<any>;
   const singleIssues = rawIssues.map((rawIssue) => createSingleIssue(rawIssue));
   const projects = groupIssuesToProject(hierarchizeSingleIssues(singleIssues));
   return projects;
+}
+
+export async function makeIssueDone(id: number): Promise<void> {
+  const body = {
+    issue: {
+      statusId: 5
+    }
+  };
+  const response = await client.put(`/issues/${id}.json`, body);
+}
+
+export async function addSpentTime(id: number, time: number): Promise<void> {
+  const body = {
+    timeEntry: {
+      issueId: id,
+      activityId: 9,
+      hours: time / 1000 / 60 / 60
+    }
+  };
+  const response = await client.post("/time_entries.json", body);
 }
 
 type SingleIssue = Omit<Issue, "childIssues"> & {parentId: number | null};

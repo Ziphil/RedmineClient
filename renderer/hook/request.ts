@@ -26,5 +26,15 @@ export function useSuspenseQuery<A, D>(name: string, api: (arg: A) => Promise<D>
   return [queryData!, rest];
 }
 
+export async function invalidateQueries(name: string, predicate?: (arg: any) => boolean): Promise<void> {
+  await queryClient.invalidateQueries({predicate: (query) => {
+    if (predicate !== undefined) {
+      return query.queryKey[0] === name && predicate(query.queryKey[1] as any);
+    } else {
+      return query.queryKey[0] === name;
+    }
+  }});
+}
+
 type QueryConfig<D> = UseQueryOptions<D>;
 type UseQueryRestResult<D> = Omit<UseQueryResult<D>, "data" | "error">;

@@ -1,14 +1,14 @@
 //
 
 import {css} from "@linaria/core";
-import {ReactElement} from "react";
+import {ReactElement, useCallback} from "react";
 import {IconButton} from "/renderer/component/atom/icon-button";
 import {Work} from "/renderer/type";
 
 
 const styles = {
   root: css`
-    row-gap: 8px;
+    row-gap: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,23 +16,38 @@ const styles = {
     flex-shrink: 0;
   `,
   row: css`
-    column-gap: 16px;
+    column-gap: 12px;
     display: flex;
   `
 };
 
 export const WorkController = function ({
-  work
+  work,
+  onPunch,
+  onPause,
+  onCancel
 }: {
-  work: Work
+  work: Work,
+  onPunch: (done: boolean) => unknown,
+  onPause: () => unknown,
+  onCancel: () => unknown
 }): ReactElement {
+
+  const handlePunchAndDone = useCallback(function (): void {
+    onPunch(true);
+  }, [onPunch]);
+
+  const handlePunchWithoutDone = useCallback(function (): void {
+    onPunch(false);
+  }, [onPunch]);
 
   return (
     <div className={styles.root}>
-      <IconButton icon="&#xF00C;" size="large"/>
+      <IconButton icon={"\uF00C"} size="large" onClick={handlePunchAndDone}/>
       <div className={styles.row}>
-        <IconButton icon="&#xF04D;" size="medium"/>
-        <IconButton icon="&#xF04C;" size="medium"/>
+        <IconButton icon={"\uF04D"} size="medium" onClick={handlePunchWithoutDone}/>
+        <IconButton icon={(work.startDate !== null) ? "\uF04C" : "\uF04B"} size="medium" onClick={onPause}/>
+        <IconButton icon={"\uF1F8"} size="medium" onClick={onCancel}/>
       </div>
     </div>
   );
