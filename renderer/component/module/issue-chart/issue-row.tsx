@@ -84,6 +84,9 @@ const styles = {
     white-space: nowrap;
     flex-grow: 1;
     flex-shrink: 1;
+    &[data-late] {
+      color: hsl(320, 65%, 50%);
+    }
   `,
   meter: css`
     height: 16px;
@@ -134,6 +137,7 @@ export const IssueRow = function ({
 
   const [startIndex, startOverflown] = calcStartIndex(issue, businessDates);
   const [endIndex, endOverflown] = calcEndIndex(issue, businessDates);
+  const late = issue.dueDate !== null && dayjs().isAfter(issue.dueDate, "day");
 
   const handleClick = useCallback(function (): void {
     onIssueClick(issue);
@@ -142,14 +146,18 @@ export const IssueRow = function ({
   return (
     <button className={styles.root} type="button" onClick={handleClick}>
       <div className={styles.subjectContainer}>
-        <span className={styles.id}>{issue.id}</span>
+        <span className={styles.id}>
+          {issue.id}
+        </span>
         <span className={styles.subjectRow}>
           <span className={styles.indent} {...aria({hidden: true})}>
             {Array.from({length: level}).map((dummy, index) => (
               <span key={index} className={styles.indentItem}/>
             ))}
           </span>
-          <span className={styles.subject}>{issue.subject}</span>
+          <span className={styles.subject} {...data({late})}>
+            {issue.subject}
+          </span>
         </span>
       </div>
       <div className={styles.border}>
