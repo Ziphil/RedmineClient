@@ -5,7 +5,8 @@ import {
 } from "/main/api/client";
 import {
   Issue,
-  Project
+  Project,
+  Tracker
 } from "/main/type";
 
 
@@ -25,10 +26,25 @@ function createSingleIssue(rawIssue: any): SingleIssue {
     id: rawIssue.id,
     parentId: rawIssue.parent ? rawIssue.parent.id : null,
     project: rawIssue.project,
+    tracker: getTracker(rawIssue.tracker.id),
     subject: rawIssue.subject,
     startDate: rawIssue.startDate,
     dueDate: rawIssue.dueDate
   };
+}
+
+function getTracker(id: number): Tracker {
+  if (id === 2) {
+    return "feature";
+  } else if (id === 1) {
+    return "bug";
+  } else if (id === 7) {
+    return "refactor";
+  } else if (id === 3) {
+    return "support";
+  } else {
+    return "other";
+  }
 }
 
 function hierarchizeSingleIssues(singleIssues: Array<SingleIssue>): Array<Issue> {

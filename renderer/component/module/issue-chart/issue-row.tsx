@@ -49,6 +49,31 @@ const styles = {
     flex-grow: 0;
     flex-shrink: 0;
   `,
+  tracker: css`
+    width: 1em;
+    margin-inline-end: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    &::before {
+      ${iconFont()}
+      ${gradientText(0.9)}
+    }
+    &[data-tracker="feature"]::before {
+      content: "\uF004";
+    }
+    &[data-tracker="bug"]::before {
+      content: "\uF188";
+    }
+    &[data-tracker="refactor"]::before {
+      content: "\uF005";
+    }
+    &[data-tracker="other"]::before {
+      content: "\uF068";
+    }
+  `,
   indent: css`
     display: flex;
     flex-grow: 0;
@@ -66,6 +91,7 @@ const styles = {
     }
   `,
   subject: css`
+    margin-inline-end: 6px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -124,6 +150,7 @@ export const IssueRow = function ({
     <li className={styles.root}>
       <div className={styles.subjectContainer}>
         <span className={styles.id}>{issue.id}</span>
+        <span className={styles.tracker} {...data({tracker: issue.tracker})}/>
         <span className={styles.indent}>
           {Array.from({length: level}).map((dummy, index) => (
             <span key={index} className={styles.indentItem}/>
