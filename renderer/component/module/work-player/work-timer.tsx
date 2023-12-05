@@ -38,7 +38,7 @@ export const WorkTimer = function ({
     const timer = setInterval(() => {
       const ellapsedTime = dayjs().diff(work.startDate, "second");
       setEllapsedTime(ellapsedTime);
-    }, 37);
+    }, 23);
     return () => {
       clearInterval(timer);
     };

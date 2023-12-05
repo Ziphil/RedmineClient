@@ -35,6 +35,11 @@ const styles = {
   tracker: css`
     ${gradientText(0.65)}
   `,
+  project: css`
+    margin-block-start: 8px;
+    font-size: 24px;
+    font-weight: bold;    
+  `,
   subject: css`
     margin-block-start: 8px;
     font-size: 40px;
@@ -69,6 +74,9 @@ export const WorkView = function ({
     <div className={styles.root}>
       <div className={styles.complement}>
         <span className={styles.id}>{work.issue.id}</span>
+      </div>
+      <div className={styles.project}>
+        {work.issue.project.name}
       </div>
       <div className={styles.subject}>
         {work.issue.subject}
