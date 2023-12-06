@@ -90,7 +90,7 @@ const styles = {
   `,
   meter: css`
     height: 16px;
-    border-radius: 4px;
+    border-radius: 16px;
     ${gradientBackground(0.6)}
     grid-row: 1;
     &[data-parent] {

@@ -36,12 +36,15 @@ const styles = {
     ${gradientText(0.65)}
   `,
   project: css`
-    margin-block-start: 10px;
+    margin-block-start: 12px;
     font-size: 24px;
-    font-weight: bold;    
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   `,
   subject: css`
-    margin-block-start: 8px;
+    margin-block-start: 10px;
     font-size: 40px;
     font-weight: bold;
     overflow: hidden;
@@ -49,7 +52,7 @@ const styles = {
     white-space: nowrap;
   `,
   date: css`
-    margin-block-start: 12px;
+    margin-block-start: 16px;
     column-gap: 8px;
     font-size: 16px;
     display: flex;

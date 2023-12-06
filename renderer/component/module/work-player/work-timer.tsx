@@ -19,13 +19,15 @@ const styles = {
     flex-shrink: 0;
   `,
   ellapsed: css`
-    font-size: 64px;
+    font-size: 96px;
   `,
   spent: css`
-    font-size: 32px;
+    font-size: 40px;
+    display: none;
   `,
   plus: css`
     margin-inline-end: 6px;
+    font-weight: normal;
   `
 };
 

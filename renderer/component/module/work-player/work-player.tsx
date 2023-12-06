@@ -11,7 +11,7 @@ import {WorkView} from "./work-view";
 
 const styles = {
   root: css`
-    height: 208px;
+    height: 232px;
     padding-block: 24px;
     padding-inline: 24px;
     column-gap: 32px;

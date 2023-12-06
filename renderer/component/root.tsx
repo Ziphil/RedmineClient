@@ -19,7 +19,7 @@ require("simplebar-react/dist/simplebar.min.css");
 const globalStyle = css`
   :global() {
     html {
-      font-family: "Nunito", "Zen Maru Gothic", "M PLUS Rounded 1c", sans-serif;
+      font-family: "Commissioner", "Noto Sans JP", sans-serif;
       font-size: 16px;
       font-feature-settings: "palt" 1, "pkna" 1, "lnum" 1, "kern" 1 !important;
       color: ${textColor()};
