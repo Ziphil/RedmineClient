@@ -3,7 +3,7 @@
 import {css} from "@linaria/core";
 import {ReactElement} from "react";
 import {Work} from "/renderer/type";
-import {gradientBackground} from "/renderer/util/css";
+import {gradientBackground, textColor} from "/renderer/util/css";
 import {WorkController} from "./work-controller";
 import {WorkTimer} from "./work-timer";
 import {WorkView} from "./work-view";
@@ -17,7 +17,7 @@ const styles = {
     column-gap: 32px;
     border-end-start-radius: 16px;
     border-end-end-radius: 16px;
-    color: white;
+    color: ${textColor("dark")};
     ${gradientBackground(0.5)}
     display: flex;
     align-items: center;

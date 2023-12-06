@@ -8,7 +8,7 @@ const styles = {
   root: css`
   `,
   digit: css`
-    width: 0.64em;
+    width: 0.63em;
     display: inline-block;
     text-align: center;
   `,

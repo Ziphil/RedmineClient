@@ -27,8 +27,8 @@ export function iconFont(): string {
   return css;
 }
 
-export function textColor(): string {
-  return "hsl(270, 10%, 20%)";
+export function textColor(environment: "light" | "dark" = "light"): string {
+  return (environment === "light") ? "hsl(270, 10%, 20%)" : "hsl(270, 10%, 96%)";
 }
 
 export function borderColor(): string {

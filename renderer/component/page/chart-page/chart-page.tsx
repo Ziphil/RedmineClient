@@ -3,6 +3,7 @@
 import {css} from "@linaria/core";
 import dayjs from "dayjs";
 import {ReactElement, useCallback, useState} from "react";
+import {Header} from "/renderer/component/module/header";
 import {IssueChart} from "/renderer/component/module/issue-chart";
 import {WorkPlayer} from "/renderer/component/module/work-player";
 import {invalidateQueries, useSuspenseQuery} from "/renderer/hook/request";
@@ -11,11 +12,17 @@ import {Issue, Work} from "/renderer/type";
 
 const styles = {
   root: css`
-    row-gap: 24px;
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
+  `,
+  main: css`
+    row-gap: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
   `,
   playerContainer: css`
     flex-grow: 0;
@@ -73,12 +80,15 @@ export const ChartPage = function ({
 
   return (
     <div className={styles.root}>
-      <div className={styles.playerContainer}>
-        <WorkPlayer work={work} onPunch={handlePunch} onPause={handlePause} onCancel={handleCancel}/>
-      </div>
-      <div className={styles.chartContainer}>
-        <IssueChart issueGroups={issueGroups} rowCount={20} onIssueClick={handleIssueClick}/>
-      </div>
+      <Header/>
+      <main className={styles.main}>
+        <div className={styles.playerContainer}>
+          <WorkPlayer work={work} onPunch={handlePunch} onPause={handlePause} onCancel={handleCancel}/>
+        </div>
+        <div className={styles.chartContainer}>
+          <IssueChart issueGroups={issueGroups} rowCount={20} onIssueClick={handleIssueClick}/>
+        </div>
+      </main>
     </div>
   );
 

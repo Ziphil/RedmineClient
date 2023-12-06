@@ -44,9 +44,7 @@ export const WorkTimer = function ({
       const time = ((work.startDate !== null) ? dayjs().diff(work.startDate, "millisecond") : 0) + work.additionalTime;
       setTime(time);
     }, 23);
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, [work.startDate, work.additionalTime]);
 
   return (
