@@ -34,7 +34,7 @@ export const ChartPage = function ({
 }: {
 }): ReactElement {
 
-  const [issueGroups] = useSuspenseQuery("fetchIssues", window.api.fetchIssues, {refetchInterval: 1000 * 60});
+  const [issueGroups] = useSuspenseQuery("fetchIssues", window.api.fetchIssues, {refetchInterval: 1000 * 60 * 5});
   const [work, setWork] = useState<Work | null>(null);
 
   const handleIssueClick = useCallback(function (issue: Issue): void {
@@ -46,7 +46,7 @@ export const ChartPage = function ({
 
   const handlePunch = useCallback(async function (done: boolean): Promise<void> {
     if (work !== null) {
-      const time = dayjs().diff(work.startDate, "millisecond");
+      const time = ((work.startDate !== null) ? dayjs().diff(work.startDate, "millisecond") : 0) + work.additionalTime;
       await window.api.addSpentTime(work.issue.id, time);
       if (done) {
         await window.api.makeIssueDone(work.issue.id);

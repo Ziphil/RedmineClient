@@ -104,6 +104,12 @@ const styles = {
       border-start-end-radius: 0px;
       border-end-end-radius: 0px;
     }
+    &:not([data-start-overflown]) {
+      margin-inline-start: -2px;
+    }
+    &:not([data-end-overflown]) {
+      margin-inline-end: -2px;
+    }
   `,
   border: css`
     display: contents;
