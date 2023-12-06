@@ -15,7 +15,7 @@ const styles = {
     text-align: center;
   `,
   colon: css`
-    margin-inline: 0.05em;
+    margin-inline: 0.07em;
     inset-block-end: 0em;
     position: relative;
   `
