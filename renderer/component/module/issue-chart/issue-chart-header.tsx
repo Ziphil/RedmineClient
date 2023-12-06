@@ -36,7 +36,7 @@ export const IssueChartHeader = function ({
 }): ReactElement {
 
   return (
-    <div className={styles.root}>
+    <div className={styles.root} style={{gridTemplateColumns: `1fr repeat(${businessDates.length}, 36px)`}}>
       {businessDates.map((date, index) => (
         <div
           className={styles.item}

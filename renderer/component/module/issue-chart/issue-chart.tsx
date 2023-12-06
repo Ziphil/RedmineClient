@@ -35,13 +35,15 @@ const styles = {
 
 export const IssueChart = function ({
   issueGroups,
+  rowCount,
   onIssueClick
 }: {
   issueGroups: Array<IssueGroup>,
+  rowCount: number,
   onIssueClick: (issue: Issue) => unknown
 }): ReactElement {
 
-  const businessDates = useMemo(() => getBusinessDates(dayjs().startOf("day"), 2, 22), []);
+  const businessDates = useMemo(() => getBusinessDates(dayjs().startOf("day"), 2, rowCount - 3), [rowCount]);
   const sortedIssueGroups = useMemo(() => [...issueGroups].sort((first, second) => second.id - first.id), [issueGroups]);
 
   return (

@@ -57,6 +57,7 @@ const styles = {
     font-size: 16px;
     display: flex;
     align-items: center;
+    display: none;
   `,
   dateArrow: css`
     font-size: 24px;

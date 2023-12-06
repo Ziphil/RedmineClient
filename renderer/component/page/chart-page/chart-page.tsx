@@ -77,7 +77,7 @@ export const ChartPage = function ({
         <WorkPlayer work={work} onPunch={handlePunch} onPause={handlePause} onCancel={handleCancel}/>
       </div>
       <div className={styles.chartContainer}>
-        <IssueChart issueGroups={issueGroups} onIssueClick={handleIssueClick}/>
+        <IssueChart issueGroups={issueGroups} rowCount={20} onIssueClick={handleIssueClick}/>
       </div>
     </div>
   );

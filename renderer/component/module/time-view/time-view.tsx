@@ -6,17 +6,15 @@ import {ReactElement} from "react";
 
 const styles = {
   root: css`
-    font-family: "Segment";
-    font-weight: normal;
   `,
   digit: css`
-    width: 0.52em;
+    width: 0.64em;
     display: inline-block;
     text-align: center;
   `,
   colon: css`
-    margin-inline: 0.07em;
-    inset-block-end: 0em;
+    margin-inline: 0.1em;
+    inset-block-end: 0.08em;
     position: relative;
   `
 };

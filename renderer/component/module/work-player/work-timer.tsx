@@ -10,7 +10,7 @@ import {Work} from "/renderer/type";
 const styles = {
   root: css`
     row-gap: 8px;
-    width: 312px;
+    width: 300px;
     font-weight: bold;
     display: flex;
     flex-direction: column;
@@ -19,7 +19,7 @@ const styles = {
     flex-shrink: 0;
   `,
   ellapsed: css`
-    font-size: 96px;
+    font-size: 72px;
   `,
   spent: css`
     font-size: 40px;

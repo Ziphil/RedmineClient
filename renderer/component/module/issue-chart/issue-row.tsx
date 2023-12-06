@@ -12,7 +12,6 @@ const styles = {
   root: css`
     height: 28px;
     border-block-end: solid 1px ${borderColor()};
-    grid-template-columns: 30% repeat(25, 1fr);
     display: grid;
     align-items: center;
     z-index: 0;
@@ -150,7 +149,7 @@ export const IssueRow = function ({
   }, [issue, onIssueClick]);
 
   return (
-    <button className={styles.root} type="button" onClick={handleClick}>
+    <button className={styles.root} type="button" onClick={handleClick} style={{gridTemplateColumns: `1fr repeat(${businessDates.length}, 36px)`}}>
       <div className={styles.subjectContainer}>
         <span className={styles.id}>
           {issue.id}
