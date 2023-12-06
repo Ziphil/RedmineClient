@@ -93,7 +93,7 @@ const styles = {
     ${gradientBackground(0.6)}
     grid-row: 1;
     &[data-parent] {
-      height: 8px;
+      height: 6px;
     }
     &[data-start-overflown] {
       border-start-start-radius: 0px;
@@ -108,6 +108,29 @@ const styles = {
     }
     &:not([data-end-overflown]) {
       margin-inline-end: -2px;
+    }
+  `,
+  arrow: css`
+    margin-inline: 4px;
+    font-size: 16px;
+    ${gradientText(0.6)}
+    grid-column-start: 2;
+    grid-column-end: -1;
+    grid-row: 1;
+    display: flex;
+    &[data-start-beyond] {
+      justify-content: flex-end;
+      &::before {
+        ${iconFont()}
+        content: "\uF061";
+      }
+    }
+    &[data-end-beyond] {
+      justify-content: flex-start;
+      &::before {
+        ${iconFont()}
+        content: "\uF060";
+      }
     }
   `,
   border: css`
@@ -140,8 +163,8 @@ export const IssueRow = function ({
   onIssueClick: (issue: Issue) => unknown
 }): ReactElement {
 
-  const [startIndex, startOverflown] = calcStartIndex(issue, businessDates);
-  const [endIndex, endOverflown] = calcEndIndex(issue, businessDates);
+  const [startIndex, startOverflown, startBeyond] = calcStartIndex(issue, businessDates);
+  const [endIndex, endOverflown, endBeyond] = calcEndIndex(issue, businessDates);
   const late = issue.dueDate !== null && dayjs().isAfter(issue.dueDate, "day");
 
   const handleClick = useCallback(function (): void {
@@ -170,19 +193,27 @@ export const IssueRow = function ({
           <div
             className={styles.borderItem}
             key={day.format("YYYY-MM-DD")}
-            style={{gridColumnStart: index + 2, gridColumnEnd: index + 3}}
+            style={{gridColumnStart: index + 2, gridColumnEnd: index + 2}}
             {...data({today: day.isSame(dayjs(), "day")})}
             {...aria({hidden: true})}
           />
         ))}
       </div>
       {(startIndex !== null && endIndex !== null) && (
-        <div
-          className={styles.meter}
-          style={{gridColumnStart: startIndex + 2, gridColumnEnd: endIndex + 3}}
-          {...data({parent, startOverflown, endOverflown})}
-          {...aria({hidden: true})}
-        />
+        (!startBeyond && !endBeyond) ? (
+          <div
+            className={styles.meter}
+            style={{gridColumnStart: startIndex + 2, gridColumnEnd: endIndex + 2}}
+            {...data({parent, startOverflown, endOverflown})}
+            {...aria({hidden: true})}
+          />
+        ) : (
+          <div
+            className={styles.arrow}
+            {...data({parent, startBeyond, endBeyond})}
+            {...aria({hidden: true})}
+          />
+        )
       )}
     </button>
   );
@@ -190,24 +221,26 @@ export const IssueRow = function ({
 };
 
 
-function calcStartIndex(issue: Issue, businessDates: Array<Dayjs>): [number | null, boolean] {
+function calcStartIndex(issue: Issue, businessDates: Array<Dayjs>): [number | null, boolean, boolean] {
   if (issue.startDate !== null) {
-    const rawStartIndex = businessDates.findIndex((date) => date.isSame(issue.startDate, "day") || date.isAfter(issue.startDate, "day"));
-    const startIndex = (rawStartIndex < 0) ? 0 : rawStartIndex;
-    const startOverflown = businessDates[0].isAfter(issue.startDate, "day");
-    return [startIndex, startOverflown];
+    const rawIndex = businessDates.findIndex((date) => date.isSame(issue.startDate, "day") || date.isAfter(issue.startDate, "day"));
+    const index = (rawIndex < 0) ? 0 : rawIndex;
+    const overflown = businessDates[0].isAfter(issue.startDate, "day");
+    const beyond = businessDates[businessDates.length - 1].isBefore(issue.startDate, "day");
+    return [index, overflown, beyond];
   } else {
-    return [null, false];
+    return [null, false, false];
   }
 }
 
-function calcEndIndex(issue: Issue, businessDates: Array<Dayjs>): [number | null, boolean] {
+function calcEndIndex(issue: Issue, businessDates: Array<Dayjs>): [number | null, boolean, boolean] {
   if (issue.dueDate !== null) {
-    const rawEndIndex = businessDates.findIndex((date) => date.isAfter(issue.dueDate, "day")) - 1;
-    const endIndex = (rawEndIndex < 0) ? businessDates.length - 1 : rawEndIndex;
-    const endOverflown = businessDates[businessDates.length - 1].isBefore(issue.dueDate, "day");
-    return [endIndex, endOverflown];
+    const rawIndex = businessDates.findIndex((date) => date.isAfter(issue.dueDate, "day"));
+    const index = (rawIndex < 0) ? businessDates.length : rawIndex;
+    const overflown = businessDates[businessDates.length - 1].isBefore(issue.dueDate, "day");
+    const beyond = businessDates[0].isAfter(issue.dueDate, "day");
+    return [index, overflown, beyond];
   } else {
-    return [null, false];
+    return [null, false, false];
   }
 }
