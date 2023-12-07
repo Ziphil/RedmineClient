@@ -20,8 +20,13 @@ const globalStyle = css`
       margin: 0rem;
       padding: 0rem;
       line-height: 1;
-      ${gradientBackground(0.98)}
+      background-color: transparent;
       text-decoration-skip-ink: none;
+    }
+    #root {
+      border-radius: 12px;
+      ${gradientBackground(0.98)}
+      overflow: hidden;
     }
     html,
     body,

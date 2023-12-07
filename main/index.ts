@@ -19,6 +19,8 @@ import {
 dotenv.config({path: "./variable.env"});
 
 const COMMON_WINDOW_OPTIONS = {
+  transparent: true,
+  frame: false,
   toolbar: false,
   resizable: true,
   minimizable: true,

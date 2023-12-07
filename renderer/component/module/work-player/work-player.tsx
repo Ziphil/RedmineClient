@@ -17,8 +17,8 @@ const styles = {
     padding-block: 24px;
     padding-inline: 24px;
     column-gap: 32px;
-    border-end-start-radius: 16px;
-    border-end-end-radius: 16px;
+    border-end-start-radius: 12px;
+    border-end-end-radius: 12px;
     color: ${textColor("dark")};
     ${gradientBackground(0.5)}
     display: flex;

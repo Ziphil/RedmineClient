@@ -17,6 +17,7 @@ const styles = {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    -webkit-app-region: drag;
     flex-grow: 0;
     flex-shrink: 0;
   `,
