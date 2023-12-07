@@ -1,8 +1,10 @@
 //
 
 import {css} from "@linaria/core";
-import {ReactElement} from "react";
-import {Work} from "/renderer/type";
+import dayjs from "dayjs";
+import {ReactElement, useCallback} from "react";
+import {invalidateQueries} from "/renderer/hook/request";
+import {useWork} from "/renderer/hook/work";
 import {gradientBackground, textColor} from "/renderer/util/css";
 import {WorkController} from "./work-controller";
 import {WorkTimer} from "./work-timer";
@@ -32,16 +34,37 @@ const styles = {
 };
 
 export const WorkPlayer = function ({
-  work,
-  onPunch,
-  onPause,
-  onCancel
 }: {
-  work: Work | null,
-  onPunch: (done: boolean) => unknown,
-  onPause: () => unknown,
-  onCancel: () => unknown
 }): ReactElement {
+
+  const [work, setWork] = useWork();
+
+  const handlePunch = useCallback(async function (done: boolean): Promise<void> {
+    if (work !== null) {
+      const time = ((work.startDate !== null) ? dayjs().diff(work.startDate, "millisecond") : 0) + work.additionalTime;
+      await window.api.addSpentTime(work.issue.id, time);
+      if (done) {
+        await window.api.makeIssueDone(work.issue.id);
+      }
+      await invalidateQueries("fetchIssues");
+      setWork(null);
+    }
+  }, [work, setWork]);
+
+  const handlePause = useCallback(function (): void {
+    if (work !== null) {
+      if (work.startDate !== null) {
+        const time = dayjs().diff(work.startDate, "millisecond");
+        setWork({...work, startDate: null, additionalTime: work.additionalTime + time});
+      } else {
+        setWork({...work, startDate: dayjs()});
+      }
+    }
+  }, [work, setWork]);
+
+  const handleCancel = useCallback(function (): void {
+    setWork(null);
+  }, [setWork]);
 
   return (
     <div className={styles.root}>
@@ -50,7 +73,7 @@ export const WorkPlayer = function ({
           <WorkView work={work}/>
           <div className={styles.right}>
             <WorkTimer work={work}/>
-            <WorkController work={work} onPunch={onPunch} onPause={onPause} onCancel={onCancel}/>
+            <WorkController work={work} onPunch={handlePunch} onPause={handlePause} onCancel={handleCancel}/>
           </div>
         </>
       )}
