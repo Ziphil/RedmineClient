@@ -35,11 +35,10 @@ export async function fetchIssue({id}: {id: number}): Promise<Issue> {
   return singleIssue;
 }
 
-/** 指定されたイシューの状態を「終了 (ID 5)」にします。 */
-export async function makeIssueDone(id: number): Promise<void> {
+export async function changeIssueStatus({id, status}: {id: number, status: Status}): Promise<void> {
   const body = {
     issue: {
-      statusId: 5
+      statusId: fromStatus(status)
     }
   };
   await client.put(`/issues/${id}.json`, body);
@@ -129,5 +128,19 @@ function toStatus(id: number): Status {
     return "rejected";
   } else {
     return "other";
+  }
+}
+
+function fromStatus(status: Status): number {
+  if (status === "new") {
+    return 1;
+  } else if (status === "progress") {
+    return 2;
+  } else if (status === "closed") {
+    return 5;
+  } else if (status === "rejected") {
+    return 6;
+  } else {
+    return 1;
   }
 }

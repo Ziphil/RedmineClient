@@ -2,16 +2,16 @@
 
 import {
   addSpentTime,
+  changeIssueStatus,
   fetchHierarchicalIssues,
-  fetchIssue,
-  makeIssueDone
+  fetchIssue
 } from "/main/api/redmine/issue";
 
 
 export const APIS = {
   fetchHierarchicalIssues,
   fetchIssue,
-  makeIssueDone,
+  changeIssueStatus,
   addSpentTime
 };
 

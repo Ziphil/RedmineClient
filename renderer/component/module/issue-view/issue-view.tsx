@@ -1,14 +1,13 @@
 //
 
 import {css} from "@linaria/core";
-import dayjs from "dayjs";
-import {ReactElement, useCallback, useEffect} from "react";
-import {IconButton} from "/renderer/component/atom/icon-button";
+import {ReactElement} from "react";
 import {Markdown} from "/renderer/component/atom/markdown";
 import {IssueSubjectView} from "/renderer/component/module/issue-subject-view";
 import {useWork} from "/renderer/hook/work";
 import {Issue} from "/renderer/type";
 import {borderColor} from "/renderer/util/css";
+import {IssueController} from "./issue-controller";
 
 
 const styles = {
@@ -50,29 +49,13 @@ export const IssueView = function ({
 
   const [work, setWork] = useWork();
 
-  const startWork = useCallback(function (): void {
-    if (work === null) {
-      setWork({issue, startDate: dayjs(), additionalTime: 0});
-    }
-  }, [issue, work, setWork]);
-
-  useEffect(() => {
-    setWork({issue, startDate: dayjs(), additionalTime: 0});
-  }, []);
-
   return (
     <div className={styles.root}>
       <div className={styles.top}>
         <div className={styles.subject}>
           <IssueSubjectView issue={issue} size="medium"/>
         </div>
-        <div className={styles.controller}>
-          <IconButton icon={"\uF70C"} size="large" onClick={startWork}/>
-          <div className={styles.row}>
-            <IconButton icon={"\uF00C"} size="medium"/>
-            <IconButton icon={"\uF05E"} size="medium"/>
-          </div>
-        </div>
+        <IssueController issue={issue}/>
       </div>
       <article>
         <Markdown>
