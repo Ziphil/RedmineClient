@@ -5,21 +5,30 @@ import {Issue} from "/renderer/type";
 
 
 export function compareIssue(firstIssue: Issue, secondIssue: Issue): number {
-  if (firstIssue.startDate !== secondIssue.startDate) {
-    return compareDate(firstIssue.startDate, secondIssue.startDate);
+  const comparisonByDate = compareIssueByDate(firstIssue, secondIssue);
+  if (comparisonByDate !== 0) {
+    return comparisonByDate;
   } else {
-    return firstIssue.id - secondIssue.id;
+    return secondIssue.id - firstIssue.id;
   }
 }
 
-function compareDate(firstDate: string | null, secondDate: string | null): number {
-  if (firstDate === null && secondDate === null) {
+function compareIssueByDate(firstIssue: Issue, secondIssue: Issue): number {
+  const firstHasDate = firstIssue.startDate !== null && firstIssue.dueDate !== null;
+  const secondHasDate = secondIssue.startDate !== null && secondIssue.dueDate !== null;
+  if (!firstHasDate && !secondHasDate) {
     return 0;
-  } else if (firstDate === null) {
+  } else if (!firstHasDate) {
     return 1;
-  } else if (secondDate === null) {
+  } else if (!secondHasDate) {
     return -1;
   } else {
-    return dayjs(firstDate).diff(secondDate);
+    const comparisonByStart = dayjs(firstIssue.startDate).diff(secondIssue.startDate);
+    const comparisonByDue = dayjs(firstIssue.dueDate).diff(secondIssue.dueDate);
+    if (comparisonByStart !== 0) {
+      return comparisonByStart;
+    } else {
+      return comparisonByDue;
+    }
   }
 }
