@@ -25,6 +25,13 @@ export async function fetchIssues({}: {}): Promise<Array<IssueGroup>> {
   return issueGroups;
 }
 
+export async function fetchIssue({id}: {id: number}): Promise<SingleIssue> {
+  const response = await client.get(`/issues/${id}.json`);
+  const rawIssue = response.data.issue;
+  const singleIssue = createSingleIssue(rawIssue);
+  return singleIssue;
+}
+
 /** 指定されたイシューの状態を「終了 (ID 5)」にします。 */
 export async function makeIssueDone(id: number): Promise<void> {
   const body = {

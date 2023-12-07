@@ -2,10 +2,11 @@
 
 import {css} from "@linaria/core";
 import {ReactElement, Suspense} from "react";
-import {HashRouter, Route, Routes} from "react-router-dom";
+import {RouterProvider, createHashRouter} from "react-router-dom";
 import {Header} from "/renderer/component/module/header";
 import {WorkPlayer} from "/renderer/component/module/work-player";
 import {ChartPage} from "/renderer/component/page/chart-page";
+import {IssuePage, loadIssuePage} from "/renderer/component/page/issue-page";
 
 
 const styles = {
@@ -36,31 +37,30 @@ const styles = {
 };
 
 
+const router = createHashRouter([
+  {path: "/chart", element: <ChartPage/>},
+  {path: "issue/:id", element: <IssuePage/>, loader: loadIssuePage}
+]);
+
+
 export const Routing = function ({
 }: {
 }): ReactElement | null {
 
   return (
-    <HashRouter>
-      <div className={styles.root}>
-        <Header/>
-        <main className={styles.main}>
-          <div className={styles.playerContainer}>
-            <WorkPlayer/>
-          </div>
-          <div className={styles.mainContainer}>
-            <Suspense fallback={<div/>}>
-              <Routes>
-                <Route
-                  path="chart"
-                  element={<ChartPage/>}
-                />
-              </Routes>
-            </Suspense>
-          </div>
-        </main>
-      </div>
-    </HashRouter>
+    <div className={styles.root}>
+      <Header/>
+      <main className={styles.main}>
+        <div className={styles.playerContainer}>
+          <WorkPlayer/>
+        </div>
+        <div className={styles.mainContainer}>
+          <Suspense fallback={<div/>}>
+            <RouterProvider router={router}/>
+          </Suspense>
+        </div>
+      </main>
+    </div>
   );
 
 };

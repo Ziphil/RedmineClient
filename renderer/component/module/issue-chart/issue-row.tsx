@@ -2,7 +2,8 @@
 
 import {css} from "@linaria/core";
 import dayjs, {Dayjs} from "dayjs";
-import {ReactElement, useCallback} from "react";
+import {ReactElement} from "react";
+import {Link} from "react-router-dom";
 import {Issue} from "/renderer/type";
 import {borderColor, gradientBackground, gradientText, iconFont} from "/renderer/util/css";
 import {aria, data} from "/renderer/util/data";
@@ -167,12 +168,8 @@ export const IssueRow = function ({
   const [endIndex, endOverflown, endBeyond] = calcEndIndex(issue, businessDates);
   const late = issue.dueDate !== null && dayjs().isAfter(issue.dueDate, "day");
 
-  const handleClick = useCallback(function (): void {
-    onIssueClick(issue);
-  }, [issue, onIssueClick]);
-
   return (
-    <button className={styles.root} type="button" onClick={handleClick} style={{gridTemplateColumns: `1fr repeat(${businessDates.length}, 36px)`}}>
+    <Link className={styles.root} to={`/issue/${issue.id}`} style={{gridTemplateColumns: `1fr repeat(${businessDates.length}, 36px)`}}>
       <div className={styles.subjectContainer}>
         <span className={styles.id}>
           {issue.id}
@@ -215,7 +212,7 @@ export const IssueRow = function ({
           />
         )
       )}
-    </button>
+    </Link>
   );
 
 };
