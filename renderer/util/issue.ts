@@ -1,10 +1,10 @@
 //
 
 import dayjs from "dayjs";
-import {Issue} from "/renderer/type";
+import {HierarchicalIssue} from "/renderer/type";
 
 
-export function compareIssue(firstIssue: Issue, secondIssue: Issue): number {
+export function compareIssue(firstIssue: HierarchicalIssue, secondIssue: HierarchicalIssue): number {
   const comparisonByDate = compareIssueByDate(firstIssue, secondIssue);
   if (comparisonByDate !== 0) {
     return comparisonByDate;
@@ -13,7 +13,7 @@ export function compareIssue(firstIssue: Issue, secondIssue: Issue): number {
   }
 }
 
-function compareIssueByDate(firstIssue: Issue, secondIssue: Issue): number {
+function compareIssueByDate(firstIssue: HierarchicalIssue, secondIssue: HierarchicalIssue): number {
   const firstHasDate = firstIssue.startDate !== null && firstIssue.dueDate !== null;
   const secondHasDate = secondIssue.startDate !== null && secondIssue.dueDate !== null;
   if (!firstHasDate && !secondHasDate) {

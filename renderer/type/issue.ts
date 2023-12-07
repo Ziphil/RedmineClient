@@ -8,19 +8,32 @@ export interface Issue {
   project: {id: number, name: string};
   tracker: Tracker;
   ratio: number;
-  spentTime: number;
   startDate: string | null;
   dueDate: string | null;
-  childIssues: Array<Issue>;
+  parentIssue: {id: number} | null;
 
 }
 
 
-export interface IssueGroup {
+export interface HierarchicalIssue {
+
+  id: number;
+  subject: string;
+  project: {id: number, name: string};
+  tracker: Tracker;
+  ratio: number;
+  startDate: string | null;
+  dueDate: string | null;
+  childIssues: Array<HierarchicalIssue>;
+
+}
+
+
+export interface HierarchicalIssueGroup {
 
   id: number;
   name: string;
-  issues: Array<Issue>;
+  issues: Array<HierarchicalIssue>;
 
 }
 

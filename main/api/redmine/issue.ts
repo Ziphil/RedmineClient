@@ -4,8 +4,9 @@ import {
   client
 } from "/main/api/client";
 import type {
+  HierarchicalIssue,
+  HierarchicalIssueGroup,
   Issue,
-  IssueGroup,
   Tracker
 } from "/renderer/type";
 
@@ -13,22 +14,22 @@ import type {
 /** 自分が担当のイシューを取得します。
  * イシューはプロジェクトごとにグループ化されます。
  * イシューやイシューグループの順番は一定とは限らないので、適宜ソートしてください。 */
-export async function fetchIssues({}: {}): Promise<Array<IssueGroup>> {
+export async function fetchHierarchicalIssues({}: {}): Promise<Array<HierarchicalIssueGroup>> {
   const params = {
     assignedToId: "me",
     limit: 100
   };
   const response = await client.get("/issues.json", {params});
   const rawIssues = response.data.issues as Array<any>;
-  const singleIssues = rawIssues.map((rawIssue) => createSingleIssue(rawIssue));
-  const issueGroups = groupIssues(hierarchizeSingleIssues(singleIssues));
+  const issues = rawIssues.map((rawIssue) => createIssue(rawIssue));
+  const issueGroups = groupHierarchicalIssues(hierarchizeIssues(issues));
   return issueGroups;
 }
 
-export async function fetchIssue({id}: {id: number}): Promise<SingleIssue> {
+export async function fetchIssue({id}: {id: number}): Promise<Issue> {
   const response = await client.get(`/issues/${id}.json`);
   const rawIssue = response.data.issue;
-  const singleIssue = createSingleIssue(rawIssue);
+  const singleIssue = createIssue(rawIssue);
   return singleIssue;
 }
 
@@ -39,7 +40,7 @@ export async function makeIssueDone(id: number): Promise<void> {
       statusId: 5
     }
   };
-  const response = await client.put(`/issues/${id}.json`, body);
+  await client.put(`/issues/${id}.json`, body);
 }
 
 /** 指定されたイシューに作業時間を追加します。
@@ -52,24 +53,51 @@ export async function addSpentTime(id: number, time: number): Promise<void> {
       hours: time / 1000 / 60 / 60
     }
   };
-  const response = await client.post("/time_entries.json", body);
+  await client.post("/time_entries.json", body);
 }
 
-type SingleIssue = Omit<Issue, "childIssues"> & {parentId: number | null};
-type InnerIssue = Issue & {parentId: number | null, actualParentId: number | null};
+type InnerHierarchicalIssue = HierarchicalIssue & {parentIssueId: number | null, actualParentIssueId: number | null};
 
-function createSingleIssue(rawIssue: any): SingleIssue {
+function createIssue(rawIssue: any): Issue {
   return {
     id: rawIssue.id,
-    parentId: rawIssue.parent ? rawIssue.parent.id : null,
     project: rawIssue.project,
     tracker: getTracker(rawIssue.tracker.id),
     ratio: rawIssue.doneRatio,
-    spentTime: rawIssue.spentHours * 1000 * 60 * 60,
     subject: rawIssue.subject,
     startDate: rawIssue.startDate,
-    dueDate: rawIssue.dueDate
+    dueDate: rawIssue.dueDate,
+    parentIssue: rawIssue.parent ? {id: rawIssue.parent.id} : null
   };
+}
+
+function hierarchizeIssues(issues: Array<Issue>): Array<HierarchicalIssue> {
+  const issueMap = new Map<number, InnerHierarchicalIssue>(issues.map((issue) => [issue.id, {
+    ...issue,
+    parentIssueId: issue.parentIssue?.id ?? null,
+    actualParentIssueId: null,
+    childIssues: []
+  }]));
+  for (const issue of issueMap.values()) {
+    if (issue.parentIssueId !== null && issueMap.has(issue.parentIssueId)) {
+      issueMap.get(issue.parentIssueId)!.childIssues.push(issue);
+      issue.actualParentIssueId = issue.parentIssueId;
+    }
+  }
+  const rootIssues = Array.from(issueMap.values()).filter((issue) => issue.actualParentIssueId === null);
+  return rootIssues;
+}
+
+function groupHierarchicalIssues(issues: Array<HierarchicalIssue>): Array<HierarchicalIssueGroup> {
+  const projects = new Map<number, HierarchicalIssueGroup>();
+  for (const issue of issues) {
+    if (projects.has(issue.project.id)) {
+      projects.get(issue.project.id)!.issues.push(issue);
+    } else {
+      projects.set(issue.project.id, {...issue.project, issues: [issue]});
+    }
+  }
+  return Array.from(projects.values());
 }
 
 function getTracker(id: number): Tracker {
@@ -84,28 +112,4 @@ function getTracker(id: number): Tracker {
   } else {
     return "other";
   }
-}
-
-function hierarchizeSingleIssues(singleIssues: Array<SingleIssue>): Array<Issue> {
-  const issueMap = new Map<number, InnerIssue>(singleIssues.map((singleIssue) => [singleIssue.id, {...singleIssue, actualParentId: null, childIssues: []}]));
-  for (const issue of issueMap.values()) {
-    if (issue.parentId !== null && issueMap.has(issue.parentId)) {
-      issueMap.get(issue.parentId)!.childIssues.push(issue);
-      issue.actualParentId = issue.parentId;
-    }
-  }
-  const rootIssues = Array.from(issueMap.values()).filter((issue) => issue.actualParentId === null);
-  return rootIssues;
-}
-
-function groupIssues(issues: Array<Issue>): Array<IssueGroup> {
-  const projects = new Map<number, IssueGroup>();
-  for (const issue of issues) {
-    if (projects.has(issue.project.id)) {
-      projects.get(issue.project.id)!.issues.push(issue);
-    } else {
-      projects.set(issue.project.id, {...issue.project, issues: [issue]});
-    }
-  }
-  return Array.from(projects.values());
 }

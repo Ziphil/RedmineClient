@@ -4,7 +4,7 @@ import {css} from "@linaria/core";
 import dayjs, {Dayjs} from "dayjs";
 import {ReactElement} from "react";
 import {Link} from "react-router-dom";
-import {Issue} from "/renderer/type";
+import {HierarchicalIssue} from "/renderer/type";
 import {borderColor, gradientBackground, gradientText, iconFont} from "/renderer/util/css";
 import {aria, data} from "/renderer/util/data";
 
@@ -154,14 +154,12 @@ export const IssueRow = function ({
   issue,
   level,
   parent,
-  businessDates,
-  onIssueClick
+  businessDates
 }: {
-  issue: Issue,
+  issue: HierarchicalIssue,
   level: number,
   parent: boolean,
-  businessDates: Array<Dayjs>,
-  onIssueClick: (issue: Issue) => unknown
+  businessDates: Array<Dayjs>
 }): ReactElement {
 
   const [startIndex, startOverflown, startBeyond] = calcStartIndex(issue, businessDates);
@@ -218,7 +216,7 @@ export const IssueRow = function ({
 };
 
 
-function calcStartIndex(issue: Issue, businessDates: Array<Dayjs>): [number | null, boolean, boolean] {
+function calcStartIndex(issue: HierarchicalIssue, businessDates: Array<Dayjs>): [number | null, boolean, boolean] {
   if (issue.startDate !== null) {
     const rawIndex = businessDates.findIndex((date) => date.isSame(issue.startDate, "day") || date.isAfter(issue.startDate, "day"));
     const index = (rawIndex < 0) ? 0 : rawIndex;
@@ -230,7 +228,7 @@ function calcStartIndex(issue: Issue, businessDates: Array<Dayjs>): [number | nu
   }
 }
 
-function calcEndIndex(issue: Issue, businessDates: Array<Dayjs>): [number | null, boolean, boolean] {
+function calcEndIndex(issue: HierarchicalIssue, businessDates: Array<Dayjs>): [number | null, boolean, boolean] {
   if (issue.dueDate !== null) {
     const rawIndex = businessDates.findIndex((date) => date.isAfter(issue.dueDate, "day"));
     const index = (rawIndex < 0) ? businessDates.length : rawIndex;

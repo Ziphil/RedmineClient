@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import {ReactElement, useCallback} from "react";
 import {Link, LoaderFunctionArgs, useLoaderData} from "react-router-dom";
 import {useWork} from "/renderer/hook/work";
-import {Issue} from "/renderer/type";
+import {HierarchicalIssue} from "/renderer/type";
 
 
 const styles = {
@@ -44,7 +44,7 @@ export const IssuePage = function ({
 
 type IssuePageLoaderData = {
   id: number,
-  issue: Issue
+  issue: HierarchicalIssue
 };
 
 export async function loadIssuePage(args: LoaderFunctionArgs): Promise<IssuePageLoaderData> {

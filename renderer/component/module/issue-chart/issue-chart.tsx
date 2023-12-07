@@ -4,7 +4,7 @@ import {css} from "@linaria/core";
 import dayjs from "dayjs";
 import {ReactElement, useMemo} from "react";
 import SimpleBar from "simplebar-react";
-import {Issue, IssueGroup} from "/renderer/type";
+import {HierarchicalIssueGroup} from "/renderer/type";
 import {getBusinessDates} from "/renderer/util/date";
 import {IssueChartHeader} from "./issue-chart-header";
 import {IssueGroupView} from "./issue-group-view";
@@ -35,15 +35,13 @@ const styles = {
 
 export const IssueChart = function ({
   issueGroups,
-  rowCount,
-  onIssueClick
+  dateCount
 }: {
-  issueGroups: Array<IssueGroup>,
-  rowCount: number,
-  onIssueClick: (issue: Issue) => unknown
+  issueGroups: Array<HierarchicalIssueGroup>,
+  dateCount: number
 }): ReactElement {
 
-  const businessDates = useMemo(() => getBusinessDates(dayjs().startOf("day"), 2, rowCount - 3), [rowCount]);
+  const businessDates = useMemo(() => getBusinessDates(dayjs().startOf("day"), 2, dateCount - 3), [dateCount]);
   const sortedIssueGroups = useMemo(() => [...issueGroups].sort((first, second) => second.id - first.id), [issueGroups]);
 
   return (
@@ -52,7 +50,7 @@ export const IssueChart = function ({
       <SimpleBar className={styles.outer}>
         <div className={styles.list}>
           {sortedIssueGroups.map((issueGroup) => (
-            <IssueGroupView key={issueGroup.id} issueGroup={issueGroup} businessDates={businessDates} onIssueClick={onIssueClick}/>
+            <IssueGroupView key={issueGroup.id} issueGroup={issueGroup} businessDates={businessDates}/>
           ))}
         </div>
       </SimpleBar>
