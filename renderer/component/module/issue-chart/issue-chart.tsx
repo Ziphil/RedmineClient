@@ -18,6 +18,7 @@ const styles = {
     flex-shrink: 1;
   `,
   outer: css`
+    margin-inline: -2px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -27,6 +28,7 @@ const styles = {
     }
   `,
   list: css`
+    margin-inline: 2px;
     padding-block-end: 24px;
     display: flex;
     flex-direction: column;

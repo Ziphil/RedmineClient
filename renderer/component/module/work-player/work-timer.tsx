@@ -10,7 +10,6 @@ import {Work} from "/renderer/type";
 const styles = {
   root: css`
     row-gap: 8px;
-    width: 300px;
     font-weight: bold;
     display: flex;
     flex-direction: column;

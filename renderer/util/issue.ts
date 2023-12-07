@@ -9,7 +9,7 @@ export function compareIssue(firstIssue: HierarchicalIssue, secondIssue: Hierarc
   if (comparisonByDate !== 0) {
     return comparisonByDate;
   } else {
-    return secondIssue.id - firstIssue.id;
+    return firstIssue.id - secondIssue.id;
   }
 }
 

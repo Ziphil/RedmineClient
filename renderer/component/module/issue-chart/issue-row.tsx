@@ -32,35 +32,11 @@ const styles = {
       opacity: 1;
     }
   `,
-  subjectContainer: css`
-    column-gap: 6px;
+  left: css`
+    margin-inline-end: 8px;
     display: flex;
     align-items: center;
     grid-column: 1 / 2;
-  `,
-  id: css`
-    width: 3em;
-    padding-block: 0.2em;
-    font-size: 70%;
-    letter-spacing: -0.05em;
-    border-radius: 1em;
-    ${gradientBackground(0.9)}
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 0;
-    flex-shrink: 0;
-  `,
-  tracker: css`
-    ${gradientText(0.9)}
-    flex-grow: 0;
-    flex-shrink: 0;
-  `,
-  subjectRow: css`
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    flex-shrink: 1;
   `,
   indent: css`
     display: flex;
@@ -78,8 +54,14 @@ const styles = {
       content: "\uF105";
     }
   `,
+  subjectContainer: css`
+    column-gap: 6px;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    flex-shrink: 1;
+  `,
   subject: css`
-    margin-inline-end: 6px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -88,6 +70,11 @@ const styles = {
     &[data-late] {
       color: hsl(320, 65%, 50%);
     }
+  `,
+  percent: css`
+    font-size: 12px;
+    flex-grow: 0;
+    flex-shrink: 0;
   `,
   meter: css`
     height: 16px;
@@ -169,17 +156,20 @@ export const IssueRow = function ({
 
   return (
     <Link className={styles.root} to={`/issue/${issue.id}`} style={{gridTemplateColumns: `1fr repeat(${businessDates.length}, 36px)`}}>
-      <div className={styles.subjectContainer}>
-        <IdView id={issue.id}/>
-        <span className={styles.subjectRow}>
-          <span className={styles.indent} {...aria({hidden: true})}>
-            {Array.from({length: level}).map((dummy, index) => (
-              <span key={index} className={styles.indentItem}/>
-            ))}
-          </span>
+      <div className={styles.left}>
+        <span className={styles.indent} {...aria({hidden: true})}>
+          {Array.from({length: level}).map((dummy, index) => (
+            <span key={index} className={styles.indentItem}/>
+          ))}
+        </span>
+        <span className={styles.subjectContainer}>
+          <IdView id={issue.id}/>
           <span className={styles.subject} {...data({late})}>
             {issue.subject}
           </span>
+          {(issue.childIssues.length > 0) && (
+            <span className={styles.percent}>{issue.ratio}%</span>
+          )}
         </span>
       </div>
       <div className={styles.border}>

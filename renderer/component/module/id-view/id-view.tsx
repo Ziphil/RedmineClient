@@ -19,7 +19,7 @@ const styles = {
     flex-grow: 0;
     flex-shrink: 0;
     &[data-environment="light"] {
-      ${gradientBackground(0.9)}
+      ${gradientBackground(0.92)}
     }
     &[data-environment="dark"] {
       ${gradientBackground(0.65)}
