@@ -15,7 +15,7 @@ export const ProviderRoot = function ({
 
   return (
     <ErrorBoundary fallbackRender={() => <div>Please Reload</div>}>
-      <Suspense fallback={<div/>}>
+      <Suspense fallback={<div>Loading</div>}>
         <QueryClientProvider client={queryClient}>
           <RecoilRoot>
             {children}
