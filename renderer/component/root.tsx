@@ -1,15 +1,9 @@
 //
 
 import {css} from "@linaria/core";
-import {
-  Fragment,
-  ReactElement,
-  Suspense
-} from "react";
-import {ErrorBoundary} from "react-error-boundary";
-import {QueryClientProvider} from "react-query";
-import {ChartPage} from "/renderer/component/page/chart-page";
-import {queryClient} from "/renderer/hook/request";
+import {Fragment, ReactElement} from "react";
+import {ProviderRoot} from "/renderer/component/core/provider-root";
+import {Routing} from "/renderer/component/core/routing";
 import {gradientBackground, textColor} from "/renderer/util/css";
 
 
@@ -57,13 +51,9 @@ const Root = function ({
   const node = (
     <Fragment>
       <div className={globalStyle}/>
-      <ErrorBoundary fallbackRender={() => <div>Please Reload</div>}>
-        <Suspense fallback={<div/>}>
-          <QueryClientProvider client={queryClient}>
-            <ChartPage/>
-          </QueryClientProvider>
-        </Suspense>
-      </ErrorBoundary>
+      <ProviderRoot>
+        <Routing/>
+      </ProviderRoot>
     </Fragment>
   );
   return node;

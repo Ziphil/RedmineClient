@@ -101,14 +101,14 @@ export class Main {
     });
   }
 
-  public createWindow(mode: string, parentId: number | null, props: object, options: BrowserWindowConstructorOptions & {query?: Record<string, string>}): BrowserWindow {
+  public createWindow(parentId: number | null, path: string, props: object, options: BrowserWindowConstructorOptions & {query?: Record<string, string>}): BrowserWindow {
     const show = false;
     const parent = (parentId !== null) ? this.windows.get(parentId) : undefined;
     const additionalOptions = (!this.app.isPackaged) ? {} : PRODUCTION_WINDOW_OPTIONS;
     const window = new BrowserWindow({...COMMON_WINDOW_OPTIONS, ...additionalOptions, show, parent, ...options});
     const id = window.webContents.id;
     const idString = id.toString();
-    window.loadFile(joinPath(__dirname, "index.html"), {query: {...options.query, mode, idString}});
+    window.loadFile(joinPath(__dirname, "index.html"), {hash: path, query: {...options.query, idString}});
     window.setMenu(null);
     window.show();
     window.once("closed", () => {
@@ -120,8 +120,8 @@ export class Main {
   }
 
   private createMainWindow(): BrowserWindow {
-    const options = {width: 640, height: 480, minWidth: 640, minHeight: 480};
-    const window = this.createWindow("main", null, {}, options);
+    const options = {width: 960, height: 720, minWidth: 960, minHeight: 720};
+    const window = this.createWindow(null, "/chart", {}, options);
     this.mainWindow = window;
     this.connectReloadClient(window);
     return window;
