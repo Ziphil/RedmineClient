@@ -1,15 +1,17 @@
 //
 
-import {
-  client
-} from "/main/api/client";
+import MarkdownIt from "markdown-it";
+import {client} from "/main/api/client";
 import type {
   HierarchicalIssue,
   HierarchicalIssueGroup,
   Issue,
+  Status,
   Tracker
 } from "/renderer/type";
 
+
+const markdown = new MarkdownIt();
 
 /** 自分が担当のイシューを取得します。
  * イシューはプロジェクトごとにグループ化されます。
@@ -61,10 +63,12 @@ type InnerHierarchicalIssue = HierarchicalIssue & {parentIssueId: number | null,
 function createIssue(rawIssue: any): Issue {
   return {
     id: rawIssue.id,
-    project: rawIssue.project,
-    tracker: getTracker(rawIssue.tracker.id),
-    ratio: rawIssue.doneRatio,
     subject: rawIssue.subject,
+    description: markdown.render(rawIssue.description ?? ""),
+    project: rawIssue.project,
+    tracker: toTracker(rawIssue.tracker.id),
+    status: toStatus(rawIssue.status.id),
+    ratio: rawIssue.doneRatio,
     startDate: rawIssue.startDate,
     dueDate: rawIssue.dueDate,
     parentIssue: rawIssue.parent ? {id: rawIssue.parent.id} : null
@@ -100,7 +104,7 @@ function groupHierarchicalIssues(issues: Array<HierarchicalIssue>): Array<Hierar
   return Array.from(projects.values());
 }
 
-function getTracker(id: number): Tracker {
+function toTracker(id: number): Tracker {
   if (id === 2) {
     return "feature";
   } else if (id === 1) {
@@ -109,6 +113,20 @@ function getTracker(id: number): Tracker {
     return "refactor";
   } else if (id === 3) {
     return "support";
+  } else {
+    return "other";
+  }
+}
+
+function toStatus(id: number): Status {
+  if (id === 1) {
+    return "new";
+  } else if (id === 2 || id === 3 || id === 4) {
+    return "progress";
+  } else if (id === 5) {
+    return "closed";
+  } else if (id === 6) {
+    return "rejected";
   } else {
     return "other";
   }

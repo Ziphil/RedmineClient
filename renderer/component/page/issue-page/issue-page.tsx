@@ -4,6 +4,7 @@ import {css} from "@linaria/core";
 import dayjs from "dayjs";
 import {ReactElement, useCallback} from "react";
 import {Link, LoaderFunctionArgs, useLoaderData} from "react-router-dom";
+import {Markdown} from "/renderer/component/atom/markdown";
 import {useWork} from "/renderer/hook/work";
 import {HierarchicalIssue} from "/renderer/type";
 
@@ -35,6 +36,9 @@ export const IssuePage = function ({
     <div className={styles.root}>
       <Link to="/chart">BACK</Link>
       <div>{issue.subject}</div>
+      <div>
+        <Markdown>{issue.description}</Markdown>
+      </div>
       <button onClick={handleClick}>GO</button>
     </div>
   );
