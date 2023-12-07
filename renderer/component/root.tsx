@@ -15,7 +15,7 @@ const globalStyle = css`
     html {
       font-family: "Commissioner", "Noto Sans JP", sans-serif;
       font-size: 16px;
-      font-feature-settings: "palt" 1, "pkna" 1, "lnum" 1, "kern" 1 !important;
+      font-feature-settings: "palt" 1, "pkna" 1, "lnum" 1, "kern" 1;
       color: ${textColor()};
       margin: 0rem;
       padding: 0rem;

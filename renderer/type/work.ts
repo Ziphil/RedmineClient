@@ -1,12 +1,12 @@
 //
 
 import {Dayjs} from "dayjs";
-import {HierarchicalIssue} from "/renderer/type/issue";
+import {Issue} from "/renderer/type/issue";
 
 
 export interface Work {
 
-  issue: HierarchicalIssue;
+  issue: Issue;
   startDate: Dayjs | null;
   additionalTime: number;
 

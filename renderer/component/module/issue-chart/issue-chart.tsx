@@ -7,7 +7,7 @@ import SimpleBar from "simplebar-react";
 import {HierarchicalIssueGroup} from "/renderer/type";
 import {getBusinessDates} from "/renderer/util/date";
 import {IssueChartHeader} from "./issue-chart-header";
-import {IssueGroupView} from "./issue-group-view";
+import {IssueChartIssueGroup} from "./issue-chart-issue-group";
 
 
 const styles = {
@@ -52,7 +52,7 @@ export const IssueChart = function ({
       <SimpleBar className={styles.outer}>
         <div className={styles.list}>
           {sortedIssueGroups.map((issueGroup) => (
-            <IssueGroupView key={issueGroup.id} issueGroup={issueGroup} businessDates={businessDates}/>
+            <IssueChartIssueGroup key={issueGroup.id} issueGroup={issueGroup} businessDates={businessDates}/>
           ))}
         </div>
       </SimpleBar>

@@ -6,7 +6,7 @@ import {ReactElement, useMemo} from "react";
 import {HierarchicalIssueGroup} from "/renderer/type";
 import {borderColor} from "/renderer/util/css";
 import {compareIssue} from "/renderer/util/issue";
-import {IssueView} from "./issue-view";
+import {IssueChartIssue} from "./issue-chart-issue";
 
 
 const styles = {
@@ -27,7 +27,7 @@ const styles = {
   `
 };
 
-export const IssueGroupView = function ({
+export const IssueChartIssueGroup = function ({
   issueGroup,
   businessDates
 }: {
@@ -42,7 +42,7 @@ export const IssueGroupView = function ({
       <h2 className={styles.name}>{issueGroup.name}</h2>
       <div className={styles.list}>
         {sortedIssues.map((issue) => (
-          <IssueView key={issue.id} issue={issue} level={0} businessDates={businessDates}/>
+          <IssueChartIssue key={issue.id} issue={issue} level={0} businessDates={businessDates}/>
         ))}
       </div>
     </section>

@@ -1,10 +1,8 @@
 //
 
 import {css} from "@linaria/core";
-import dayjs from "dayjs";
 import {ReactElement} from "react";
-import {DateView} from "/renderer/component/module/date-view";
-import {IdView} from "/renderer/component/module/id-view";
+import {IssueSubjectView} from "/renderer/component/module/issue-subject-view";
 import {Work} from "/renderer/type";
 import {iconFont} from "/renderer/util/css";
 
@@ -61,22 +59,7 @@ export const WorkView = function ({
 
   return (
     <div className={styles.root}>
-      <div className={styles.complement}>
-        <IdView id={work.issue.id} environment="dark"/>
-      </div>
-      <div className={styles.project}>
-        {work.issue.project.name}
-      </div>
-      <div className={styles.subject}>
-        {work.issue.subject}
-      </div>
-      {(work.issue.startDate !== null && work.issue.dueDate !== null) && (
-        <div className={styles.date}>
-          <DateView date={dayjs(work.issue.startDate)}/>
-          <div className={styles.dateArrow}/>
-          <DateView date={dayjs(work.issue.dueDate)}/>
-        </div>
-      )}
+      <IssueSubjectView issue={work.issue} size="large" environment="dark"/>
     </div>
   );
 

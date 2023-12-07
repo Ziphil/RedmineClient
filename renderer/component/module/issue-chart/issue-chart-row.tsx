@@ -138,7 +138,7 @@ const styles = {
   `
 };
 
-export const IssueRow = function ({
+export const IssueChartRow = function ({
   issue,
   level,
   parent,
