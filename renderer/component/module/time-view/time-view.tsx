@@ -16,6 +16,9 @@ const styles = {
     margin-inline: 0.1em;
     inset-block-end: 0.08em;
     position: relative;
+  `,
+  small: css`
+    font-size: 80%;
   `
 };
 
@@ -30,7 +33,7 @@ export const TimeView = function ({
   const second = Math.floor(time / 1000) % 60;
   const hourString = hour.toString();
   const minuteString = (hour === 0) ? minute.toString() : minute.toString().padStart(2, "0");
-  const secondString = (hour === 0 && minute === 0) ? second.toString() : second.toString().padStart(2, "0");
+  const secondString = second.toString().padStart(2, "0");
 
   return (
     <span className={styles.root}>
@@ -42,17 +45,15 @@ export const TimeView = function ({
           <span className={styles.colon}>:</span>
         </>
       )}
-      {(hour > 0 || minute > 0) && (
-        <>
-          {[...minuteString].map((digit, index) => (
-            <span key={index} className={styles.digit}>{digit}</span>
-          ))}
-          <span className={styles.colon}>:</span>
-        </>
-      )}
-      {[...secondString].map((digit, index) => (
+      {[...minuteString].map((digit, index) => (
         <span key={index} className={styles.digit}>{digit}</span>
       ))}
+      <span className={styles.small}>
+        <span className={styles.colon}>:</span>
+        {[...secondString].map((digit, index) => (
+          <span key={index} className={styles.digit}>{digit}</span>
+        ))}
+      </span>
     </span>
   );
 

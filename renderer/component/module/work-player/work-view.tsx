@@ -4,8 +4,9 @@ import {css} from "@linaria/core";
 import dayjs from "dayjs";
 import {ReactElement} from "react";
 import {DateView} from "/renderer/component/module/date-view";
+import {IdView} from "/renderer/component/module/id-view";
 import {Work} from "/renderer/type";
-import {gradientBackground, gradientText, iconFont} from "/renderer/util/css";
+import {iconFont} from "/renderer/util/css";
 
 
 const styles = {
@@ -18,22 +19,6 @@ const styles = {
     font-size: 24px;
     display: flex;
     align-items: center;
-  `,
-  id: css`
-    width: 3em;
-    padding-block: 0.2em;
-    font-size: 70%;
-    letter-spacing: -0.05em;
-    border-radius: 1em;
-    ${gradientBackground(0.65)}
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 0;
-    flex-shrink: 0;
-  `,
-  tracker: css`
-    ${gradientText(0.65)}
   `,
   project: css`
     margin-block-start: 12px;
@@ -77,7 +62,7 @@ export const WorkView = function ({
   return (
     <div className={styles.root}>
       <div className={styles.complement}>
-        <span className={styles.id}>{work.issue.id}</span>
+        <IdView id={work.issue.id} environment="dark"/>
       </div>
       <div className={styles.project}>
         {work.issue.project.name}

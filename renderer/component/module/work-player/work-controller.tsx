@@ -43,11 +43,11 @@ export const WorkController = function ({
 
   return (
     <div className={styles.root}>
-      <IconButton icon={"\uF00C"} size="large" onClick={handlePunchAndDone}/>
+      <IconButton icon={"\uF00C"} size="large" environment="dark" onClick={handlePunchAndDone}/>
       <div className={styles.row}>
-        <IconButton icon={"\uF04D"} size="medium" onClick={handlePunchWithoutDone}/>
-        <IconButton icon={(work.startDate !== null) ? "\uF04C" : "\uF04B"} size="medium" onClick={onPause}/>
-        <IconButton icon={"\uF05E"} size="medium" onClick={onCancel}/>
+        <IconButton icon={"\uF04D"} size="medium" environment="dark" onClick={handlePunchWithoutDone}/>
+        <IconButton icon={(work.startDate !== null) ? "\uF04C" : "\uF04B"} size="medium" environment="dark" onClick={onPause}/>
+        <IconButton icon={"\uF05E"} size="medium" environment="dark" onClick={onCancel}/>
       </div>
     </div>
   );

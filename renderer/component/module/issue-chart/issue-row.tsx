@@ -4,6 +4,7 @@ import {css} from "@linaria/core";
 import dayjs, {Dayjs} from "dayjs";
 import {ReactElement} from "react";
 import {Link} from "react-router-dom";
+import {IdView} from "/renderer/component/module/id-view";
 import {HierarchicalIssue} from "/renderer/type";
 import {borderColor, gradientBackground, gradientText, iconFont} from "/renderer/util/css";
 import {aria, data} from "/renderer/util/data";
@@ -169,9 +170,7 @@ export const IssueRow = function ({
   return (
     <Link className={styles.root} to={`/issue/${issue.id}`} style={{gridTemplateColumns: `1fr repeat(${businessDates.length}, 36px)`}}>
       <div className={styles.subjectContainer}>
-        <span className={styles.id}>
-          {issue.id}
-        </span>
+        <IdView id={issue.id}/>
         <span className={styles.subjectRow}>
           <span className={styles.indent} {...aria({hidden: true})}>
             {Array.from({length: level}).map((dummy, index) => (

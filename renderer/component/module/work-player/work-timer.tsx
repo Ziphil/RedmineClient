@@ -20,14 +20,6 @@ const styles = {
   `,
   ellapsed: css`
     font-size: 72px;
-  `,
-  spent: css`
-    font-size: 40px;
-    display: none;
-  `,
-  plus: css`
-    margin-inline-end: 6px;
-    font-weight: normal;
   `
 };
 
@@ -51,10 +43,6 @@ export const WorkTimer = function ({
     <div className={styles.root}>
       <div className={styles.ellapsed}>
         <TimeView time={time}/>
-      </div>
-      <div className={styles.spent}>
-        <span className={styles.plus}>+</span>
-        <TimeView time={work.issue.spentTime}/>
       </div>
     </div>
   );
