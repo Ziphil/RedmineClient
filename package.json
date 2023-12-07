@@ -52,6 +52,10 @@
     }
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/pro-regular-svg-icons": "^6.5.1",
+    "@fortawesome/pro-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@holiday-jp/holiday_jp": "^2.4.0",
     "@linaria/babel-preset": "^5.0.4",
     "@linaria/core": "^5.0.2",

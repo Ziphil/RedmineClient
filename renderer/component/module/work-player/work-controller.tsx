@@ -1,5 +1,6 @@
 //
 
+import {faPause, faPlay, faStop, faXmark} from "@fortawesome/pro-solid-svg-icons";
 import {css} from "@linaria/core";
 import dayjs from "dayjs";
 import {ReactElement, useCallback} from "react";
@@ -11,16 +12,16 @@ import {Work} from "/renderer/type";
 
 const styles = {
   root: css`
-    row-gap: 8px;
+    column-gap: 8px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     flex-grow: 0;
     flex-shrink: 0;
   `,
   row: css`
-    column-gap: 16px;
+    row-gap: 12px;
     display: flex;
+    flex-direction: column;
   `
 };
 
@@ -61,10 +62,10 @@ export const WorkController = function ({
 
   return (
     <div className={styles.root}>
-      <IconButton icon={"\uF00C"} size="large" environment="dark" onClick={punch}/>
+      <IconButton icon={faStop} size="large" environment="dark" onClick={punch}/>
       <div className={styles.row}>
-        <IconButton icon={(work?.startDate !== null) ? "\uF04C" : "\uF04B"} size="medium" environment="dark" onClick={pause}/>
-        <IconButton icon={"\uF00D"} size="medium" environment="dark" onClick={cancel}/>
+        <IconButton icon={(work?.startDate !== null) ? faPlay : faPause} size="medium" environment="dark" onClick={pause}/>
+        <IconButton icon={faXmark} size="medium" environment="dark" onClick={cancel}/>
       </div>
     </div>
   );

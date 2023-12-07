@@ -4,7 +4,6 @@ import {css} from "@linaria/core";
 import {ReactElement} from "react";
 import {Link, LoaderFunctionArgs, useLoaderData} from "react-router-dom";
 import {IssueView} from "/renderer/component/module/issue-view";
-import {useWork} from "/renderer/hook/work";
 import {Issue} from "/renderer/type";
 
 
@@ -17,6 +16,10 @@ const styles = {
   `,
   main: css`
     margin-block-start: 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
   `
 };
 
@@ -25,7 +28,6 @@ export const IssuePage = function ({
 }): ReactElement {
 
   const {issue} = useLoaderData() as IssuePageLoaderData;
-  const [work, setWork] = useWork();
 
   return (
     <div className={styles.root}>

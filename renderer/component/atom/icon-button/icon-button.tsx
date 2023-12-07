@@ -1,8 +1,10 @@
 //
 
+import {IconDefinition} from "@fortawesome/pro-regular-svg-icons";
 import {css} from "@linaria/core";
 import {MouseEvent, ReactElement} from "react";
-import {gradientBackground, gradientText, iconFont} from "/renderer/util/css";
+import {Icon} from "/renderer/component/atom/icon";
+import {gradientBackground} from "/renderer/util/css";
 import {data} from "/renderer/util/data";
 
 
@@ -56,14 +58,10 @@ const styles = {
   icon: css`
     z-index: 2;
     &[data-environment="light"] {
-      ${gradientText(0.98)}
+      ${gradientBackground(0.98)}
     }
     &[data-environment="dark"] {
-      ${gradientText(0.5)}
-    }
-    &::before {
-      ${iconFont()}
-      content: attr(data-icon);
+      ${gradientBackground(0.5)}
     }
   `
 };
@@ -74,7 +72,7 @@ export const IconButton = function ({
   environment = "light",
   onClick
 }: {
-  icon: string,
+  icon: IconDefinition,
   size: "medium" | "large",
   environment?: "light" | "dark",
   onClick?: (event: MouseEvent<HTMLButtonElement>) => unknown
@@ -82,7 +80,7 @@ export const IconButton = function ({
 
   return (
     <button className={styles.root} type="button" onClick={onClick} {...data({size, environment})}>
-      <span className={styles.icon} {...data({icon, environment})}/>
+      <Icon className={styles.icon} icon={icon} {...data({environment})}/>
     </button>
   );
 

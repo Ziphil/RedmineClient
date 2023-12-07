@@ -17,7 +17,7 @@ const styles = {
     flex-grow: 1;
     flex-shrink: 1;
   `,
-  outer: css`
+  scroll: css`
     margin-inline: -2px;
     display: flex;
     flex-direction: column;
@@ -49,7 +49,7 @@ export const IssueChart = function ({
   return (
     <div className={styles.root}>
       <IssueChartHeader businessDates={businessDates}/>
-      <SimpleBar className={styles.outer}>
+      <SimpleBar className={styles.scroll}>
         <div className={styles.list}>
           {sortedIssueGroups.map((issueGroup) => (
             <IssueChartIssueGroup key={issueGroup.id} issueGroup={issueGroup} businessDates={businessDates}/>

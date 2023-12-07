@@ -1,5 +1,6 @@
 //
 
+import {faBan, faCheck, faPersonRunning} from "@fortawesome/pro-solid-svg-icons";
 import {css} from "@linaria/core";
 import dayjs from "dayjs";
 import {ReactElement, useCallback} from "react";
@@ -11,16 +12,16 @@ import {Issue} from "/renderer/type";
 
 const styles = {
   root: css`
-    row-gap: 8px;
+    column-gap: 8px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     flex-grow: 0;
     flex-shrink: 0;
   `,
   row: css`
-    column-gap: 16px;
+    row-gap: 12px;
     display: flex;
+    flex-direction: column;
   `
 };
 
@@ -50,10 +51,10 @@ export const IssueController = function ({
 
   return (
     <div className={styles.root}>
-      <IconButton icon={"\uF70C"} size="large" onClick={startWork}/>
+      <IconButton icon={faPersonRunning} size="large" onClick={startWork}/>
       <div className={styles.row}>
-        <IconButton icon={"\uF00C"} size="medium" onClick={changeIssueStatusToClosed}/>
-        <IconButton icon={"\uF05E"} size="medium" onClick={changeIssueStatusToRejected}/>
+        <IconButton icon={faCheck} size="medium" onClick={changeIssueStatusToClosed}/>
+        <IconButton icon={faBan} size="medium" onClick={changeIssueStatusToRejected}/>
       </div>
     </div>
   );
