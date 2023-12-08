@@ -49,11 +49,11 @@ const styles = {
     text-overflow: ellipsis;
     white-space: nowrap;
     &[data-size="medium"] {
-      margin-block-start: 6px;
+      margin-block-start: 8px;
       font-size: 32px;
     }
     &[data-size="large"] {
-      margin-block-start: 10px;
+      margin-block-start: 12px;
       font-size: 44px;
     }
   `,

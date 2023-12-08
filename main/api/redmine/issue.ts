@@ -11,7 +11,7 @@ import type {
 } from "/renderer/type";
 
 
-const markdown = new MarkdownIt();
+const markdown = new MarkdownIt({breaks: true});
 
 /** 自分が担当のイシューを取得します。
  * イシューはプロジェクトごとにグループ化されます。

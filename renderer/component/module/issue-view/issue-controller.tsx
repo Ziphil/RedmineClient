@@ -12,16 +12,17 @@ import {Issue} from "/renderer/type";
 
 const styles = {
   root: css`
-    column-gap: 8px;
+    row-gap: 8px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     flex-grow: 0;
     flex-shrink: 0;
   `,
   row: css`
-    row-gap: 12px;
+    column-gap: 12px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   `
 };
 
