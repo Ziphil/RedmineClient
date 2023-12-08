@@ -1,0 +1,46 @@
+@charset "utf-8";
+
+
+html {
+  font-family: "Commissioner", "Noto Sans JP", sans-serif;
+  font-size: 16px;
+  font-feature-settings: "palt" 1, "pkna" 1, "lnum" 1, "kern" 1;
+  color: hsla(260, 30%, 30%, 0.9);
+  margin: 0rem;
+  padding: 0rem;
+  line-height: 1;
+  background-color: transparent;
+  text-decoration-skip-ink: none;
+}
+
+:global(#root) {
+  border-radius: 12px;
+  background-image: linear-gradient(to right bottom, hsl(320, 90%, 80%), hsl(260, 90%, 80%) 40%, hsl(200, 100%, 70%));
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+html,
+body,
+:global(#root) {
+  height: 100%;
+  user-select: none;
+}
+
+*:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
+  all: unset;
+  display: revert;
+  min-block-size: 0rem;
+  min-inline-size: 0rem;
+  background-origin: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:global(.simplebar-track) {
+  opacity: 0;
+}

@@ -4,6 +4,7 @@ import {css} from "@linaria/core";
 import dayjs, {Dayjs} from "dayjs";
 import {ReactElement} from "react";
 import {Link} from "react-router-dom";
+import {create} from "/renderer/component/create";
 import {IdView} from "/renderer/component/module/id-view";
 import {HierarchicalIssue} from "/renderer/type";
 import {borderColor, gradientBackground, gradientText, iconFont} from "/renderer/util/css";
@@ -138,71 +139,74 @@ const styles = {
   `
 };
 
-export const IssueChartRow = function ({
-  issue,
-  level,
-  parent,
-  businessDates
-}: {
-  issue: HierarchicalIssue,
-  level: number,
-  parent: boolean,
-  businessDates: Array<Dayjs>
-}): ReactElement {
+export const IssueChartRow = create(
+  require("./issue-chart-row.scss"), "IssueChartRow",
+  function ({
+    issue,
+    level,
+    parent,
+    businessDates
+  }: {
+    issue: HierarchicalIssue,
+    level: number,
+    parent: boolean,
+    businessDates: Array<Dayjs>
+  }): ReactElement {
 
-  const [startIndex, startOverflown, startBeyond] = calcStartIndex(issue, businessDates);
-  const [endIndex, endOverflown, endBeyond] = calcEndIndex(issue, businessDates);
-  const late = issue.dueDate !== null && dayjs().isAfter(issue.dueDate, "day");
+    const [startIndex, startOverflown, startBeyond] = calcStartIndex(issue, businessDates);
+    const [endIndex, endOverflown, endBeyond] = calcEndIndex(issue, businessDates);
+    const late = issue.dueDate !== null && dayjs().isAfter(issue.dueDate, "day");
 
-  return (
-    <Link className={styles.root} to={`/issue/${issue.id}`} style={{gridTemplateColumns: `1fr repeat(${businessDates.length}, 36px)`}}>
-      <div className={styles.left}>
-        <span className={styles.indent} {...aria({hidden: true})}>
-          {Array.from({length: level}).map((dummy, index) => (
-            <span key={index} className={styles.indentItem}/>
-          ))}
-        </span>
-        <span className={styles.subjectContainer}>
-          <IdView id={issue.id}/>
-          <span className={styles.subject} {...data({late})}>
-            {issue.subject}
+    return (
+      <Link styleName="root" to={`/issue/${issue.id}`} style={{gridTemplateColumns: `1fr repeat(${businessDates.length}, 36px)`}}>
+        <div styleName="left">
+          <span styleName="indent" {...aria({hidden: true})}>
+            {Array.from({length: level}).map((dummy, index) => (
+              <span key={index} styleName="indentItem"/>
+            ))}
           </span>
-          {(issue.childIssues.length > 0) && (
-            <span className={styles.percent}>{issue.ratio}%</span>
-          )}
-        </span>
-      </div>
-      <div className={styles.border}>
-        {businessDates.map((day, index) => (
-          <div
-            className={styles.borderItem}
-            key={day.format("YYYY-MM-DD")}
-            style={{gridColumnStart: index + 2, gridColumnEnd: index + 2}}
-            {...data({today: day.isSame(dayjs(), "day")})}
-            {...aria({hidden: true})}
-          />
-        ))}
-      </div>
-      {(startIndex !== null && endIndex !== null) && (
-        (!startBeyond && !endBeyond) ? (
-          <div
-            className={styles.meter}
-            style={{gridColumnStart: startIndex + 2, gridColumnEnd: endIndex + 2}}
-            {...data({parent, startOverflown, endOverflown})}
-            {...aria({hidden: true})}
-          />
-        ) : (
-          <div
-            className={styles.arrow}
-            {...data({parent, startBeyond, endBeyond})}
-            {...aria({hidden: true})}
-          />
-        )
-      )}
-    </Link>
-  );
+          <span styleName="subjectContainer">
+            <IdView id={issue.id}/>
+            <span styleName="subject" {...data({late})}>
+              {issue.subject}
+            </span>
+            {(issue.childIssues.length > 0) && (
+              <span styleName="percent">{issue.ratio}%</span>
+            )}
+          </span>
+        </div>
+        <div styleName="border">
+          {businessDates.map((day, index) => (
+            <div
+              styleName="borderItem"
+              key={day.format("YYYY-MM-DD")}
+              style={{gridColumnStart: index + 2, gridColumnEnd: index + 2}}
+              {...data({today: day.isSame(dayjs(), "day")})}
+              {...aria({hidden: true})}
+            />
+          ))}
+        </div>
+        {(startIndex !== null && endIndex !== null) && (
+          (!startBeyond && !endBeyond) ? (
+            <div
+              styleName="meter"
+              style={{gridColumnStart: startIndex + 2, gridColumnEnd: endIndex + 2}}
+              {...data({parent, startOverflown, endOverflown})}
+              {...aria({hidden: true})}
+            />
+          ) : (
+            <div
+              styleName="arrow"
+              {...data({parent, startBeyond, endBeyond})}
+              {...aria({hidden: true})}
+            />
+          )
+        )}
+      </Link>
+    );
 
-};
+  }
+);
 
 
 function calcStartIndex(issue: HierarchicalIssue, businessDates: Array<Dayjs>): [number | null, boolean, boolean] {

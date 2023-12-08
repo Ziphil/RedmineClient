@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+
+.root {
+  height: 32px;
+  margin-inline: 24px;
+  color: rgba(white, 0.8);
+  border-bottom: 1px solid rgba(white, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-app-region: drag;
+  flex-grow: 0;
+  flex-shrink: 0;
+}

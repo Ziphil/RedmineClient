@@ -119,6 +119,26 @@ export const commonRenderer = {
           },
         ],
       },
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          {
+            loader: "css-loader",
+            options: {
+              modules: {localIdentName: "[name]_[local]_[hash:base64:5]"},
+              sourceMap: process.env.NODE_ENV !== "production",
+              url: false
+            }
+          },
+          {
+            loader: "sass-loader"
+          }
+        ]
+      },
     ]
   },
   resolve: {

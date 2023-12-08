@@ -3,6 +3,7 @@
 import {css} from "@linaria/core";
 import {Dayjs} from "dayjs";
 import {ReactElement, useMemo} from "react";
+import {create} from "/renderer/component/create";
 import {HierarchicalIssueGroup} from "/renderer/type";
 import {borderColor} from "/renderer/util/css";
 import {compareIssue} from "/renderer/util/issue";
@@ -27,25 +28,28 @@ const styles = {
   `
 };
 
-export const IssueChartIssueGroup = function ({
-  issueGroup,
-  businessDates
-}: {
-  issueGroup: HierarchicalIssueGroup,
-  businessDates: Array<Dayjs>
-}): ReactElement {
+export const IssueChartIssueGroup = create(
+  require("./issue-chart-issue-group.scss"), "IssueChartIssueGroup",
+  function ({
+    issueGroup,
+    businessDates
+  }: {
+    issueGroup: HierarchicalIssueGroup,
+    businessDates: Array<Dayjs>
+  }): ReactElement {
 
-  const sortedIssues = useMemo(() => [...issueGroup.issues].sort(compareIssue), [issueGroup.issues]);
+    const sortedIssues = useMemo(() => [...issueGroup.issues].sort(compareIssue), [issueGroup.issues]);
 
-  return (
-    <section className={styles.root}>
-      <h2 className={styles.name}>{issueGroup.name}</h2>
-      <div className={styles.list}>
-        {sortedIssues.map((issue) => (
-          <IssueChartIssue key={issue.id} issue={issue} level={0} businessDates={businessDates}/>
-        ))}
-      </div>
-    </section>
-  );
+    return (
+      <section styleName="root">
+        <h2 styleName="name">{issueGroup.name}</h2>
+        <div styleName="list">
+          {sortedIssues.map((issue) => (
+            <IssueChartIssue key={issue.id} issue={issue} level={0} businessDates={businessDates}/>
+          ))}
+        </div>
+      </section>
+    );
 
-};
+  }
+);
