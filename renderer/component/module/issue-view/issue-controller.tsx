@@ -34,8 +34,10 @@ export const IssueController = function ({
 
   const [work, setWork] = useWork();
 
-  const startWork = useCallback(function (): void {
+  const startWork = useCallback(async function (): Promise<void> {
     if (work === null) {
+      await window.api.changeIssueStatus({id: issue.id, status: "progress"});
+      await invalidateQueries("fetchIssue", (arg) => arg.id === issue.id);
       setWork({issue, startDate: dayjs(), additionalTime: 0});
     }
   }, [issue, work, setWork]);

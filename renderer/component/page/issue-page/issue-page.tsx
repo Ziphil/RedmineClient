@@ -4,9 +4,9 @@ import {faArrowUpRightFromSquare, faLeft} from "@fortawesome/pro-solid-svg-icons
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {css} from "@linaria/core";
 import {ReactElement, useCallback} from "react";
-import {Link, LoaderFunctionArgs, useLoaderData} from "react-router-dom";
+import {Link, LoaderFunctionArgs, useParams} from "react-router-dom";
 import {IssueView} from "/renderer/component/module/issue-view";
-import {Issue} from "/renderer/type";
+import {useSuspenseQuery} from "/renderer/hook/request";
 import {data} from "/renderer/util/data";
 
 
@@ -47,7 +47,8 @@ export const IssuePage = function ({
 }: {
 }): ReactElement {
 
-  const {issue} = useLoaderData() as IssuePageLoaderData;
+  const {id} = useParams();
+  const [issue] = useSuspenseQuery("fetchIssue", window.api.fetchIssue, {id: +(id ?? "1")});
 
   const openExternal = useCallback(function (): void {
     window.api.send("open-external", `${process.env["REDMINE_URL"]}/issues/${issue.id}`);
@@ -73,14 +74,6 @@ export const IssuePage = function ({
 };
 
 
-type IssuePageLoaderData = {
-  id: number,
-  issue: Issue
-};
-
-export async function loadIssuePage(args: LoaderFunctionArgs): Promise<IssuePageLoaderData> {
-  const id = +(args.params.id ?? "0");
-  const issue = await window.api.fetchIssue({id});
-  return {id, issue};
+export async function loadIssuePage(args: LoaderFunctionArgs): Promise<{}> {
+  return {};
 }
-

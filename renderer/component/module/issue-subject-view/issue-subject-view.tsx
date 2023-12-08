@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import {ReactElement} from "react";
 import {DateView} from "/renderer/component/module/date-view";
 import {IdView} from "/renderer/component/module/id-view";
+import {StatusView} from "/renderer/component/module/status-view";
 import {Issue} from "/renderer/type";
 import {gradientBackground} from "/renderer/util/css";
 import {data} from "/renderer/util/data";
@@ -18,7 +19,7 @@ const styles = {
     flex-shrink: 1;
   `,
   complement: css`
-    column-gap: 1em;
+    column-gap: 12px;
     font-size: 50%;
     display: flex;
     align-items: center;
@@ -27,6 +28,12 @@ const styles = {
     }
     &[data-size="large"] {
       font-size: 24px;
+    }
+  `,
+  complementExtra: css`
+    display: contents;
+    &[data-size="large"] {
+      display: none;
     }
   `,
   project: css`
@@ -110,6 +117,9 @@ export const IssueSubjectView = function ({
     <div className={styles.root}>
       <div className={styles.complement} {...data({size})}>
         <IdView id={issue.id} environment={environment}/>
+        <span className={styles.complementExtra}>
+          <StatusView status={issue.status}/>
+        </span>
       </div>
       <div className={styles.project} {...data({size})}>
         {issue.project.name}
@@ -121,7 +131,7 @@ export const IssueSubjectView = function ({
         <div className={styles.infoRow}>
           <div className={styles.infoItem}>
             <div className={styles.infoLabel}>
-              期日
+              期間
             </div>
             <div className={styles.infoValue}>
               {(issue.startDate !== null) ? <DateView date={dayjs(issue.startDate)} orientation="horizontal"/> : "未定"}
