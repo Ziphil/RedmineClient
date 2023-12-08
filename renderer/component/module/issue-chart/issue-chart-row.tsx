@@ -1,5 +1,7 @@
 //
 
+import {faAngleRight} from "@fortawesome/pro-regular-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {css} from "@linaria/core";
 import dayjs, {Dayjs} from "dayjs";
 import {ReactElement} from "react";
@@ -162,10 +164,12 @@ export const IssueChartRow = create(
         <div styleName="left">
           <span styleName="indent" {...aria({hidden: true})}>
             {Array.from({length: level}).map((dummy, index) => (
-              <span key={index} styleName="indentItem"/>
+              <span key={index} styleName="indent-item">
+                <FontAwesomeIcon icon={faAngleRight}/>
+              </span>
             ))}
           </span>
-          <span styleName="subjectContainer">
+          <span styleName="subject-container">
             <IdView id={issue.id}/>
             <span styleName="subject" {...data({late})}>
               {issue.subject}
@@ -178,7 +182,7 @@ export const IssueChartRow = create(
         <div styleName="border">
           {businessDates.map((day, index) => (
             <div
-              styleName="borderItem"
+              styleName="border-item"
               key={day.format("YYYY-MM-DD")}
               style={{gridColumnStart: index + 2, gridColumnEnd: index + 2}}
               {...data({today: day.isSame(dayjs(), "day")})}

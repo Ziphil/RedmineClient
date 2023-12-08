@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+
+.root {
+  font-size: 72px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
+  z-index: 0;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.main {
+  background-image: linear-gradient(to right bottom, hsl(320, 90%, 65%), hsl(260, 90%, 65%) 40%, hsl(200, 90%, 55%));
+  background-attachment: fixed;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  z-index: 2;
+}
+
+.border {
+  position: absolute;
+  z-index: 0;
+}
+
+.shadow {
+  color: transparent;
+  text-shadow: 0px 3px 10px rgba(white, 0.3);
+  position: absolute;
+  z-index: 0;
+}

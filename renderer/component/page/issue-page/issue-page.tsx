@@ -6,6 +6,7 @@ import {css} from "@linaria/core";
 import {ReactElement, useCallback} from "react";
 import {Link, LoaderFunctionArgs, useParams} from "react-router-dom";
 import {IssueView} from "/renderer/component/module/issue-view";
+import {PageContainer} from "/renderer/component/module/page-container";
 import {useSuspenseQuery} from "/renderer/hook/request";
 import {data} from "/renderer/util/data";
 
@@ -55,7 +56,7 @@ export const IssuePage = function ({
   }, [issue.id]);
 
   return (
-    <div className={styles.root}>
+    <PageContainer>
       <nav className={styles.navigation}>
         <Link className={styles.link} to="/chart">
           <FontAwesomeIcon className={styles.icon} icon={faLeft}/>
@@ -68,7 +69,7 @@ export const IssuePage = function ({
       <div className={styles.main}>
         <IssueView issue={issue}/>
       </div>
-    </div>
+    </PageContainer>
   );
 
 };

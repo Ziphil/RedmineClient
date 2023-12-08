@@ -5,7 +5,7 @@ html {
   font-family: "Commissioner", "Noto Sans JP", sans-serif;
   font-size: 16px;
   font-feature-settings: "palt" 1, "pkna" 1, "lnum" 1, "kern" 1;
-  color: hsla(260, 30%, 30%, 0.9);
+  color: hsla(260, 50%, 20%, 0.9);
   margin: 0rem;
   padding: 0rem;
   line-height: 1;
@@ -15,7 +15,7 @@ html {
 
 :global(#root) {
   border-radius: 12px;
-  background-image: linear-gradient(to right bottom, hsl(320, 90%, 80%), hsl(260, 90%, 80%) 40%, hsl(200, 100%, 70%));
+  background-image: linear-gradient(to right bottom, hsl(320, 90%, 85%), hsl(260, 90%, 85%) 40%, hsl(200, 90%, 75%));
   background-attachment: fixed;
   overflow: hidden;
 }

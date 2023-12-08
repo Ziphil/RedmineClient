@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+
+.root {
+  height: 160px;
+  margin-block-start: 0px;
+  column-gap: 32px;
+  display: flex;
+}
+
+.left {
+  padding-inline-start: 36px;
+  padding-inline-end: 24px;
+  border-start-end-radius: 8px;
+  border-end-end-radius: 8px;
+  color: rgba(white, 0.9);
+  background-image: linear-gradient(to right bottom, hsl(320, 90%, 70%), hsl(260, 90%, 70%) 40%, hsl(200, 90%, 65%));
+  background-attachment: fixed;
+  border: 1px solid rgba(black, 0.15);
+  border-inline-start: none;
+  box-shadow: 0px 8px 24px rgba(white, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.right {
+  width: 480px;
+  padding-inline-end: 36px;
+  column-gap: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-grow: 0;
+  flex-shrink: 0;
+}

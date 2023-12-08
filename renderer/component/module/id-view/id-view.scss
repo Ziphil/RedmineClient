@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+
+.root {
+  width: 3em;
+  padding-block: 0.2em;
+  font-size: 70%;
+  letter-spacing: -0.05em;
+  border-radius: 1em;
+  background-color: rgba(white, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+}

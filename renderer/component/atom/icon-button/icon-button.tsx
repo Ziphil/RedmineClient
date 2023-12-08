@@ -1,9 +1,10 @@
 //
 
 import {IconDefinition} from "@fortawesome/pro-regular-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {css} from "@linaria/core";
 import {MouseEvent, ReactElement} from "react";
-import {Icon} from "/renderer/component/atom/icon";
+import {create} from "/renderer/component/create";
 import {gradientBackground} from "/renderer/util/css";
 import {data} from "/renderer/util/data";
 
@@ -66,22 +67,25 @@ const styles = {
   `
 };
 
-export const IconButton = function ({
-  icon,
-  size,
-  environment = "light",
-  onClick
-}: {
-  icon: IconDefinition,
-  size: "medium" | "large",
-  environment?: "light" | "dark",
-  onClick?: (event: MouseEvent<HTMLButtonElement>) => unknown
-}): ReactElement {
+export const IconButton = create(
+  require("./icon-button.scss"), "IconButton",
+  function ({
+    icon,
+    size,
+    color,
+    onClick
+  }: {
+    icon: IconDefinition,
+    size: "medium" | "large",
+    color: "purple" | "blue" | "pink",
+    onClick?: (event: MouseEvent<HTMLButtonElement>) => unknown
+  }): ReactElement {
 
-  return (
-    <button className={styles.root} type="button" onClick={onClick} {...data({size, environment})}>
-      <Icon className={styles.icon} icon={icon} {...data({environment})}/>
-    </button>
-  );
+    return (
+      <button styleName="root" type="button" onClick={onClick} {...data({size, color})}>
+        <FontAwesomeIcon styleName="icon" icon={icon} {...data({color})}/>
+      </button>
+    );
 
-};
+  }
+);

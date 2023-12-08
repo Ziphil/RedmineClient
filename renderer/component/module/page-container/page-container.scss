@@ -2,7 +2,7 @@
 
 
 .root {
-  margin-block-start: 24px;
+  margin-block-start: 12px;
   margin-block-end: 12px;
   margin-inline: 12px;
   padding-block-start: 24px;
@@ -12,7 +12,6 @@
   background-color: rgba(white, 0.5);
   border: 1px solid rgba(white, 0.3);
   box-shadow: 0px 8px 24px hsla(260, 30%, 30%, 0.2);
-  backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
   flex-grow: 1;

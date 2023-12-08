@@ -54,10 +54,10 @@ export const IssueController = function ({
 
   return (
     <div className={styles.root}>
-      <IconButton icon={faPersonRunning} size="large" onClick={startWork}/>
+      <IconButton icon={faPersonRunning} size="large" color="purple" onClick={startWork}/>
       <div className={styles.row}>
-        <IconButton icon={faCheck} size="medium" onClick={changeIssueStatusToClosed}/>
-        <IconButton icon={faBan} size="medium" onClick={changeIssueStatusToRejected}/>
+        <IconButton icon={faCheck} size="medium" color="blue" onClick={changeIssueStatusToClosed}/>
+        <IconButton icon={faBan} size="medium" color="pink" onClick={changeIssueStatusToRejected}/>
       </div>
     </div>
   );
