@@ -6,7 +6,8 @@ import {
   BrowserWindow,
   BrowserWindowConstructorOptions,
   app as electronApp,
-  ipcMain
+  ipcMain,
+  shell
 } from "electron";
 import {
   client
@@ -94,6 +95,9 @@ export class Main {
       if (window !== undefined) {
         window.maximize();
       }
+    });
+    ipcMain.on("open-external", (event, url) => {
+      shell.openExternal(url);
     });
     ipcMain.on("open-dev-tools", (event, id) => {
       const window = this.windows.get(id);

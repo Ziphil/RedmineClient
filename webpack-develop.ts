@@ -131,6 +131,7 @@ export const commonRenderer = {
   plugins: [
     new DefinePlugin({
       "process.env": {},
+      "process.env.REDMINE_URL": JSON.stringify(process.env["REDMINE_URL"]),
       "global": "globalThis"
     }),
     new HtmlWebpackPlugin({
