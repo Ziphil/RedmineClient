@@ -51,7 +51,7 @@ export const WorkController = create(
       <div styleName="root">
         <IconButton icon={faStop} size="large" color="purple" onClick={punch}/>
         <div styleName="row">
-          <IconButton icon={(work?.startDate !== null) ? faPlay : faPause} size="medium" color="blue" onClick={pause}/>
+          <IconButton icon={(work?.startDate !== null) ? faPause : faPlay} size="medium" color="blue" onClick={pause}/>
           <IconButton icon={faXmark} size="medium" color="pink" onClick={cancel}/>
         </div>
       </div>

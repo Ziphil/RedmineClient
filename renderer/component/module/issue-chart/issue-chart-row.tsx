@@ -1,6 +1,7 @@
 //
 
 import {faAngleRight} from "@fortawesome/pro-regular-svg-icons";
+import {faArrowLeft, faArrowRight} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {css} from "@linaria/core";
 import dayjs, {Dayjs} from "dayjs";
@@ -158,6 +159,7 @@ export const IssueChartRow = create(
     const [startIndex, startOverflown, startBeyond] = calcStartIndex(issue, businessDates);
     const [endIndex, endOverflown, endBeyond] = calcEndIndex(issue, businessDates);
     const late = issue.dueDate !== null && dayjs().isAfter(issue.dueDate, "day");
+    const coming = issue.startDate !== null && dayjs().isBefore(issue.startDate, "day");
 
     return (
       <Link styleName="root" to={`/issue/${issue.id}`} style={{gridTemplateColumns: `1fr repeat(${businessDates.length}, 36px)`}}>
@@ -195,7 +197,7 @@ export const IssueChartRow = create(
             <div
               styleName="meter"
               style={{gridColumnStart: startIndex + 2, gridColumnEnd: endIndex + 2}}
-              {...data({parent, startOverflown, endOverflown})}
+              {...data({parent, startOverflown, endOverflown, late, coming})}
               {...aria({hidden: true})}
             />
           ) : (
@@ -203,7 +205,9 @@ export const IssueChartRow = create(
               styleName="arrow"
               {...data({parent, startBeyond, endBeyond})}
               {...aria({hidden: true})}
-            />
+            >
+              <FontAwesomeIcon icon={startBeyond ? faArrowRight : faArrowLeft}/>
+            </div>
           )
         )}
       </Link>

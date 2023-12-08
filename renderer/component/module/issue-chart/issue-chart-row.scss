@@ -30,7 +30,7 @@
 .indent-item {
   width: 16px;
   padding-inline-start: 2px;
-  color: hsla(260, 60%, 60%, 0.5);
+  color: hsla(260, 90%, 70%, 0.5);
   flex-grow: 0;
   flex-shrink: 0;
 }
@@ -63,10 +63,16 @@
 .meter {
   height: 16px;
   border-radius: 16px;
-  background-color: hsla(260, 60%, 60%, 0.8);
-  border: 1px solid rgba(black, 0.2);
+  background-color: hsla(220, 90%, 65%, 0.8);
+  border: 1px solid rgba(black, 0.15);
   box-shadow: 0px 1px 8px rgba(white, 0.5);
   grid-row: 1;
+  &[data-late] {
+    background-color: hsla(320, 90%, 70%, 0.8);
+  }
+  &[data-coming] {
+    background-color: hsla(260, 90%, 70%, 0.8);
+  }
   &[data-parent] {
     height: 6px;
     opacity: 0.5;
@@ -95,9 +101,11 @@
   grid-row: 1;
   display: flex;
   &[data-start-beyond] {
+    color: hsla(260, 90%, 70%, 0.8);
     justify-content: flex-end;
   }
   &[data-end-beyond] {
+    color: hsla(320, 90%, 70%, 0.8);
     justify-content: flex-start;
   }
 }

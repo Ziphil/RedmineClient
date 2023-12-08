@@ -2,77 +2,47 @@
 
 import {faArrowUpRightFromSquare, faLeft} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {css} from "@linaria/core";
 import {ReactElement, useCallback} from "react";
 import {Link, LoaderFunctionArgs, useParams} from "react-router-dom";
+import {create} from "/renderer/component/create";
 import {IssueView} from "/renderer/component/module/issue-view";
 import {PageContainer} from "/renderer/component/module/page-container";
 import {useSuspenseQuery} from "/renderer/hook/request";
 import {data} from "/renderer/util/data";
 
 
-const styles = {
-  root: css`
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    flex-shrink: 1;
-  `,
-  navigation: css`
-    display: flex;
-    justify-content: space-between;
-    flex-grow: 0;
-    flex-shrink: 0;
-  `,
-  main: css`
-    margin-block-start: 16px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    flex-shrink: 1;
-  `,
-  link: css`
-    color: hsl(220, 65%, 50%);
-    border-block-end: 1px solid currentcolor;
-    cursor: pointer;
-    &[data-simple] {
-      border: none;
-    }
-  `,
-  icon: css`
-    margin-inline-end: 4px;
-  `
-};
+export const IssuePage = create(
+  require("./issue-page.scss"), "IssuePage",
+  function ({
+  }: {
+  }): ReactElement {
 
-export const IssuePage = function ({
-}: {
-}): ReactElement {
+    const {id} = useParams();
+    const [issue] = useSuspenseQuery("fetchIssue", window.api.fetchIssue, {id: +(id ?? "1")});
 
-  const {id} = useParams();
-  const [issue] = useSuspenseQuery("fetchIssue", window.api.fetchIssue, {id: +(id ?? "1")});
+    const openExternal = useCallback(function (): void {
+      window.api.send("open-external", `${process.env["REDMINE_URL"]}/issues/${issue.id}`);
+    }, [issue.id]);
 
-  const openExternal = useCallback(function (): void {
-    window.api.send("open-external", `${process.env["REDMINE_URL"]}/issues/${issue.id}`);
-  }, [issue.id]);
+    return (
+      <PageContainer>
+        <nav styleName="navigation">
+          <Link styleName="link" to="/chart">
+            <FontAwesomeIcon styleName="icon" icon={faLeft}/>
+            BACK
+          </Link>
+          <button styleName="link" type="button" onClick={openExternal} {...data({simple: true})}>
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare}/>
+          </button>
+        </nav>
+        <div styleName="main">
+          <IssueView issue={issue}/>
+        </div>
+      </PageContainer>
+    );
 
-  return (
-    <PageContainer>
-      <nav className={styles.navigation}>
-        <Link className={styles.link} to="/chart">
-          <FontAwesomeIcon className={styles.icon} icon={faLeft}/>
-          BACK
-        </Link>
-        <button className={styles.link} type="button" onClick={openExternal} {...data({simple: true})}>
-          <FontAwesomeIcon icon={faArrowUpRightFromSquare}/>
-        </button>
-      </nav>
-      <div className={styles.main}>
-        <IssueView issue={issue}/>
-      </div>
-    </PageContainer>
-  );
-
-};
+  }
+);
 
 
 export async function loadIssuePage(args: LoaderFunctionArgs): Promise<{}> {

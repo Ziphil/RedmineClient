@@ -1,9 +1,9 @@
 //
 
 import {IconDefinition, faBan, faCheck, faMinus, faRunning, faSparkles} from "@fortawesome/pro-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {css} from "@linaria/core";
 import {ReactElement} from "react";
-import {Icon} from "/renderer/component/atom/icon";
 import {Status} from "/renderer/type";
 import {gradientBackground, gradientText} from "/renderer/util/css";
 
@@ -32,7 +32,7 @@ export const StatusView = function ({
 
   return (
     <span className={styles.root}>
-      <Icon className={styles.icon} icon={icon}/>
+      <FontAwesomeIcon className={styles.icon} icon={icon}/>
       <span className={styles.label}>{label}</span>
     </span>
   );
