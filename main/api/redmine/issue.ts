@@ -59,15 +59,23 @@ export async function addSpentTime(id: number, time: number): Promise<void> {
 
 type InnerHierarchicalIssue = HierarchicalIssue & {parentIssueId: number | null, actualParentIssueId: number | null};
 
-function createIssue(rawIssue: any): Issue {
+function createIssue(rawIssue: Record<string, any>): Issue {
+  const customField = rawIssue.customField as Array<any> | undefined;
+  const requestCustomField = customField?.find((field) => field.id === 3);
+  const requirementCustomField = customField?.find((field) => field.id === 6);
   return {
     id: rawIssue.id,
     subject: rawIssue.subject,
     description: markdown.render(rawIssue.description ?? ""),
+    requirement: requirementCustomField ? markdown.render(requirementCustomField.value ?? "") : "",
     project: rawIssue.project,
     tracker: toTracker(rawIssue.tracker.id),
     status: toStatus(rawIssue.status.id),
+    category: rawIssue.category ?? null,
+    version: rawIssue.fixedVersion ?? null,
     ratio: rawIssue.doneRatio,
+    assignedUser: rawIssue.assignedTo ? {id: rawIssue.assignedTo.id, name: rawIssue.assignedTo.name} : null,
+    requestedUser: requestCustomField ? {id: requestCustomField.value} : null,
     startDate: rawIssue.startDate,
     dueDate: rawIssue.dueDate,
     parentIssue: rawIssue.parent ? {id: rawIssue.parent.id} : null

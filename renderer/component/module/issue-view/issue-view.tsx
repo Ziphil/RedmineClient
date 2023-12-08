@@ -18,6 +18,7 @@ const styles = {
     flex-shrink: 1;
   `,
   top: css`
+    column-gap: 32px;
     padding-block-end: 24px;
     border-block-end: 1px solid ${borderColor()};
     display: flex;
