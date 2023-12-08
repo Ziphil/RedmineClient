@@ -117,7 +117,7 @@ export const IssueSubjectView = function ({
     <div className={styles.root}>
       <div className={styles.complement} {...data({size})}>
         <IdView id={issue.id} environment={environment}/>
-        <span className={styles.complementExtra}>
+        <span className={styles.complementExtra} {...data({size})}>
           <StatusView status={issue.status}/>
         </span>
       </div>
