@@ -39,13 +39,13 @@
 
 .article {
   padding-block-start: 16px;
-  padding-block-end: 16px - 3px;
+  padding-block-end: 16px - 6px;
   display: flex;
   flex-direction: column;
 }
 
 .heading {
-  margin-block-end: 16px - 3px;
+  margin-block-end: 16px - 6px;
   font-size: 16px;
   font-weight: bold;
   letter-spacing: 0.2em;

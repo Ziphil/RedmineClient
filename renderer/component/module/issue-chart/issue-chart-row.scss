@@ -50,10 +50,10 @@
   flex-grow: 1;
   flex-shrink: 1;
   &[data-late] {
-    color: hsla(320, 60%, 60%, 0.9);
+    color: hsla(320, 80%, 60%, 0.9);
   }
   &[data-now] {
-    color: hsla(220, 60%, 55%, 0.9);
+    color: hsla(220, 80%, 55%, 0.9);
   }
 }
 

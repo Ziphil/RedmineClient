@@ -24,19 +24,21 @@ export const IssueChartHeader = create(
 
     return (
       <div styleName="root" style={{gridTemplateColumns: `1fr repeat(${businessDates.length}, 36px)`}}>
-        <div styleName="count">
-          <div styleName="total-count">
-            <FontAwesomeIcon styleName="count-icon" icon={faTasks}/>
-            {counts.late + counts.now}
-          </div>
-          <div styleName="count-table">
-            <div styleName="count-item" {...data({type: "now"})}>
-              <span styleName="count-label">今日</span>
-              <span>{counts.now}</span>
+        <div styleName="corner">
+          <div styleName="count">
+            <div styleName="total-count">
+              <FontAwesomeIcon styleName="count-icon" icon={faTasks}/>
+              {counts.late + counts.now}
             </div>
-            <div styleName="count-item" {...data({type: "late"})}>
-              <span styleName="count-label">遅延</span>
-              <span>{counts.late}</span>
+            <div styleName="count-table">
+              <div styleName="count-item" {...data({type: "now"})}>
+                <span styleName="count-label">今日</span>
+                <span>{counts.now}</span>
+              </div>
+              <div styleName="count-item" {...data({type: "late"})}>
+                <span styleName="count-label">遅延</span>
+                <span>{counts.late}</span>
+              </div>
             </div>
           </div>
         </div>

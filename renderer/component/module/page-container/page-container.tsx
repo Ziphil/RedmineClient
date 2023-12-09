@@ -2,6 +2,8 @@
 
 import {ReactElement, ReactNode} from "react";
 import {create} from "/renderer/component/create";
+import {Header} from "/renderer/component/module/header";
+import {WorkPlayer} from "/renderer/component/module/work-player";
 
 
 export const PageContainer = create(
@@ -15,14 +17,17 @@ export const PageContainer = create(
   }): ReactElement {
 
     return (
-      <main styleName="root">
-        <div styleName="menu">
-          {menuNode}
+      <div styleName="root">
+        <div styleName="top">
+          <Header/>
+          <WorkPlayer/>
         </div>
-        <div styleName="main">
-          {children}
-        </div>
-      </main>
+        <main styleName="main">
+          <div styleName="pane">
+            {children}
+          </div>
+        </main>
+      </div>
     );
 
   }

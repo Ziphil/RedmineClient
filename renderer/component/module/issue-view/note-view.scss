@@ -2,7 +2,7 @@
 
 
 .root {
-  margin-block: 3px;
+  margin-block: 6px;
   row-gap: 12px;
   display: flex;
   flex-direction: column;
@@ -12,7 +12,7 @@
 
 .note {
   padding-block-start: 10px;
-  padding-block-end: 10px - 2px;
+  padding-block-end: 10px - 4px;
   padding-inline: 10px;
   border-radius: 6px;
   background-image: linear-gradient(to right bottom, hsla(320, 90%, 70%, 0.1), hsla(260, 90%, 70%, 0.1) 40%, hsla(200, 90%, 65%, 0.1));
@@ -20,7 +20,7 @@
 }
 
 .top {
-  margin-bottom: 8px - 2px;
+  margin-bottom: 10px - 4px;
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -4,6 +4,7 @@ import {faChartSimpleHorizontal, faRocketLaunch, faWavePulse} from "@fortawesome
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import {ReactElement} from "react";
+import {TransitionLink} from "/renderer/component/atom/transition-link";
 import {create} from "/renderer/component/create";
 import {Clock} from "/renderer/component/module/clock";
 import {DateView} from "/renderer/component/module/date-view";
@@ -18,10 +19,10 @@ export const Header = create(
     return (
       <header styleName="root">
         <div styleName="left">
-          <div styleName="link">
+          <TransitionLink styleName="link" to="/chart">
             <FontAwesomeIcon styleName="icon" icon={faChartSimpleHorizontal}/>
             タスク
-          </div>
+          </TransitionLink>
           <div styleName="link">
             <FontAwesomeIcon styleName="icon" icon={faRocketLaunch}/>
             プロジェクト

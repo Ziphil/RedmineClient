@@ -1,53 +1,6 @@
 @charset "utf-8";
 
 
-.root {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  flex-shrink: 1;
-}
-
-.navigation {
-  font-size: 14px;
-  display: flex;
-  justify-content: space-between;
-  flex-grow: 0;
-  flex-shrink: 0;
-}
-
-.back {
-  padding-block: 6px;
-  padding-inline: 8px;
-  border-end-end-radius: 8px;
-  border-block-end: 1px solid rgba(white, 0.5);
-  border-inline-end: 1px solid rgba(white, 0.5);
-  color: hsla(260, 60%, 60%, 0.9);
-  background-color: rgba(white, 0.3);
-  cursor: pointer;
-  &:hover {
-    background-color: rgba(white, 0.5);
-  }
-}
-
-.external {
-  padding-block: 6px;
-  padding-inline: 8px;
-  border-end-start-radius: 8px;
-  border-block-end: 1px solid rgba(white, 0.5);
-  border-inline-start: 1px solid rgba(white, 0.5);
-  color: hsla(260, 60%, 60%, 0.9);
-  background-color: rgba(white, 0.3);
-  cursor: pointer;
-  &:hover {
-    background-color: rgba(white, 0.5);
-  }
-}
-
-.icon {
-  margin-inline-end: 4px;
-}
-
 .main {
   display: flex;
   flex-direction: column;

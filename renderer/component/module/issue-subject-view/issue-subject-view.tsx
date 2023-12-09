@@ -1,9 +1,10 @@
 //
 
 import {faAngleDown} from "@fortawesome/pro-regular-svg-icons";
+import {faArrowUpRightFromSquare} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import {ReactElement} from "react";
+import {ReactElement, useCallback} from "react";
 import {create} from "/renderer/component/create";
 import {DateView} from "/renderer/component/module/date-view";
 import {IdView} from "/renderer/component/module/id-view";
@@ -24,12 +25,19 @@ export const IssueSubjectView = create(
     environment?: "light" | "dark"
   }): ReactElement {
 
+    const openExternal = useCallback(function (): void {
+      window.api.send("open-external", `${process.env["REDMINE_URL"]}/issues/${issue.id}`);
+    }, [issue.id]);
+
     return (
       <div styleName="root">
         <div styleName="complement" {...data({size})}>
           <IdView id={issue.id} environment={environment}/>
           <span styleName="complement-extra" {...data({size})}>
             <StatusView status={issue.status}/>
+            <button styleName="external" onClick={openExternal}>
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare}/>
+            </button>
           </span>
         </div>
         <div styleName="project" {...data({size})}>

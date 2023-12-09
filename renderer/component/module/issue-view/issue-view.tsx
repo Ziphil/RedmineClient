@@ -29,7 +29,7 @@ export const IssueView = create(
         <div styleName="bottom">
           <SimpleBar styleName="scroll">
             <article styleName="article">
-              <h3 styleName="heading">DETAIL</h3>
+              <h3 styleName="heading">説明</h3>
               <Markdown>
                 {issue.description}
               </Markdown>
@@ -37,7 +37,7 @@ export const IssueView = create(
           </SimpleBar>
           <SimpleBar styleName="scroll">
             <section styleName="article">
-              <h3 styleName="heading">COMMENTS</h3>
+              <h3 styleName="heading">コメント</h3>
               <NoteView issue={issue}/>
             </section>
           </SimpleBar>
