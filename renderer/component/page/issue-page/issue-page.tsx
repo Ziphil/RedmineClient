@@ -8,6 +8,7 @@ import {create} from "/renderer/component/create";
 import {IssueView} from "/renderer/component/module/issue-view";
 import {PageContainer} from "/renderer/component/module/page-container";
 import {useSuspenseQuery} from "/renderer/hook/request";
+import {Id} from "/renderer/type/common";
 import {data} from "/renderer/util/data";
 
 
@@ -17,8 +18,9 @@ export const IssuePage = create(
   }: {
   }): ReactElement {
 
-    const {id} = useParams();
-    const [issue] = useSuspenseQuery("fetchIssue", window.api.fetchIssue, {id: +(id ?? "1")});
+    const {idString} = useParams();
+    const id = +(idString ?? "1") as Id;
+    const [issue] = useSuspenseQuery("fetchIssue", window.api.fetchIssue, {id});
 
     const openExternal = useCallback(function (): void {
       window.api.send("open-external", `${process.env["REDMINE_URL"]}/issues/${issue.id}`);

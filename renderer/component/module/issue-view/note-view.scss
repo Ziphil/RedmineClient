@@ -7,37 +7,3 @@
   flex-grow: 1;
   flex-shrink: 1;
 }
-
-.top {
-  column-gap: 24px;
-  padding-block-end: 16px;
-  border-block-end: 1px solid rgba(white, 0.5);
-  display: flex;
-  align-items: center;
-  flex-grow: 0;
-  flex-shrink: 0;
-}
-
-.bottom {
-  column-gap: 24px;
-  display: grid;
-  grid-template-columns: 5fr 3fr;
-  flex-grow: 1;
-  flex-shrink: 1;
-}
-
-.subject {
-  font-size: 28px;
-  flex-grow: 1;
-  flex-shrink: 1;
-}
-
-.scroll {
-  flex-grow: 1;
-  flex-shrink: 1;
-}
-
-.article {
-  padding-block-start: 12px;
-  padding-block-end: 12px;
-}

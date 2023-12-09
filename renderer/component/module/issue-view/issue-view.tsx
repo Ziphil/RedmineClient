@@ -5,6 +5,7 @@ import SimpleBar from "simplebar-react";
 import {Markdown} from "/renderer/component/atom/markdown";
 import {create} from "/renderer/component/create";
 import {IssueSubjectView} from "/renderer/component/module/issue-subject-view";
+import {NoteView} from "/renderer/component/module/issue-view/note-view";
 import {Issue} from "/renderer/type";
 import {IssueController} from "./issue-controller";
 
@@ -33,9 +34,7 @@ export const IssueView = create(
           </SimpleBar>
           <SimpleBar styleName="scroll">
             <div styleName="article">
-              <Markdown>
-                {issue.description}
-              </Markdown>
+              <NoteView issue={issue}/>
             </div>
           </SimpleBar>
         </div>

@@ -11,7 +11,7 @@ import {IssuePage, loadIssuePage} from "/renderer/component/page/issue-page";
 
 const router = createHashRouter([
   {path: "/chart", element: <ChartPage/>},
-  {path: "issue/:id", element: <IssuePage/>, loader: loadIssuePage}
+  {path: "issue/:idString", element: <IssuePage/>, loader: loadIssuePage}
 ]);
 
 
