@@ -1,10 +1,10 @@
 //
 
-import {faAngleDown} from "@fortawesome/pro-regular-svg-icons";
+import {faAngleDown, faAnglesRight} from "@fortawesome/pro-regular-svg-icons";
 import {faArrowUpRightFromSquare} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import {ReactElement, useCallback} from "react";
+import {Fragment, ReactElement, useCallback} from "react";
 import {create} from "/renderer/component/create";
 import {DateView} from "/renderer/component/module/date-view";
 import {IdView} from "/renderer/component/module/id-view";
@@ -17,10 +17,12 @@ export const IssueSubjectView = create(
   require("./issue-subject-view.scss"), "IssueSubjectView",
   function ({
     issue,
+    ancestorIssues,
     size,
     environment = "light"
   }: {
     issue: Issue,
+    ancestorIssues?: Array<Issue>,
     size: "medium" | "large",
     environment?: "light" | "dark"
   }): ReactElement {
@@ -42,7 +44,18 @@ export const IssueSubjectView = create(
         </div>
         <div styleName="project" {...data({size})}>
           {issue.project.name}
+          <FontAwesomeIcon styleName="hierarchy-arrow" icon={faAnglesRight} {...data({environment})}/>
         </div>
+        {(ancestorIssues !== null) && (
+          <div styleName="ancestor" {...data({size})}>
+            {ancestorIssues?.map((ancestorIssue, index) => (
+              <Fragment key={ancestorIssue.id}>
+                <div>{ancestorIssue.subject}</div>
+                <FontAwesomeIcon styleName="hierarchy-arrow" icon={faAnglesRight} {...data({environment})}/>
+              </Fragment>
+            ))}
+          </div>
+        )}
         <div styleName="subject" {...data({size})}>
           {issue.subject}
         </div>
@@ -54,7 +67,7 @@ export const IssueSubjectView = create(
               </div>
               <div styleName="info-value">
                 {(issue.startDate !== null) ? <DateView date={dayjs(issue.startDate)} orientation="horizontal"/> : "未定"}
-                <FontAwesomeIcon styleName="arrow" icon={faAngleDown}/>
+                <FontAwesomeIcon styleName="info-arrow" icon={faAngleDown}/>
                 {(issue.dueDate !== null) ? <DateView date={dayjs(issue.dueDate)} orientation="horizontal"/> : "未定"}
               </div>
             </div>

@@ -13,16 +13,18 @@ import {NoteView} from "./note-view";
 export const IssueView = create(
   require("./issue-view.scss"), "IssueView",
   function ({
-    issue
+    issue,
+    ancestorIssues
   }: {
-    issue: Issue
+    issue: Issue,
+    ancestorIssues: Array<Issue>
   }): ReactElement {
 
     return (
       <div styleName="root">
         <div styleName="top">
           <div styleName="subject">
-            <IssueSubjectView issue={issue} size="medium"/>
+            <IssueSubjectView issue={issue} ancestorIssues={ancestorIssues} size="medium"/>
           </div>
           <IssueController issue={issue}/>
         </div>

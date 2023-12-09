@@ -21,15 +21,36 @@ export async function fetchHierarchicalIssues({}: {}): Promise<Array<Hierarchica
     limit: 100
   };
   const response = await client.get("/issues.json", {params});
-  const rawIssues = response.data.issues as Array<any>;
-  const issues = rawIssues.map((rawIssue) => createIssue(rawIssue));
+  const rawIssues = response.data["issues"] as Array<any>;
+  const issues = rawIssues.map(createIssue);
   const issueGroups = groupHierarchicalIssues(hierarchizeIssues(issues));
   return issueGroups;
 }
 
+export async function fetchAncestorIssues({id}: {id: Id}): Promise<Array<Issue>> {
+  const rawIssues = [];
+  let currentId = id;
+  while (true) {
+    const response = await client.get(`/issues/${currentId}.json`);
+    const rawIssue = response.data["issue"];
+    rawIssues.unshift(rawIssue);
+    if (rawIssue["parent"]) {
+      currentId = rawIssue["parent"]["id"];
+    } else {
+      break;
+    }
+  }
+  rawIssues.pop();
+  const issues = rawIssues.map(createIssue);
+  return issues;
+}
+
 export async function fetchIssue({id}: {id: Id}): Promise<Issue> {
-  const response = await client.get(`/issues/${id}.json`);
-  const rawIssue = response.data.issue;
+  const params = {
+    include: "children,relations,journals"
+  };
+  const response = await client.get(`/issues/${id}.json`, {params});
+  const rawIssue = response.data["issue"];
   const singleIssue = createIssue(rawIssue);
   return singleIssue;
 }
@@ -46,25 +67,25 @@ export async function changeIssueStatus({id, status}: {id: Id, status: Status}):
 type InnerHierarchicalIssue = HierarchicalIssue & {parentIssueId: Id | null, actualParentIssueId: Id | null};
 
 function createIssue(rawIssue: Record<string, any>): Issue {
-  const customFields = rawIssue.customFields as Array<any> | undefined;
-  const requestCustomField = customFields?.find((field) => field.id === 3);
-  const requirementCustomField = customFields?.find((field) => field.id === 6);
+  const customFields = rawIssue["customFields"] as Array<any> | undefined;
+  const requestCustomField = customFields?.find((field) => field["id"] === 3);
+  const requirementCustomField = customFields?.find((field) => field["id"] === 6);
   return {
-    id: rawIssue.id,
-    subject: rawIssue.subject,
-    description: renderMarkdown(rawIssue.description ?? ""),
-    requirement: requirementCustomField ? renderMarkdown(requirementCustomField.value ?? "") : null,
-    project: rawIssue.project,
-    tracker: toTracker(rawIssue.tracker.id),
-    status: toStatus(rawIssue.status.id),
-    category: rawIssue.category ?? null,
-    version: rawIssue.fixedVersion ?? null,
-    ratio: rawIssue.doneRatio,
-    assignedUser: rawIssue.assignedTo ? {id: rawIssue.assignedTo.id, name: rawIssue.assignedTo.name} : null,
-    requestedUser: requestCustomField ? {id: requestCustomField.value} : null,
-    startDate: rawIssue.startDate,
-    dueDate: rawIssue.dueDate,
-    parentIssue: rawIssue.parent ? {id: rawIssue.parent.id} : null
+    id: rawIssue["id"],
+    subject: rawIssue["subject"],
+    description: renderMarkdown(rawIssue["description"] ?? ""),
+    requirement: requirementCustomField ? renderMarkdown(requirementCustomField["value"] ?? "") : null,
+    project: rawIssue["project"],
+    tracker: toTracker(rawIssue["tracker"]["id"]),
+    status: toStatus(rawIssue["status"]["id"]),
+    category: rawIssue["category"] ?? null,
+    version: rawIssue["fixedVersion"] ?? null,
+    ratio: rawIssue["doneRatio"],
+    assignedUser: rawIssue["assignedTo"] ? {id: rawIssue["assignedTo"]["id"], name: rawIssue["assignedTo"]["name"]} : null,
+    requestedUser: requestCustomField ? {id: requestCustomField["value"]} : null,
+    startDate: rawIssue["startDate"],
+    dueDate: rawIssue["dueDate"],
+    parentIssue: rawIssue["parent"] ? {id: rawIssue["parent"]["id"]} : null
   };
 }
 
