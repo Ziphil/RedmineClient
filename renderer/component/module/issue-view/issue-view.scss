@@ -19,7 +19,7 @@
 }
 
 .bottom {
-  column-gap: 24px;
+  column-gap: 32px;
   display: grid;
   grid-template-columns: 5fr 3fr;
   flex-grow: 1;
@@ -38,6 +38,16 @@
 }
 
 .article {
-  padding-block-start: 12px;
-  padding-block-end: 12px;
+  padding-block-start: 16px;
+  padding-block-end: 16px - 3px;
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  margin-block-end: 16px - 3px;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  color: hsla(260, 30%, 60%, 0.9);
 }

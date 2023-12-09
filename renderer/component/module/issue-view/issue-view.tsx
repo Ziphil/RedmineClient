@@ -28,14 +28,18 @@ export const IssueView = create(
         </div>
         <div styleName="bottom">
           <SimpleBar styleName="scroll">
-            <Markdown styleName="article">
-              {issue.description}
-            </Markdown>
+            <article styleName="article">
+              <h3 styleName="heading">DETAIL</h3>
+              <Markdown>
+                {issue.description}
+              </Markdown>
+            </article>
           </SimpleBar>
           <SimpleBar styleName="scroll">
-            <div styleName="article">
+            <section styleName="article">
+              <h3 styleName="heading">COMMENTS</h3>
               <NoteView issue={issue}/>
-            </div>
+            </section>
           </SimpleBar>
         </div>
       </div>

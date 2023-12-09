@@ -1,9 +1,10 @@
 @charset "utf-8";
 
+@use "sass:math" as *;
+
 
 .root {
-  row-gap: 6px;
-  font-size: 16px;
+  row-gap: 0.3em;
   line-height: 1.5;
   display: flex;
   flex-direction: column;
@@ -32,26 +33,20 @@
 }
 
 .root h1 {
-  font-size: 24px;
-  &:not(:first-child) {
-    margin-block-start: 6px;
-  }
+  font-size: 140%;
 }
 
 .root h2 {
-  font-size: 20px;
-  &:not(:first-child) {
-    margin-block-start: 6px;
-  }
+  font-size: 120%;
 }
 
 .root ul {
   list-style: none;
   >li {
-    margin-inline-start: 12px;
+    margin-inline-start: 0.8em;
     position: relative;
     &::before {
-      inset-inline-start: -12px;
+      inset-inline-start: -0.8em;
       position: absolute;
       content: "•";
     }
@@ -62,14 +57,14 @@
   list-style: none;
   counter-reset: ol;
   >li {
-    margin-inline-start: 24px;
+    margin-inline-start: 1.4em;
     position: relative;
     counter-increment: ol;
     &::before {
-      width: 18px;
+      width: 1.5em;
       padding-block: 0.2em;
-      inset-inline-start: -24px;
-      inset-block-end: 0.24em;
+      inset-inline-start: div(-1.4em, 0.7);
+      inset-block-end: 0.27em;
       font-size: 70%;
       letter-spacing: -0.05em;
       border-radius: 1em;
@@ -85,21 +80,20 @@
 }
 
 .root blockquote {
-  margin-inline-start: 2px;
-  padding-inline-start: 8px;
-  row-gap: 6px;
+  padding-inline-start: 0.5em;
+  row-gap: 0.3em;
+  border-inline-start: 3px double rgba(white, 0.5);
   display: flex;
   flex-direction: column;
-  border-inline-start: 3px double rgba(white, 0.5);
 }
 
 .root pre {
-  margin-block: 4px;
-  padding-block: 2px;
-  padding-inline: 6px;
+  margin-block: 0.2em;
+  padding-block: 0.2em;
+  padding-inline: 0.5em;
   border-radius: 4px;
-  line-height: 1 !important;
   border: 1px solid rgba(white, 0.5);
+  line-height: 1 !important;
   >code {
     display: contents;
   }

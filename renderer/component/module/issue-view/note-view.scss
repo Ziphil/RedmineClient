@@ -2,8 +2,42 @@
 
 
 .root {
+  margin-block: 3px;
+  row-gap: 12px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   flex-shrink: 1;
+}
+
+.note {
+  padding-block-start: 10px;
+  padding-block-end: 10px - 2px;
+  padding-inline: 10px;
+  border-radius: 6px;
+  background-image: linear-gradient(to right bottom, hsla(320, 90%, 70%, 0.1), hsla(260, 90%, 70%, 0.1) 40%, hsla(200, 90%, 65%, 0.1));
+  background-attachment: fixed;
+}
+
+.top {
+  margin-bottom: 8px - 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.name {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.date {
+  column-gap: 0.5em;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.content {
+  font-size: 14px;
 }
