@@ -46,9 +46,9 @@ export async function changeIssueStatus({id, status}: {id: Id, status: Status}):
 type InnerHierarchicalIssue = HierarchicalIssue & {parentIssueId: Id | null, actualParentIssueId: Id | null};
 
 function createIssue(rawIssue: Record<string, any>): Issue {
-  const customField = rawIssue.customField as Array<any> | undefined;
-  const requestCustomField = customField?.find((field) => field.id === 3);
-  const requirementCustomField = customField?.find((field) => field.id === 6);
+  const customFields = rawIssue.customFields as Array<any> | undefined;
+  const requestCustomField = customFields?.find((field) => field.id === 3);
+  const requirementCustomField = customFields?.find((field) => field.id === 6);
   return {
     id: rawIssue.id,
     subject: rawIssue.subject,

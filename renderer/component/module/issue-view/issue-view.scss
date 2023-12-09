@@ -46,8 +46,10 @@
 
 .heading {
   margin-block-end: 16px - 6px;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
-  letter-spacing: 0.2em;
   color: hsla(260, 30%, 60%, 0.9);
+  &:not(:first-child) {
+    margin-block-start: 16px - 6px;
+  }
 }

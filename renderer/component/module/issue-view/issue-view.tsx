@@ -29,10 +29,22 @@ export const IssueView = create(
         <div styleName="bottom">
           <SimpleBar styleName="scroll">
             <article styleName="article">
-              <h3 styleName="heading">説明</h3>
-              <Markdown>
-                {issue.description}
-              </Markdown>
+              {(!!issue.description) && (
+                <>
+                  <h3 styleName="heading">説明</h3>
+                  <Markdown>
+                    {issue.description}
+                  </Markdown>
+                </>
+              )}
+              {(!!issue.requirement) && (
+                <>
+                  <h3 styleName="heading">終了条件</h3>
+                  <Markdown>
+                    {issue.requirement}
+                  </Markdown>
+                </>
+              )}
             </article>
           </SimpleBar>
           <SimpleBar styleName="scroll">
