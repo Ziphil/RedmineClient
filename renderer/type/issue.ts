@@ -1,41 +1,43 @@
 //
 
+import {HtmlString, Id} from "/renderer/type/common";
+
 
 export interface Issue {
 
-  id: number;
+  id: Id;
   subject: string;
-  description: string;
-  requirement: string;
-  project: {id: number, name: string};
+  description: HtmlString;
+  requirement: HtmlString | null;
+  project: {id: Id, name: string};
   tracker: Tracker;
   status: Status;
-  category: {id: number, name: string} | null;
-  version: {id: number, name: string} | null;
+  category: {id: Id, name: string} | null;
+  version: {id: Id, name: string} | null;
   ratio: number;
-  assignedUser: {id: number, name: string} | null;
-  requestedUser: {id: number} | null;
+  assignedUser: {id: Id, name: string} | null;
+  requestedUser: {id: Id} | null;
   startDate: string | null;
   dueDate: string | null;
-  parentIssue: {id: number} | null;
+  parentIssue: {id: Id} | null;
 
 }
 
 
 export interface HierarchicalIssue {
 
-  id: number;
+  id: Id;
   subject: string;
-  description: string;
-  requirement: string;
-  project: {id: number, name: string};
+  description: HtmlString;
+  requirement: HtmlString | null;
+  project: {id: Id, name: string};
   tracker: Tracker;
   status: Status;
-  category: {id: number, name: string} | null;
-  version: {id: number, name: string} | null;
+  category: {id: Id, name: string} | null;
+  version: {id: Id, name: string} | null;
   ratio: number;
-  assignedUser: {id: number, name: string} | null;
-  requestedUser: {id: number} | null;
+  assignedUser: {id: Id, name: string} | null;
+  requestedUser: {id: Id} | null;
   startDate: string | null;
   dueDate: string | null;
   childIssues: Array<HierarchicalIssue>;
@@ -45,7 +47,7 @@ export interface HierarchicalIssue {
 
 export interface HierarchicalIssueGroup {
 
-  id: number;
+  id: Id;
   name: string;
   issues: Array<HierarchicalIssue>;
 

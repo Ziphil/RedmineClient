@@ -25,13 +25,20 @@ export const IssueView = create(
           </div>
           <IssueController issue={issue}/>
         </div>
-        <SimpleBar styleName="scroll">
-          <article styleName="article">
-            <Markdown>
+        <div styleName="bottom">
+          <SimpleBar styleName="scroll">
+            <Markdown styleName="article">
               {issue.description}
             </Markdown>
-          </article>
-        </SimpleBar>
+          </SimpleBar>
+          <SimpleBar styleName="scroll">
+            <div styleName="article">
+              <Markdown>
+                {issue.description}
+              </Markdown>
+            </div>
+          </SimpleBar>
+        </div>
       </div>
     );
 

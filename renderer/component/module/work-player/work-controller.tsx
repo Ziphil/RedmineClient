@@ -23,7 +23,7 @@ export const WorkController = create(
     const punch = useCallback(async function (): Promise<void> {
       if (work !== null) {
         const time = ((work.startDate !== null) ? dayjs().diff(work.startDate, "millisecond") : 0) + work.additionalTime;
-        await window.api.addSpentTime(work.issue.id, time);
+        await window.api.addSpentTime({issueId: work.issue.id, time});
         await Promise.all([
           invalidateQueries("fetchIssues"),
           invalidateQueries("fetchIssue", (arg) => arg.id === work.issue.id)

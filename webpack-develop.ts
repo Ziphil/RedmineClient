@@ -5,9 +5,7 @@ import electronReload from "electron-reload-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import * as path from "path";
-import {
-  DefinePlugin
-} from "webpack";
+import {DefinePlugin} from "webpack";
 import merge from "webpack-merge";
 
 
@@ -71,37 +69,20 @@ export const commonRenderer = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "@linaria/webpack5-loader",
-            options: {
-              sourceMap: "development",
-              babelOptions: {
-                presets: [
-                  "@babel/preset-typescript"
-                ]
-              }
-            }
-          },
-          {
             loader: "ts-loader"
           }
         ]
       },
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         use: [
           {
             loader: "babel-loader"
-          },
-          {
-            loader: "@linaria/webpack-loader",
-            options: {
-              sourceMap: process.env.NODE_ENV !== "production",
-            },
           }
         ],
       },
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         enforce: "pre",
         loader: "source-map-loader"
       },

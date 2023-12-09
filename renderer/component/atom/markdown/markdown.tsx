@@ -2,18 +2,21 @@
 
 import {DOMAttributes, ReactElement} from "react";
 import {create} from "/renderer/component/create";
+import {HtmlString} from "/renderer/type/common";
 
 
 export const Markdown = create(
   require("./markdown.scss"), "Markdown",
   function ({
-    children
+    children,
+    className
   }: {
-    children: string
+    children: HtmlString,
+    className?: string
   }): ReactElement {
 
     return (
-      <div styleName="root" dangerouslySetInnerHTML={createHtmlObject(children)}/>
+      <div styleName="root" className={className} dangerouslySetInnerHTML={createHtmlObject(children)}/>
     );
 
   }
@@ -22,7 +25,7 @@ export const Markdown = create(
 
 type HtmlObject = DOMAttributes<any>["dangerouslySetInnerHTML"];
 
-export const createHtmlObject = (html: string): HtmlObject => {
+export const createHtmlObject = (html: HtmlString): HtmlObject => {
   const htmlObject = {["__html"]: html};
   return htmlObject;
 };

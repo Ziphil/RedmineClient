@@ -1,7 +1,7 @@
 //
 
-import MarkdownIt from "markdown-it";
 import {client} from "/main/api/client";
+import {renderMarkdown} from "/main/util/markdown";
 import type {
   HierarchicalIssue,
   HierarchicalIssueGroup,
@@ -9,9 +9,8 @@ import type {
   Status,
   Tracker
 } from "/renderer/type";
+import {Id} from "/renderer/type/common";
 
-
-const markdown = new MarkdownIt({breaks: true});
 
 /** 自分が担当のイシューを取得します。
  * イシューはプロジェクトごとにグループ化されます。
@@ -28,14 +27,14 @@ export async function fetchHierarchicalIssues({}: {}): Promise<Array<Hierarchica
   return issueGroups;
 }
 
-export async function fetchIssue({id}: {id: number}): Promise<Issue> {
+export async function fetchIssue({id}: {id: Id}): Promise<Issue> {
   const response = await client.get(`/issues/${id}.json`);
   const rawIssue = response.data.issue;
   const singleIssue = createIssue(rawIssue);
   return singleIssue;
 }
 
-export async function changeIssueStatus({id, status}: {id: number, status: Status}): Promise<void> {
+export async function changeIssueStatus({id, status}: {id: Id, status: Status}): Promise<void> {
   const body = {
     issue: {
       statusId: fromStatus(status)
@@ -44,20 +43,7 @@ export async function changeIssueStatus({id, status}: {id: number, status: Statu
   await client.put(`/issues/${id}.json`, body);
 }
 
-/** 指定されたイシューに作業時間を追加します。
- * 追加される作業時間の種類は「開発作業 (ID 9)」になります。 */
-export async function addSpentTime(id: number, time: number): Promise<void> {
-  const body = {
-    timeEntry: {
-      issueId: id,
-      activityId: 9,
-      hours: time / 1000 / 60 / 60
-    }
-  };
-  await client.post("/time_entries.json", body);
-}
-
-type InnerHierarchicalIssue = HierarchicalIssue & {parentIssueId: number | null, actualParentIssueId: number | null};
+type InnerHierarchicalIssue = HierarchicalIssue & {parentIssueId: Id | null, actualParentIssueId: Id | null};
 
 function createIssue(rawIssue: Record<string, any>): Issue {
   const customField = rawIssue.customField as Array<any> | undefined;
@@ -66,8 +52,8 @@ function createIssue(rawIssue: Record<string, any>): Issue {
   return {
     id: rawIssue.id,
     subject: rawIssue.subject,
-    description: markdown.render(rawIssue.description ?? ""),
-    requirement: requirementCustomField ? markdown.render(requirementCustomField.value ?? "") : "",
+    description: renderMarkdown(rawIssue.description ?? ""),
+    requirement: requirementCustomField ? renderMarkdown(requirementCustomField.value ?? "") : null,
     project: rawIssue.project,
     tracker: toTracker(rawIssue.tracker.id),
     status: toStatus(rawIssue.status.id),
