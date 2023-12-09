@@ -1,5 +1,7 @@
 //
 
+import {faChartSimpleHorizontal, faRocketLaunch, faWavePulse} from "@fortawesome/pro-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import {ReactElement} from "react";
 import {create} from "/renderer/component/create";
@@ -16,9 +18,21 @@ export const Header = create(
     return (
       <header styleName="root">
         <div styleName="left">
-          <DateView date={dayjs()} orientation="horizontal"/>
+          <div styleName="link">
+            <FontAwesomeIcon styleName="icon" icon={faChartSimpleHorizontal}/>
+            タスク
+          </div>
+          <div styleName="link">
+            <FontAwesomeIcon styleName="icon" icon={faRocketLaunch}/>
+            プロジェクト
+          </div>
+          <div styleName="link">
+            <FontAwesomeIcon styleName="icon" icon={faWavePulse}/>
+            活動
+          </div>
         </div>
         <div styleName="right">
+          <DateView date={dayjs()} orientation="horizontal"/>
           <Clock/>
         </div>
       </header>

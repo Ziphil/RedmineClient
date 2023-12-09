@@ -12,3 +12,22 @@
   flex-grow: 0;
   flex-shrink: 0;
 }
+
+.left {
+  column-gap: 16px;
+  display: flex;
+  -webkit-app-region: no-drag;
+}
+
+.right {
+  column-gap: 0.3em;
+  display: flex;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.icon {
+  margin-inline-end: 6px;
+}

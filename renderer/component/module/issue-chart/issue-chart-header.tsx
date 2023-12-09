@@ -30,13 +30,13 @@ export const IssueChartHeader = create(
             {counts.late + counts.now}
           </div>
           <div styleName="count-table">
-            <div styleName="count-item" {...data({type: "late"})}>
-              <span styleName="count-label">LATE</span>
-              <span>{counts.late}</span>
-            </div>
             <div styleName="count-item" {...data({type: "now"})}>
-              <span styleName="count-label">TODAY</span>
+              <span styleName="count-label">今日</span>
               <span>{counts.now}</span>
+            </div>
+            <div styleName="count-item" {...data({type: "late"})}>
+              <span styleName="count-label">遅延</span>
+              <span>{counts.late}</span>
             </div>
           </div>
         </div>
