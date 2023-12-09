@@ -2,42 +2,30 @@
 
 import {IconDefinition, faBan, faCheck, faMinus, faRunning, faSparkles} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {css} from "@linaria/core";
 import {ReactElement} from "react";
+import {create} from "/renderer/component/create";
 import {Status} from "/renderer/type";
-import {gradientBackground, gradientText} from "/renderer/util/css";
 
 
-const styles = {
-  root: css`
-    display: inline-flex;
-    font-size: 80%;
-  `,
-  icon: css`
-    margin-inline-end: 4px;
-    ${gradientBackground(0.7)}
-  `,
-  label: css`
-    ${gradientText(0.7)}
-  `
-};
+export const StatusView = create(
+  require("./status-view.scss"), "StatusView",
+  function ({
+    status
+  }: {
+    status: Status
+  }): ReactElement {
 
-export const StatusView = function ({
-  status
-}: {
-  status: Status
-}): ReactElement {
+    const [icon, label] = getStatusSpec(status);
 
-  const [icon, label] = getStatusSpec(status);
+    return (
+      <span styleName="root">
+        <FontAwesomeIcon styleName="icon" icon={icon}/>
+        <span styleName="label">{label}</span>
+      </span>
+    );
 
-  return (
-    <span className={styles.root}>
-      <FontAwesomeIcon className={styles.icon} icon={icon}/>
-      <span className={styles.label}>{label}</span>
-    </span>
-  );
-
-};
+  }
+);
 
 
 function getStatusSpec(status: Status): [IconDefinition, string] {

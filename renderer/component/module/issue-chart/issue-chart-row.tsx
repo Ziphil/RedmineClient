@@ -3,144 +3,14 @@
 import {faAngleRight} from "@fortawesome/pro-regular-svg-icons";
 import {faArrowLeft, faArrowRight} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {css} from "@linaria/core";
 import dayjs, {Dayjs} from "dayjs";
 import {ReactElement} from "react";
 import {Link} from "react-router-dom";
 import {create} from "/renderer/component/create";
 import {IdView} from "/renderer/component/module/id-view";
 import {HierarchicalIssue} from "/renderer/type";
-import {borderColor, gradientBackground, gradientText, iconFont} from "/renderer/util/css";
 import {aria, data} from "/renderer/util/data";
 
-
-const styles = {
-  root: css`
-    height: 28px;
-    border-block-end: solid 1px ${borderColor()};
-    display: grid;
-    align-items: center;
-    z-index: 0;
-    cursor: pointer;
-    position: relative;
-    &::before {
-      inset: 0px;
-      ${gradientBackground(0.96)}
-      transition: opacity 0.1s ease;
-      opacity: 0;
-      z-index: -1;
-      content: "";
-      position: absolute;
-    }
-    &:hover::before {
-      opacity: 1;
-    }
-  `,
-  left: css`
-    margin-inline-end: 8px;
-    display: flex;
-    align-items: center;
-    grid-column: 1 / 2;
-  `,
-  indent: css`
-    display: flex;
-    flex-grow: 0;
-    flex-shrink: 0;
-  `,
-  indentItem: css`
-    width: 16px;
-    padding-inline-start: 2px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    &::before {
-      ${iconFont()}
-      ${gradientText(0.8)}
-      content: "\uF105";
-    }
-  `,
-  subjectContainer: css`
-    column-gap: 6px;
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    flex-shrink: 1;
-  `,
-  subject: css`
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    flex-grow: 1;
-    flex-shrink: 1;
-    &[data-late] {
-      color: hsl(320, 65%, 50%);
-    }
-  `,
-  percent: css`
-    font-size: 12px;
-    flex-grow: 0;
-    flex-shrink: 0;
-  `,
-  meter: css`
-    height: 16px;
-    border-radius: 16px;
-    ${gradientBackground(0.6)}
-    grid-row: 1;
-    &[data-parent] {
-      height: 6px;
-    }
-    &[data-start-overflown] {
-      border-start-start-radius: 0px;
-      border-end-start-radius: 0px;
-    }
-    &[data-end-overflown] {
-      border-start-end-radius: 0px;
-      border-end-end-radius: 0px;
-    }
-    &:not([data-start-overflown]) {
-      margin-inline-start: -2px;
-    }
-    &:not([data-end-overflown]) {
-      margin-inline-end: -2px;
-    }
-  `,
-  arrow: css`
-    margin-inline: 4px;
-    font-size: 16px;
-    ${gradientText(0.6)}
-    grid-column-start: 2;
-    grid-column-end: -1;
-    grid-row: 1;
-    display: flex;
-    &[data-start-beyond] {
-      justify-content: flex-end;
-      &::before {
-        ${iconFont()}
-        content: "\uF061";
-      }
-    }
-    &[data-end-beyond] {
-      justify-content: flex-start;
-      &::before {
-        ${iconFont()}
-        content: "\uF060";
-      }
-    }
-  `,
-  border: css`
-    display: contents;
-  `,
-  borderItem: css`
-    height: 100%;
-    border-inline-start: solid 1px ${borderColor()};
-    grid-row: 1;
-    &:last-of-type {
-      border-inline-end: solid 1px ${borderColor()};
-    }
-    &[data-today] {
-      ${gradientBackground(0.92)}
-    }
-  `
-};
 
 export const IssueChartRow = create(
   require("./issue-chart-row.scss"), "IssueChartRow",
@@ -159,7 +29,8 @@ export const IssueChartRow = create(
     const [startIndex, startOverflown, startBeyond] = calcStartIndex(issue, businessDates);
     const [endIndex, endOverflown, endBeyond] = calcEndIndex(issue, businessDates);
     const late = issue.dueDate !== null && dayjs().isAfter(issue.dueDate, "day");
-    const coming = issue.startDate !== null && dayjs().isBefore(issue.startDate, "day");
+    const future = issue.startDate !== null && dayjs().isBefore(issue.startDate, "day");
+    const now = issue.startDate !== null && issue.dueDate !== null && !late && !future;
 
     return (
       <Link styleName="root" to={`/issue/${issue.id}`} style={{gridTemplateColumns: `1fr repeat(${businessDates.length}, 36px)`}}>
@@ -173,7 +44,7 @@ export const IssueChartRow = create(
           </span>
           <span styleName="subject-container">
             <IdView id={issue.id}/>
-            <span styleName="subject" {...data({late})}>
+            <span styleName="subject" {...data({late, future, now})}>
               {issue.subject}
             </span>
             {(issue.childIssues.length > 0) && (
@@ -197,7 +68,7 @@ export const IssueChartRow = create(
             <div
               styleName="meter"
               style={{gridColumnStart: startIndex + 2, gridColumnEnd: endIndex + 2}}
-              {...data({parent, startOverflown, endOverflown, late, coming})}
+              {...data({parent, startOverflown, endOverflown, late, future, now})}
               {...aria({hidden: true})}
             />
           ) : (

@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+
+.root {
+  padding-block: 0.2em;
+  padding-inline: 0.5em;
+  font-size: 70%;
+  border-radius: 1em;
+  background-color: rgba(white, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.icon {
+  margin-inline-end: 4px;
+}

@@ -52,6 +52,9 @@
   &[data-late] {
     color: hsla(320, 60%, 60%, 0.9);
   }
+  &[data-now] {
+    color: hsla(220, 60%, 55%, 0.9);
+  }
 }
 
 .percent {
@@ -63,14 +66,16 @@
 .meter {
   height: 16px;
   border-radius: 16px;
-  background-color: hsla(220, 90%, 65%, 0.8);
   border: 1px solid rgba(black, 0.15);
   box-shadow: 0px 1px 8px rgba(white, 0.5);
   grid-row: 1;
   &[data-late] {
     background-color: hsla(320, 90%, 70%, 0.8);
   }
-  &[data-coming] {
+  &[data-now] {
+    background-color: hsla(220, 90%, 65%, 0.8);
+  }
+  &[data-future] {
     background-color: hsla(260, 90%, 70%, 0.8);
   }
   &[data-parent] {
