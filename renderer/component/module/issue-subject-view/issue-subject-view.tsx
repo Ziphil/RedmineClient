@@ -55,7 +55,7 @@ export const IssueSubjectView = create(
               <div styleName="info-value">
                 {(issue.startDate !== null) ? <DateView date={dayjs(issue.startDate)} orientation="horizontal"/> : "未定"}
                 <FontAwesomeIcon styleName="arrow" icon={faAngleDown}/>
-                {(issue.startDate !== null) ? <DateView date={dayjs(issue.startDate)} orientation="horizontal"/> : "未定"}
+                {(issue.dueDate !== null) ? <DateView date={dayjs(issue.dueDate)} orientation="horizontal"/> : "未定"}
               </div>
             </div>
           </div>
