@@ -43,14 +43,14 @@ export const IssueSubjectView = create(
           </span>
         </div>
         <div styleName="project" {...data({size})}>
-          {issue.project.name}
+          <span>{issue.project.name}</span>
           <FontAwesomeIcon styleName="hierarchy-arrow" icon={faAnglesRight} {...data({environment})}/>
         </div>
         {(ancestorIssues !== null) && (
           <div styleName="ancestor" {...data({size})}>
             {ancestorIssues?.map((ancestorIssue, index) => (
               <Fragment key={ancestorIssue.id}>
-                <div>{ancestorIssue.subject}</div>
+                <span>{ancestorIssue.subject}</span>
                 <FontAwesomeIcon styleName="hierarchy-arrow" icon={faAnglesRight} {...data({environment})}/>
               </Fragment>
             ))}
