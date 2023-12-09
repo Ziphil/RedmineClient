@@ -28,7 +28,7 @@ export const Routing = create(
           <WorkPlayer/>
         </div>
         <main styleName="main">
-          <Suspense fallback={<div>Loading route</div>}>
+          <Suspense fallback={<div/>}>
             <RouterProvider router={router}/>
           </Suspense>
         </main>

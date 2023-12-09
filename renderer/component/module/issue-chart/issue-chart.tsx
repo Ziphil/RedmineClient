@@ -25,7 +25,7 @@ export const IssueChart = create(
 
     return (
       <div styleName="root">
-        <IssueChartHeader businessDates={businessDates}/>
+        <IssueChartHeader issueGroups={issueGroups} businessDates={businessDates}/>
         <SimpleBar styleName="scroll">
           <div styleName="list">
             {sortedIssueGroups.map((issueGroup) => (
