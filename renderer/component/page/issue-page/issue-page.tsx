@@ -28,16 +28,19 @@ export const IssuePage = create(
     }, [issue.id]);
 
     return (
-      <PageContainer>
-        <nav styleName="navigation">
-          <TransitionLink styleName="link" to="/chart">
-            <FontAwesomeIcon styleName="icon" icon={faLeft}/>
-            BACK
-          </TransitionLink>
-          <button styleName="link" type="button" onClick={openExternal} {...data({simple: true})}>
-            <FontAwesomeIcon icon={faArrowUpRightFromSquare}/>
-          </button>
-        </nav>
+      <PageContainer
+        menuNode={(
+          <nav styleName="navigation">
+            <TransitionLink styleName="back" to="/chart">
+              <FontAwesomeIcon styleName="icon" icon={faLeft}/>
+              BACK
+            </TransitionLink>
+            <button styleName="external" type="button" onClick={openExternal} {...data({simple: true})}>
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare}/>
+            </button>
+          </nav>
+        )}
+      >
         <div styleName="main">
           <IssueView issue={issue}/>
         </div>

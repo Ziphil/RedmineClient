@@ -13,4 +13,7 @@
   justify-content: center;
   flex-grow: 0;
   flex-shrink: 0;
+  &[data-environment="dark"] {
+    background-color: rgba(white, 0.15);
+  }
 }

@@ -13,17 +13,19 @@ export const IconButton = create(
     icon,
     size,
     color,
+    environment = "light",
     onClick
   }: {
     icon: IconDefinition,
     size: "medium" | "large",
     color: "purple" | "blue" | "pink",
+    environment?: "light" | "background",
     onClick?: (event: MouseEvent<HTMLButtonElement>) => unknown
   }): ReactElement {
 
     return (
-      <button styleName="root" type="button" onClick={onClick} {...data({size, color})}>
-        <FontAwesomeIcon styleName="icon" icon={icon} {...data({color})}/>
+      <button styleName="root" type="button" onClick={onClick} {...data({size, color, environment})}>
+        <FontAwesomeIcon styleName="icon" icon={icon} {...data({color, environment})}/>
       </button>
     );
 

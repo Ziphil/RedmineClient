@@ -49,10 +49,10 @@ export const WorkController = create(
 
     return (
       <div styleName="root">
-        <IconButton icon={faStop} size="large" color="purple" onClick={punch}/>
+        <IconButton icon={faStop} size="large" color="purple" environment="background" onClick={punch}/>
         <div styleName="row">
-          <IconButton icon={(work?.startDate !== null) ? faPause : faPlay} size="medium" color="blue" onClick={pause}/>
-          <IconButton icon={faXmark} size="medium" color="pink" onClick={cancel}/>
+          <IconButton icon={(work?.startDate !== null) ? faPause : faPlay} size="medium" color="blue" environment="background" onClick={pause}/>
+          <IconButton icon={faXmark} size="medium" color="pink" environment="background" onClick={cancel}/>
         </div>
       </div>
     );
