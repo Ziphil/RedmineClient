@@ -3,7 +3,8 @@
 import {faArrowUpRightFromSquare, faLeft} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {ReactElement, useCallback} from "react";
-import {Link, LoaderFunctionArgs, useParams} from "react-router-dom";
+import {LoaderFunctionArgs, useParams} from "react-router-dom";
+import {TransitionLink} from "/renderer/component/atom/transition-link";
 import {create} from "/renderer/component/create";
 import {IssueView} from "/renderer/component/module/issue-view";
 import {PageContainer} from "/renderer/component/module/page-container";
@@ -29,10 +30,10 @@ export const IssuePage = create(
     return (
       <PageContainer>
         <nav styleName="navigation">
-          <Link styleName="link" to="/chart">
+          <TransitionLink styleName="link" to="/chart">
             <FontAwesomeIcon styleName="icon" icon={faLeft}/>
             BACK
-          </Link>
+          </TransitionLink>
           <button styleName="link" type="button" onClick={openExternal} {...data({simple: true})}>
             <FontAwesomeIcon icon={faArrowUpRightFromSquare}/>
           </button>

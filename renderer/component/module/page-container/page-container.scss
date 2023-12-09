@@ -12,8 +12,53 @@
   background-color: rgba(white, 0.5);
   border: 1px solid rgba(white, 0.3);
   box-shadow: 0px 8px 24px hsla(260, 30%, 30%, 0.2);
+  view-transition-name: page-container;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   flex-shrink: 1;
+}
+
+::view-transition-old(page-container) {
+  animation: fade-out 0.3s ease both, slide-to-bottom 0.3s ease both;
+}
+
+::view-transition-new(page-container) {
+  animation: fade-in 0.3s 0.3s ease both, slide-from-bottom 0.3s 0.3s ease both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-to-bottom {
+  from {
+    transform: translate(0%, 0%);
+  }
+  to {
+    transform: translate(0%, 5%)
+  }
+}
+
+@keyframes slide-from-bottom {
+  from {
+    transform: translate(0%, 5%);
+  }
+  to {
+    transform: translate(0%, 0%)
+  }
 }

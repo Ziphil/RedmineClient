@@ -23,16 +23,14 @@ export const Routing = create(
 
     return (
       <div styleName="root">
-        <Header/>
+        <div styleName="top">
+          <Header/>
+          <WorkPlayer/>
+        </div>
         <main styleName="main">
-          <div styleName="player-container">
-            <WorkPlayer/>
-          </div>
-          <div styleName="main-container">
-            <Suspense fallback={<div>Loading route</div>}>
-              <RouterProvider router={router}/>
-            </Suspense>
-          </div>
+          <Suspense fallback={<div>Loading route</div>}>
+            <RouterProvider router={router}/>
+          </Suspense>
         </main>
       </div>
     );

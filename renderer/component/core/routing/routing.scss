@@ -8,19 +8,15 @@
   flex-direction: column;
 }
 
-.main {
+.top {
+  view-transition-name: top;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  flex-shrink: 1;
-}
-
-.player-container {
   flex-grow: 0;
   flex-shrink: 0;
 }
 
-.main-container {
+.main {
   display: flex;
   flex-direction: column;
   flex-grow: 1;

@@ -5,7 +5,7 @@ import {faArrowLeft, faArrowRight} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import dayjs, {Dayjs} from "dayjs";
 import {ReactElement} from "react";
-import {Link} from "react-router-dom";
+import {TransitionLink} from "/renderer/component/atom/transition-link";
 import {create} from "/renderer/component/create";
 import {IdView} from "/renderer/component/module/id-view";
 import {HierarchicalIssue} from "/renderer/type";
@@ -33,7 +33,7 @@ export const IssueChartRow = create(
     const now = issue.startDate !== null && issue.dueDate !== null && !late && !future;
 
     return (
-      <Link styleName="root" to={`/issue/${issue.id}`} style={{gridTemplateColumns: `1fr repeat(${businessDates.length}, 36px)`}}>
+      <TransitionLink styleName="root" to={`/issue/${issue.id}`} style={{gridTemplateColumns: `1fr repeat(${businessDates.length}, 36px)`}}>
         <div styleName="left">
           <span styleName="indent" {...aria({hidden: true})}>
             {Array.from({length: level}).map((dummy, index) => (
@@ -81,7 +81,7 @@ export const IssueChartRow = create(
             </div>
           )
         )}
-      </Link>
+      </TransitionLink>
     );
 
   }
