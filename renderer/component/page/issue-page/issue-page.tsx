@@ -20,8 +20,6 @@ export const IssuePage = create(
     const [issue] = useSuspenseQuery("fetchIssue", window.api.fetchIssue, {id});
     const [ancestorIssues] = useSuspenseQuery("fetchAncestorIssues", window.api.fetchAncestorIssues, {id});
 
-    console.log(ancestorIssues);
-
     return (
       <PageContainer>
         <IssueView issue={issue} ancestorIssues={ancestorIssues}/>

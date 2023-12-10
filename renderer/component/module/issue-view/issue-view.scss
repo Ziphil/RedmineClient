@@ -27,7 +27,10 @@
 }
 
 .subject {
+  row-gap: 12px;
   font-size: 28px;
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   flex-shrink: 1;
 }

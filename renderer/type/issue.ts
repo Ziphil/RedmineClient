@@ -12,11 +12,7 @@ export interface Issue {
   project: {id: Id, name: string};
   tracker: Tracker;
   status: Status;
-  category: {id: Id, name: string} | null;
-  version: {id: Id, name: string} | null;
   ratio: number;
-  assignedUser: {id: Id, name: string} | null;
-  requestedUser: {id: Id} | null;
   startDate: string | null;
   dueDate: string | null;
   parentIssue: {id: Id} | null;
@@ -24,23 +20,12 @@ export interface Issue {
 }
 
 
-export interface HierarchicalIssue {
+export interface DetailedIssue extends Issue {
 
-  id: Id;
-  subject: string;
-  description: HtmlString;
-  requirement: HtmlString | null;
-  project: {id: Id, name: string};
-  tracker: Tracker;
-  status: Status;
   category: {id: Id, name: string} | null;
   version: {id: Id, name: string} | null;
-  ratio: number;
   assignedUser: {id: Id, name: string} | null;
-  requestedUser: {id: Id} | null;
-  startDate: string | null;
-  dueDate: string | null;
-  childIssues: Array<HierarchicalIssue>;
+  requestedUser: {id: Id, name: string} | null;
 
 }
 
@@ -53,6 +38,8 @@ export interface HierarchicalIssueGroup {
 
 }
 
+
+export type HierarchicalIssue = Omit<Issue, "paretIssue"> & {childIssues: Array<HierarchicalIssue>};
 
 export type Tracker = "feature" | "bug" | "refactor" | "support" | "other";
 export type Status = "new" | "progress" | "closed" | "rejected" | "other";
