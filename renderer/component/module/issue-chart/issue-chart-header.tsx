@@ -2,10 +2,11 @@
 
 import {faTasks} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import dayjs, {Dayjs} from "dayjs";
+import {Dayjs} from "dayjs";
 import {ReactElement} from "react";
 import {create} from "/renderer/component/create";
 import {DateView} from "/renderer/component/module/date-view";
+import {useToday} from "/renderer/hook/today";
 import {HierarchicalIssue, HierarchicalIssueGroup} from "/renderer/type";
 import {data} from "/renderer/util/data";
 
@@ -20,7 +21,8 @@ export const IssueChartHeader = create(
     businessDates: Array<Dayjs>
   }): ReactElement {
 
-    const counts = calcCounts(issueGroups);
+    const today = useToday();
+    const counts = calcCounts(issueGroups, today);
 
     return (
       <div styleName="root" style={{gridTemplateColumns: `1fr repeat(${businessDates.length}, 36px)`}}>
@@ -47,7 +49,7 @@ export const IssueChartHeader = create(
             styleName="item"
             key={date.format("YYYY-MM-DD")}
             style={{gridColumnStart: index + 2, gridColumnEnd: index + 3}}
-            {...data({today: date.isSame(dayjs(), "day")})}
+            {...data({today: date.isSame(today, "day")})}
           >
             <DateView date={date}/>
           </div>
@@ -59,23 +61,23 @@ export const IssueChartHeader = create(
 );
 
 
-function calcCounts(issues: Array<HierarchicalIssueGroup | HierarchicalIssue>): {late: number, now: number} {
+function calcCounts(issues: Array<HierarchicalIssueGroup | HierarchicalIssue>, today: Dayjs): {late: number, now: number} {
   const counts = {late: 0, now: 0};
   for (const issue of issues) {
     if ("childIssues" in issue) {
       if (issue.childIssues.length > 0) {
-        const childCounts = calcCounts(issue.childIssues);
+        const childCounts = calcCounts(issue.childIssues, today);
         counts.late += childCounts.late;
         counts.now += childCounts.now;
       } else {
-        const late = issue.dueDate !== null && dayjs().isAfter(issue.dueDate, "day");
-        const future = issue.startDate !== null && dayjs().isBefore(issue.startDate, "day");
+        const late = issue.dueDate !== null && today.isAfter(issue.dueDate, "day");
+        const future = issue.startDate !== null && today.isBefore(issue.startDate, "day");
         const now = issue.startDate !== null && issue.dueDate !== null && !late && !future;
         counts.late += late ? 1 : 0;
         counts.now += now ? 1 : 0;
       }
     } else {
-      const childCounts = calcCounts(issue.issues);
+      const childCounts = calcCounts(issue.issues, today);
       counts.late += childCounts.late;
       counts.now += childCounts.now;
     }

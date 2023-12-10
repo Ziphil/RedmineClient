@@ -3,12 +3,13 @@
 import {faAngleRight} from "@fortawesome/pro-regular-svg-icons";
 import {faArrowLeft, faArrowRight} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import dayjs, {Dayjs} from "dayjs";
+import {Dayjs} from "dayjs";
 import {ReactElement} from "react";
 import {SingleLineText} from "/renderer/component/atom/single-line-text";
 import {TransitionLink} from "/renderer/component/atom/transition-link";
 import {create} from "/renderer/component/create";
 import {IdView} from "/renderer/component/module/id-view";
+import {useToday} from "/renderer/hook/today";
 import {HierarchicalIssue} from "/renderer/type";
 import {aria, data} from "/renderer/util/data";
 
@@ -27,10 +28,11 @@ export const IssueChartRow = create(
     businessDates: Array<Dayjs>
   }): ReactElement {
 
+    const today = useToday();
     const [startIndex, startOverflown, startBeyond] = calcStartIndex(issue, businessDates);
     const [endIndex, endOverflown, endBeyond] = calcEndIndex(issue, businessDates);
-    const late = issue.dueDate !== null && dayjs().isAfter(issue.dueDate, "day");
-    const future = issue.startDate !== null && dayjs().isBefore(issue.startDate, "day");
+    const late = issue.dueDate !== null && today.isAfter(issue.dueDate, "day");
+    const future = issue.startDate !== null && today.isBefore(issue.startDate, "day");
     const now = issue.startDate !== null && issue.dueDate !== null && !late && !future;
 
     return (
@@ -59,7 +61,7 @@ export const IssueChartRow = create(
               styleName="border-item"
               key={day.format("YYYY-MM-DD")}
               style={{gridColumnStart: index + 2, gridColumnEnd: index + 2}}
-              {...data({today: day.isSame(dayjs(), "day")})}
+              {...data({today: day.isSame(today, "day")})}
               {...aria({hidden: true})}
             />
           ))}

@@ -2,12 +2,12 @@
 
 import {faChartSimpleHorizontal, faRocketLaunch, faWavePulse} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import dayjs from "dayjs";
 import {ReactElement} from "react";
 import {TransitionLink} from "/renderer/component/atom/transition-link";
 import {create} from "/renderer/component/create";
 import {Clock} from "/renderer/component/module/clock";
 import {DateView} from "/renderer/component/module/date-view";
+import {useToday} from "/renderer/hook/today";
 
 
 export const Header = create(
@@ -15,6 +15,8 @@ export const Header = create(
   function ({
   }: {
   }): ReactElement {
+
+    const today = useToday();
 
     return (
       <header styleName="root">
@@ -33,7 +35,7 @@ export const Header = create(
           </div>
         </div>
         <div styleName="right">
-          <DateView date={dayjs()} orientation="horizontal"/>
+          <DateView date={today} orientation="horizontal"/>
           <Clock/>
         </div>
       </header>

@@ -11,14 +11,14 @@ export const Clock = create(
   }: {
   }): ReactElement {
 
-    const [nowDate, setNowDate] = useState(dayjs());
+    const [now, setNow] = useState(dayjs());
 
-    const hourString = nowDate.format("HH");
-    const minuteString = nowDate.format("mm");
+    const hourString = now.format("HH");
+    const minuteString = now.format("mm");
 
     useEffect(() => {
       const interval = setInterval(() => {
-        setNowDate(dayjs());
+        setNow(dayjs());
       }, 100);
       return () => clearInterval(interval);
     }, []);

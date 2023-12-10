@@ -5,6 +5,7 @@ import {RouterProvider, createHashRouter} from "react-router-dom";
 import {create} from "/renderer/component/create";
 import {ChartPage} from "/renderer/component/page/chart-page";
 import {IssuePage, loadIssuePage} from "/renderer/component/page/issue-page";
+import {useAutoUpdateToday} from "/renderer/hook/today";
 
 
 const router = createHashRouter([
@@ -18,6 +19,8 @@ export const Routing = create(
   function ({
   }: {
   }): ReactElement | null {
+
+    useAutoUpdateToday();
 
     return (
       <Suspense fallback={<div/>}>
