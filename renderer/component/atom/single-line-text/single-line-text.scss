@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+
+.root {
+  line-height: 1.5;
+  &::before {
+    width: 0px;
+    height: 0px;
+    margin-block-start: (1 - 1.5) * 0.5em;
+    display: block;
+    content: "";
+  }
+  &::after {
+    width: 0px;
+    height: 0px;
+    margin-block-end: (1 - 1.5) * 0.5em;
+    display: block;
+    content: "";
+  }
+}
+
+.inner {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}

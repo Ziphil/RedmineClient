@@ -5,6 +5,7 @@ import {faArrowLeft, faArrowRight} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import dayjs, {Dayjs} from "dayjs";
 import {ReactElement} from "react";
+import {SingleLineText} from "/renderer/component/atom/single-line-text";
 import {TransitionLink} from "/renderer/component/atom/transition-link";
 import {create} from "/renderer/component/create";
 import {IdView} from "/renderer/component/module/id-view";
@@ -44,9 +45,9 @@ export const IssueChartRow = create(
           </span>
           <span styleName="subject-container">
             <IdView id={issue.id}/>
-            <span styleName="subject" {...data({late, future, now})}>
+            <SingleLineText styleName="subject" {...data({late, future, now})}>
               {issue.subject}
-            </span>
+            </SingleLineText>
             {(issue.childIssues.length > 0) && (
               <span styleName="percent">{issue.ratio}%</span>
             )}

@@ -5,6 +5,7 @@ import {faArrowUpRightFromSquare} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import {Fragment, ReactElement, useCallback} from "react";
+import {SingleLineText} from "/renderer/component/atom/single-line-text";
 import {create} from "/renderer/component/create";
 import {DateView} from "/renderer/component/module/date-view";
 import {IdView} from "/renderer/component/module/id-view";
@@ -43,22 +44,22 @@ export const IssueSubjectView = create(
           </span>
         </div>
         <div styleName="project" {...data({size})}>
-          <span>{issue.project.name}</span>
+          <SingleLineText>{issue.project.name}</SingleLineText>
           <FontAwesomeIcon styleName="hierarchy-arrow" icon={faAnglesRight} {...data({environment})}/>
         </div>
         {(ancestorIssues !== null) && (
           <div styleName="ancestor" {...data({size})}>
             {ancestorIssues?.map((ancestorIssue, index) => (
               <Fragment key={ancestorIssue.id}>
-                <span>{ancestorIssue.subject}</span>
+                <SingleLineText>{ancestorIssue.subject}</SingleLineText>
                 <FontAwesomeIcon styleName="hierarchy-arrow" icon={faAnglesRight} {...data({environment})}/>
               </Fragment>
             ))}
           </div>
         )}
-        <div styleName="subject" {...data({size})}>
+        <SingleLineText styleName="subject" {...data({size})}>
           {issue.subject}
-        </div>
+        </SingleLineText>
         <div styleName="info" {...data({size})}>
           <div styleName="info-row">
             <div styleName="info-item">

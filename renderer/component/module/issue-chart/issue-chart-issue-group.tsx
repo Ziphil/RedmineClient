@@ -2,6 +2,7 @@
 
 import {Dayjs} from "dayjs";
 import {ReactElement, useMemo} from "react";
+import {SingleLineText} from "/renderer/component/atom/single-line-text";
 import {create} from "/renderer/component/create";
 import {HierarchicalIssueGroup} from "/renderer/type";
 import {compareIssue} from "/renderer/util/issue";
@@ -22,7 +23,9 @@ export const IssueChartIssueGroup = create(
 
     return (
       <section styleName="root">
-        <h2 styleName="name">{issueGroup.name}</h2>
+        <SingleLineText tag="h2" styleName="name">
+          {issueGroup.name}
+        </SingleLineText>
         <div styleName="list">
           {sortedIssues.map((issue) => (
             <IssueChartIssue key={issue.id} issue={issue} level={0} businessDates={businessDates}/>

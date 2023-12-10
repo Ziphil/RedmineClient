@@ -21,9 +21,6 @@
 .project {
   column-gap: 0.2em;
   font-weight: bold;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -51,9 +48,6 @@
 
 .subject {
   font-weight: bold;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   &[data-size="medium"] {
     margin-block-start: 8px;
     font-size: 32px;
