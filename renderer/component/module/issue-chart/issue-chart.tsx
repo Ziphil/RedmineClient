@@ -6,6 +6,7 @@ import {create} from "/renderer/component/create";
 import {useToday} from "/renderer/hook/today";
 import {HierarchicalIssueGroup} from "/renderer/type";
 import {getBusinessDates} from "/renderer/util/date";
+import {compareIssueGroup} from "/renderer/util/issue";
 import {IssueChartHeader} from "./issue-chart-header";
 import {IssueChartIssueGroup} from "./issue-chart-issue-group";
 
@@ -22,7 +23,7 @@ export const IssueChart = create(
 
     const today = useToday();
     const businessDates = useMemo(() => getBusinessDates(today, 2, dateCount - 3), [dateCount, today]);
-    const sortedIssueGroups = useMemo(() => [...issueGroups].sort((first, second) => second.id - first.id), [issueGroups]);
+    const sortedIssueGroups = useMemo(() => [...issueGroups].sort(compareIssueGroup), [issueGroups]);
 
     return (
       <div styleName="root">

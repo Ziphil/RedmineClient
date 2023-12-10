@@ -18,6 +18,12 @@
       "webpack-*.ts"
     ],
     "rules": {
+      "no-multi-spaces": [
+        "warn",
+        {
+          "ignoreEOLComments": true
+        }
+      ],
       "react/no-unknown-property": [
         "warn",
         {

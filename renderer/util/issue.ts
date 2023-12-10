@@ -1,8 +1,24 @@
 //
 
 import dayjs from "dayjs";
-import {HierarchicalIssue} from "/renderer/type";
+import {HierarchicalIssue, HierarchicalIssueGroup} from "/renderer/type";
 
+
+const PROJECT_PRIORITIES = new Map([
+  [13, -1],  // じふぃたすく
+  [6, -2],  // アプリケーション開発部
+  [8, -2]  // アプリケーション開発部
+]);
+
+export function compareIssueGroup(firstGroup: HierarchicalIssueGroup, secondGroup: HierarchicalIssueGroup): number {
+  const firstPriority = PROJECT_PRIORITIES.get(firstGroup.id) ?? 0;
+  const secondPriority = PROJECT_PRIORITIES.get(secondGroup.id) ?? 0;
+  if (firstPriority !== secondPriority) {
+    return secondPriority - firstPriority;
+  } else {
+    return secondGroup.id - firstGroup.id;
+  }
+}
 
 export function compareIssue(firstIssue: HierarchicalIssue, secondIssue: HierarchicalIssue): number {
   const comparisonByDate = compareIssueByDate(firstIssue, secondIssue);
