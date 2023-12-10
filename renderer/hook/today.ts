@@ -7,7 +7,7 @@ import {atom, useRecoilValue, useSetRecoilState} from "recoil";
 
 const todayAtom = atom<Dayjs>({
   key: "today",
-  default: dayjs().startOf("day")
+  default: dayjs().locale("ja").startOf("day")
 });
 
 export function useToday(): Dayjs {

@@ -29,7 +29,7 @@ export const DateView = create(
         </div>
         <div styleName="day">
           <span styleName="paren" {...data({orientation})}>(</span>
-          {date.format("ddd")}
+          {date.format("dd")}
           <span styleName="paren" {...data({orientation})}>)</span>
         </div>
       </div>

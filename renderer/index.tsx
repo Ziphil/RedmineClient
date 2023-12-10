@@ -1,5 +1,7 @@
 //
 
+import dayjs from "dayjs";
+import dayjsJa from "dayjs/locale/ja";
 import {
   createRoot
 } from "react-dom/client";
@@ -9,7 +11,12 @@ import Root from "/renderer/component/root";
 export class Main {
 
   public main(): void {
+    this.setupDayjsLocale();
     this.render();
+  }
+
+  private setupDayjsLocale(): void {
+    dayjs.locale(dayjsJa);
   }
 
   private render(): void {
