@@ -13,7 +13,7 @@ export const ChartPage = create(
   }: {
   }): ReactElement {
 
-    const [issueGroups] = useSuspenseQuery("fetchIssues", window.api.fetchHierarchicalIssues, {});
+    const [issueGroups] = useSuspenseQuery("fetchHierarchicalIssues", window.api.fetchHierarchicalIssues, {});
 
     return (
       <PageContainer>

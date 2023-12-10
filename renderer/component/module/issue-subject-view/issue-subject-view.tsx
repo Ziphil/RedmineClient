@@ -47,9 +47,9 @@ export const IssueSubjectView = create(
           <SingleLineText>{issue.project.name}</SingleLineText>
           <FontAwesomeIcon styleName="hierarchy-arrow" icon={faAnglesRight} {...data({environment})}/>
         </div>
-        {(ancestorIssues !== null) && (
+        {(ancestorIssues !== undefined && ancestorIssues.length > 0) && (
           <div styleName="ancestor" {...data({size})}>
-            {ancestorIssues?.map((ancestorIssue, index) => (
+            {ancestorIssues.map((ancestorIssue, index) => (
               <Fragment key={ancestorIssue.id}>
                 <SingleLineText>{ancestorIssue.subject}</SingleLineText>
                 <FontAwesomeIcon styleName="hierarchy-arrow" icon={faAnglesRight} {...data({environment})}/>
