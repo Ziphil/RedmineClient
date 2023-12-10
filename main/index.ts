@@ -117,7 +117,6 @@ export class Main {
     window.loadFile(joinPath(__dirname, "index.html"), {hash: path, query: {...options.query, idString}});
     window.setMenu(null);
     window.show();
-    window.webContents.openDevTools();
     window.once("closed", () => {
       this.windows.delete(id);
     });

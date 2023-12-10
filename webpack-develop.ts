@@ -52,7 +52,13 @@ export const commonMain = {
       "/renderer": path.resolve(__dirname, "renderer"),
       "/main": path.resolve(__dirname, "main")
     }
-  }
+  },
+  plugins: [
+    new DefinePlugin({
+      "process.env.REDMINE_URL": JSON.stringify(process.env["REDMINE_URL"]),
+      "process.env.REDMINE_KEY": JSON.stringify(process.env["REDMINE_KEY"]),
+    })
+  ]
 };
 
 export const commonRenderer = {
@@ -133,6 +139,7 @@ export const commonRenderer = {
     new DefinePlugin({
       "process.env": {},
       "process.env.REDMINE_URL": JSON.stringify(process.env["REDMINE_URL"]),
+      "process.env.REDMINE_KEY": JSON.stringify(process.env["REDMINE_KEY"]),
       "global": "globalThis"
     }),
     new HtmlWebpackPlugin({
