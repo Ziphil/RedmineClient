@@ -48,6 +48,9 @@
 
 .subject {
   font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   &[data-size="medium"] {
     margin-block-start: 8px;
     font-size: 32px;
@@ -76,6 +79,19 @@
     color: hsla(260, 90%, 70%, 0.5);
   }
   &[data-environment="dark"] {
-    color: rgba(white, 0.5);
+    color: rgba(white, 0.3);
+  }
+}
+
+.link {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  cursor: pointer;
+  transition: text-decoration-color 0.2s ease;
+  &[data-environment="light"]:hover {
+    text-decoration-color: hsla(260, 90%, 70%, 0.5);
+  }
+  &[data-environment="dark"]:hover {
+    text-decoration-color: rgba(white, 0.3);
   }
 }

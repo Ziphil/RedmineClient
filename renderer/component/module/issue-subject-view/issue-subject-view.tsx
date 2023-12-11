@@ -5,6 +5,7 @@ import {faArrowUpRightFromSquare} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Fragment, ReactElement, useCallback} from "react";
 import {SingleLineText} from "/renderer/component/atom/single-line-text";
+import {TransitionLink} from "/renderer/component/atom/transition-link";
 import {create} from "/renderer/component/create";
 import {IdView} from "/renderer/component/module/id-view";
 import {StatusView} from "/renderer/component/module/status-view";
@@ -49,15 +50,23 @@ export const IssueSubjectView = create(
           <div styleName="ancestor" {...data({size})}>
             {ancestorIssues.map((ancestorIssue, index) => (
               <Fragment key={ancestorIssue.id}>
-                <SingleLineText>{ancestorIssue.subject}</SingleLineText>
+                <TransitionLink styleName="link" to={`/issue/${ancestorIssue.id}`} {...data({environment})}>
+                  <SingleLineText>
+                    {ancestorIssue.subject}
+                  </SingleLineText>
+                </TransitionLink>
                 <FontAwesomeIcon styleName="hierarchy-arrow" icon={faAnglesRight} {...data({environment})}/>
               </Fragment>
             ))}
           </div>
         )}
-        <SingleLineText styleName="subject" {...data({size})}>
-          {issue.subject}
-        </SingleLineText>
+        <div styleName="subject" {...data({size})}>
+          <TransitionLink styleName="link" to={`/issue/${issue.id}`} {...data({environment})}>
+            <SingleLineText>
+              {issue.subject}
+            </SingleLineText>
+          </TransitionLink>
+        </div>
       </div>
     );
 
