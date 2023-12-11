@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import {ReactElement} from "react";
 import {create} from "/renderer/component/create";
 import {DateView} from "/renderer/component/module/date-view";
+import {useQuery} from "/renderer/hook/request";
 import {DetailedIssue} from "/renderer/type";
 import {data} from "/renderer/util/data";
 
@@ -22,52 +23,57 @@ export const IssueInfoView = create(
     environment?: "light" | "dark"
   }): ReactElement {
 
+    const [assignedUser] = useQuery("fetchUser", window.api.fetchUser, {id: issue.assignedUser!.id}, {enabled: issue.assignedUser !== null});
+    const [requestedUser] = useQuery("fetchUser", window.api.fetchUser, {id: issue.requestedUser!.id}, {enabled: issue.requestedUser !== null});
+
     return (
       <div styleName="root" {...data({size})}>
-        <div styleName="info-row">
-          <div styleName="info-item">
-            <div styleName="info-label">
+        <div styleName="row">
+          <div styleName="item">
+            <div styleName="label">
               期間
             </div>
-            <div styleName="info-value">
+            <div styleName="value" {...data({orientation: "vertical"})}>
               {(issue.startDate !== null) ? <DateView date={dayjs(issue.startDate)} orientation="horizontal"/> : "未定"}
-              <FontAwesomeIcon styleName="info-arrow" icon={faAngleDown}/>
+              <FontAwesomeIcon styleName="arrow" icon={faAngleDown}/>
               {(issue.dueDate !== null) ? <DateView date={dayjs(issue.dueDate)} orientation="horizontal"/> : "未定"}
             </div>
           </div>
         </div>
-        <div styleName="info-row">
-          <div styleName="info-item">
-            <div styleName="info-label">
+        <div styleName="row">
+          <div styleName="item">
+            <div styleName="label">
               担当者
             </div>
-            <div styleName="info-value">
+            <div styleName="value">
+              <img styleName="avatar" src={assignedUser?.avatarUrl ?? ""} alt=""/>
               {issue.assignedUser?.name ?? "⸺"}
             </div>
           </div>
-          <div styleName="info-item">
-            <div styleName="info-label">
+          <div styleName="item">
+            <div styleName="label">
               依頼者
             </div>
-            <div styleName="info-value">
+            <div styleName="value">
+              <img styleName="avatar" src={requestedUser?.avatarUrl ?? ""} alt=""/>
               {issue.requestedUser?.name ?? "⸺"}
             </div>
           </div>
         </div>
-        <div styleName="info-row">
-          <div styleName="info-item">
-            <div styleName="info-label">
+        <div styleName="row">
+          <div styleName="item">
+            <div styleName="label">
               バージョン
             </div>
-            <div styleName="info-value">
+            <div styleName="value">
               {issue.version?.name ?? "⸺"}
             </div>
           </div>
-          <div styleName="info-item">
-            <div styleName="info-label">
+          <div styleName="item">
+            <div styleName="label">
               カテゴリ
             </div>
-            <div styleName="info-value">
+            <div styleName="value">
               {issue.category?.name ?? "⸺"}
             </div>
           </div>

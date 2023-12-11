@@ -13,6 +13,9 @@ import {
 import {
   addSpentTime
 } from "/main/api/redmine/spent-time";
+import {
+  fetchUser
+} from "/main/api/redmine/user";
 
 
 export const APIS = {
@@ -22,7 +25,8 @@ export const APIS = {
   changeIssueStatus,
   addSpentTime,
   fetchNotes,
-  addNote
+  addNote,
+  fetchUser
 };
 
 export type ApiTypes = typeof APIS;

@@ -1,6 +1,6 @@
 //
 
-import {faChartSimpleHorizontal, faRocketLaunch, faWavePulse} from "@fortawesome/pro-solid-svg-icons";
+import {faRocketLaunch, faTasks, faWavePulse} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {ReactElement} from "react";
 import {TransitionLink} from "/renderer/component/atom/transition-link";
@@ -22,7 +22,7 @@ export const Header = create(
       <header styleName="root">
         <div styleName="left">
           <TransitionLink styleName="link" to="/chart">
-            <FontAwesomeIcon styleName="icon" icon={faChartSimpleHorizontal}/>
+            <FontAwesomeIcon styleName="icon" icon={faTasks}/>
             タスク
           </TransitionLink>
           <div styleName="link">

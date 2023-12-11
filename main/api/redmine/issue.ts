@@ -52,8 +52,8 @@ export async function fetchIssue({id}: {id: Id}): Promise<DetailedIssue> {
   };
   const response = await client.get(`/issues/${id}.json`, {params});
   const rawIssue = response.data["issue"];
-  const singleIssue = await createDetailedIssue(rawIssue);
-  return singleIssue;
+  const issue = await createDetailedIssue(rawIssue);
+  return issue;
 }
 
 export async function changeIssueStatus({id, status}: {id: Id, status: Status}): Promise<void> {
