@@ -1,7 +1,7 @@
 //
 
 import {ReactElement} from "react";
-import {LoaderFunctionArgs, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {create} from "/renderer/component/create";
 import {IssueView} from "/renderer/component/module/issue-view";
 import {PageContainer} from "/renderer/component/module/page-container";
@@ -28,8 +28,3 @@ export const IssuePage = create(
 
   }
 );
-
-
-export async function loadIssuePage(args: LoaderFunctionArgs): Promise<{}> {
-  return {};
-}
