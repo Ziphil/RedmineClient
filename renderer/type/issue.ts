@@ -20,7 +20,14 @@ export interface Issue {
 }
 
 
-export interface DetailedIssue extends Issue {
+export interface IssueWithChildren extends Issue {
+
+  childIssues: Array<Issue>;
+
+}
+
+
+export interface IssueWithDetails extends Issue {
 
   category: {id: Id, name: string} | null;
   version: {id: Id, name: string} | null;

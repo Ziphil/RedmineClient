@@ -6,7 +6,7 @@ import {Markdown} from "/renderer/component/atom/markdown";
 import {create} from "/renderer/component/create";
 import {IssueInfoView} from "/renderer/component/module/issue-info-view";
 import {IssueSubjectView} from "/renderer/component/module/issue-subject-view";
-import {DetailedIssue, Issue} from "/renderer/type";
+import {Issue, IssueWithDetails} from "/renderer/type";
 import {IssueController} from "./issue-controller";
 import {NoteView} from "./note-view";
 
@@ -17,7 +17,7 @@ export const IssueView = create(
     issue,
     ancestorIssues
   }: {
-    issue: DetailedIssue,
+    issue: IssueWithDetails,
     ancestorIssues: Array<Issue>
   }): ReactElement {
 

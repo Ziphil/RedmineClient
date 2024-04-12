@@ -7,7 +7,7 @@ import {ReactElement} from "react";
 import {create} from "/renderer/component/create";
 import {DateView} from "/renderer/component/module/date-view";
 import {useQuery} from "/renderer/hook/request";
-import {DetailedIssue, Id} from "/renderer/type";
+import {Id, IssueWithDetails} from "/renderer/type";
 import {data} from "/renderer/util/data";
 
 
@@ -18,7 +18,7 @@ export const IssueInfoView = create(
     size,
     environment = "light"
   }: {
-    issue: DetailedIssue,
+    issue: IssueWithDetails,
     size: "medium" | "large",
     environment?: "light" | "dark"
   }): ReactElement {
