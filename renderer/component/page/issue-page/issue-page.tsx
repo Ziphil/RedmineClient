@@ -17,12 +17,14 @@ export const IssuePage = create(
 
     const {idString} = useParams();
     const id = +(idString ?? "1") as Id;
+
     const [issue] = useSuspenseQuery("fetchIssue", window.api.fetchIssue, {id});
     const [ancestorIssues] = useSuspenseQuery("fetchAncestorIssues", window.api.fetchAncestorIssues, {id});
+    const [childIssues] = useSuspenseQuery("fetchDescendantIssues", window.api.fetchDescendantIssues, {id});
 
     return (
       <PageContainer>
-        <IssueView issue={issue} ancestorIssues={ancestorIssues}/>
+        <IssueView issue={issue} ancestorIssues={ancestorIssues} childIssues={childIssues}/>
       </PageContainer>
     );
 

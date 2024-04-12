@@ -6,7 +6,7 @@ import {Markdown} from "/renderer/component/atom/markdown";
 import {create} from "/renderer/component/create";
 import {IssueInfoView} from "/renderer/component/module/issue-info-view";
 import {IssueSubjectView} from "/renderer/component/module/issue-subject-view";
-import {Issue, IssueWithDetails} from "/renderer/type";
+import {Issue, IssueWithChildren, IssueWithDetails} from "/renderer/type";
 import {IssueController} from "./issue-controller";
 import {NoteView} from "./note-view";
 
@@ -15,10 +15,12 @@ export const IssueView = create(
   require("./issue-view.scss"), "IssueView",
   function ({
     issue,
-    ancestorIssues
+    ancestorIssues,
+    childIssues
   }: {
     issue: IssueWithDetails,
-    ancestorIssues: Array<Issue>
+    ancestorIssues: Array<Issue>,
+    childIssues: Array<IssueWithChildren>
   }): ReactElement {
 
     return (
