@@ -75,14 +75,17 @@ function createIssue(rawIssue: Record<string, any>): Issue {
     subject: rawIssue["subject"],
     description: renderMarkdown(rawIssue["description"] ?? ""),
     requirement: requirementCustomField ? renderMarkdown(requirementCustomField["value"] ?? "") : null,
-    project: rawIssue["project"],
+    project: {
+      id: rawIssue["project"]["id"],
+      name: rawIssue["project"]["name"].replace(/^(.+?)-\s*/, "")
+    },
     tracker: toTracker(rawIssue["tracker"]["id"]),
     status: toStatus(rawIssue["status"]["id"]),
     ratio: rawIssue["doneRatio"],
     startDate: rawIssue["startDate"],
     dueDate: rawIssue["dueDate"],
     parentIssue: rawIssue["parent"] ? {id: rawIssue["parent"]["id"]} : null
-  };
+  } satisfies Issue;
   return issue;
 }
 
@@ -105,7 +108,7 @@ async function createDetailedIssue(rawIssue: Record<string, any>): Promise<Detai
     version: rawIssue["fixedVersion"] ?? null,
     assignedUser: rawIssue["assignedTo"] ? {id: rawIssue["assignedTo"]["id"], name: rawIssue["assignedTo"]["name"]} : null,
     requestedUser: await fetchRequestedUser()
-  };
+  } satisfies DetailedIssue;
   return issue;
 }
 
