@@ -35,6 +35,13 @@
   flex-shrink: 1;
 }
 
+.subject-row {
+  column-gap: 8px;
+  display: grid;
+  grid-template-columns: 3fr 4fr;
+  grid-template-rows: 98px;
+}
+
 .scroll {
   flex-grow: 1;
   flex-shrink: 1;

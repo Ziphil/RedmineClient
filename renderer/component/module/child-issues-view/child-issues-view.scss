@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+
+.root {
+  padding-inline: 10px;
+  column-gap: 24px;
+  font-size: 14px;
+  border-radius: 6px;
+  background-color: rgba(white, 0.3);
+  display: flex;
+  flex-direction: column;
+  &[data-size="large"] {
+    display: none;
+  }
+}
+
+.scroll {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: bold;
+  color: hsla(260, 30%, 60%, 0.9);
+}
+
+.list {
+  padding-block: 10px;
+  row-gap: 6px;
+  display: flex;
+  flex-direction: column;
+}

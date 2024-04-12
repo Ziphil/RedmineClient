@@ -4,6 +4,7 @@ import {ReactElement} from "react";
 import SimpleBar from "simplebar-react";
 import {Markdown} from "/renderer/component/atom/markdown";
 import {create} from "/renderer/component/create";
+import {ChildIssuesView} from "/renderer/component/module/child-issues-view";
 import {IssueInfoView} from "/renderer/component/module/issue-info-view";
 import {IssueSubjectView} from "/renderer/component/module/issue-subject-view";
 import {Issue, IssueWithChildren, IssueWithDetails} from "/renderer/type";
@@ -28,7 +29,10 @@ export const IssueView = create(
         <div styleName="top">
           <div styleName="subject">
             <IssueSubjectView issue={issue} ancestorIssues={ancestorIssues} size="medium"/>
-            <IssueInfoView issue={issue} size="medium"/>
+            <div styleName="subject-row">
+              <IssueInfoView issue={issue} size="medium"/>
+              <ChildIssuesView childIssues={childIssues}/>
+            </div>
           </div>
           <IssueController issue={issue}/>
         </div>

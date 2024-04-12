@@ -1,0 +1,46 @@
+@charset "utf-8";
+
+
+.root {
+  row-gap: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+  row-gap: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.top {
+  display: flex;
+}
+
+.indent {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.indent-item {
+  width: 14px;
+  padding-inline-start: 1px;
+  color: hsla(260, 90%, 70%, 0.5);
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.id {
+  margin-inline-end: 4px;
+}
+
+.link {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  cursor: pointer;
+  transition: text-decoration-color 0.2s ease;
+  &:hover {
+    text-decoration-color: hsla(260, 90%, 70%, 0.5);
+  }
+}

@@ -22,7 +22,7 @@ export interface Issue {
 
 export interface IssueWithChildren extends Issue {
 
-  childIssues: Array<Issue>;
+  childIssues: Array<IssueWithChildren>;
 
 }
 
