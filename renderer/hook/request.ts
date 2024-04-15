@@ -10,15 +10,19 @@ import {
 
 export const queryClient = new QueryClient();
 
-export function useQuery<A, D>(name: string, api: (arg: A) => Promise<D>, arg: A, config?: QueryConfig<D>): [D | undefined, unknown, UseQueryRestResult<D>] {
+export function useResponse<A, D>(name: string, api: (arg: A) => Promise<D>, arg: A | FalsyData, config?: ResponseConfig<D>): [D | undefined, unknown, ResponseRest<D>] {
   const {data: queryData, error: queryError, ...rest} = useRawQuery<D>([name, arg], async () => {
-    const response = await api(arg);
-    return response;
-  }, config);
+    if (arg) {
+      const response = await api(arg);
+      return response;
+    } else {
+      throw new Error("cannot happen");
+    }
+  }, {...config, enabled: !!arg});
   return [queryData, queryError, rest];
 }
 
-export function useSuspenseQuery<A, D>(name: string, api: (arg: A) => Promise<D>, arg: A, config?: QueryConfig<D>): [D, UseQueryRestResult<D>] {
+export function useSuspenseResponse<A, D>(name: string, api: (arg: A) => Promise<D>, arg: A, config?: ResponseConfig<D>): [D, ResponseRest<D>] {
   const {data: queryData, ...rest} = useRawQuery<D>([name, arg], async () => {
     const response = await api(arg);
     return response;
@@ -26,7 +30,7 @@ export function useSuspenseQuery<A, D>(name: string, api: (arg: A) => Promise<D>
   return [queryData!, rest];
 }
 
-export async function invalidateQueries(name: string, predicate?: (arg: any) => boolean): Promise<void> {
+export async function invalidateResponses(name: string, predicate?: (arg: any) => boolean): Promise<void> {
   await queryClient.invalidateQueries({predicate: (query) => {
     if (predicate !== undefined) {
       return query.queryKey[0] === name && predicate(query.queryKey[1] as any);
@@ -36,5 +40,7 @@ export async function invalidateQueries(name: string, predicate?: (arg: any) => 
   }});
 }
 
-type QueryConfig<D> = UseQueryOptions<D>;
-type UseQueryRestResult<D> = Omit<UseQueryResult<D>, "data" | "error">;
+type ResponseConfig<D> = UseQueryOptions<D>;
+type ResponseRest<D> = Omit<UseQueryResult<D>, "data" | "error">;
+
+type FalsyData = undefined | null | false;

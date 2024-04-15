@@ -14,22 +14,21 @@ import type {
 import {Id} from "/renderer/type/common";
 
 
-/** 自分が担当のイシューを取得します。
+/** 自分担当のオープンなイシューを全て取得します。
  * イシューはプロジェクトごとにグループ化されます。
  * イシューやイシューグループの順番は一定とは限らないので、適宜ソートしてください。 */
 export async function fetchHierarchicalIssues({}: {}): Promise<Array<HierarchicalIssueGroup>> {
-  const params = {
+  const response = await client.get("/issues.json", {params: {
     assignedToId: "me",
     limit: 100
-  };
-  const response = await client.get("/issues.json", {params});
+  }});
   const rawIssues = response.data["issues"] as Array<any>;
   const issues = rawIssues.map(createIssue);
   const issueGroups = groupHierarchicalIssues(hierarchizeIssues(issues));
   return issueGroups;
 }
 
-/** 指定された ID の子孫イシューを取得します。
+/** 指定されたイシューの先祖イシューを全て取得します。
  * 返される配列において、最後の要素ほど指定されたイシューに近く、最初の要素ほど指定されたイシューから遠くなっています。
  * 返される配列に、指定されたイシュー自身は含まれません。*/
 export async function fetchAncestorIssues({id}: {id: Id}): Promise<Array<Issue>> {
@@ -49,6 +48,7 @@ export async function fetchAncestorIssues({id}: {id: Id}): Promise<Array<Issue>>
   return issues;
 }
 
+/** 指定されたイシューの子孫イシューを全て取得します。*/
 export async function fetchDescendantIssues({id}: {id: Id}): Promise<Array<IssueWithChildren>> {
   const fetchDescendantIssuesRecursively = async function (id: Id): Promise<Array<IssueWithChildren>> {
     const response = await client.get("/issues.json", {params: {parentId: id}});
@@ -65,22 +65,24 @@ export async function fetchDescendantIssues({id}: {id: Id}): Promise<Array<Issue
 }
 
 export async function fetchIssue({id}: {id: Id}): Promise<IssueWithDetails> {
-  const params = {
-    include: "children,relations,journals"
-  };
-  const response = await client.get(`/issues/${id}.json`, {params});
+  const response = await client.get(`/issues/${id}.json`, {params: {include: "children,relations,journals"}});
   const rawIssue = response.data["issue"];
-  const issue = await createDetailedIssue(rawIssue);
+  const issue = await createIssueWithDetails(rawIssue);
   return issue;
 }
 
+export async function fetchIssueHasChildren({id}: {id: Id}): Promise<boolean> {
+  const response = await client.get("/issues.json", {params: {
+    parentId: id,
+    statusId: "*",
+    limit: 1
+  }});
+  const rawIssues = response.data["issues"] as Array<any>;
+  return rawIssues.length > 0;
+}
+
 export async function changeIssueStatus({id, status}: {id: Id, status: Status}): Promise<void> {
-  const body = {
-    issue: {
-      statusId: fromStatus(status)
-    }
-  };
-  await client.put(`/issues/${id}.json`, body);
+  await client.put(`/issues/${id}.json`, {issue: {statusId: fromStatus(status)}});
 }
 
 type InnerHierarchicalIssue = HierarchicalIssue & {parentIssueId: Id | null, actualParentIssueId: Id | null};
@@ -107,7 +109,7 @@ function createIssue(rawIssue: Record<string, any>): Issue {
   return issue;
 }
 
-async function createDetailedIssue(rawIssue: Record<string, any>): Promise<IssueWithDetails> {
+async function createIssueWithDetails(rawIssue: Record<string, any>): Promise<IssueWithDetails> {
   const customFields = rawIssue["customFields"] as Array<any> | undefined;
   const requestCustomField = customFields?.find((field) => field["id"] === 3);
   const fetchRequestedUser = async function (): Promise<{id: Id, name: string} | null> {
@@ -125,7 +127,7 @@ async function createDetailedIssue(rawIssue: Record<string, any>): Promise<Issue
     category: rawIssue["category"] ?? null,
     version: rawIssue["fixedVersion"] ?? null,
     assignedUser: rawIssue["assignedTo"] ? {id: rawIssue["assignedTo"]["id"], name: rawIssue["assignedTo"]["name"]} : null,
-    requestedUser: await fetchRequestedUser()
+    requestedUser: await fetchRequestedUser().catch(() => null)
   } satisfies IssueWithDetails;
   return issue;
 }

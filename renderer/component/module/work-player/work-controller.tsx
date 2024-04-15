@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import {ReactElement, useCallback} from "react";
 import {IconButton} from "/renderer/component/atom/icon-button";
 import {create} from "/renderer/component/create";
-import {invalidateQueries} from "/renderer/hook/request";
+import {invalidateResponses} from "/renderer/hook/request";
 import {useWork} from "/renderer/hook/work";
 import {Work} from "/renderer/type";
 
@@ -25,8 +25,8 @@ export const WorkController = create(
         const time = ((work.startDate !== null) ? dayjs().diff(work.startDate, "millisecond") : 0) + work.additionalTime;
         await window.api.addSpentTime({issueId: work.issue.id, time});
         await Promise.all([
-          invalidateQueries("fetchHierarchicalIssues"),
-          invalidateQueries("fetchIssue", (arg) => arg.id === work.issue.id)
+          invalidateResponses("fetchHierarchicalIssues"),
+          invalidateResponses("fetchIssue", (arg) => arg.id === work.issue.id)
         ]);
         setWork(null);
       }

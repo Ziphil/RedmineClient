@@ -3,7 +3,7 @@
 import {Id} from "/renderer/type/common";
 
 
-export interface DetailedUser {
+export interface UserWithDetails {
 
   id: Id;
   name: string;

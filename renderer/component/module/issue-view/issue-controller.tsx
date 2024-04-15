@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import {ReactElement, useCallback} from "react";
 import {IconButton} from "/renderer/component/atom/icon-button";
 import {create} from "/renderer/component/create";
-import {invalidateQueries} from "/renderer/hook/request";
+import {invalidateResponses} from "/renderer/hook/request";
 import {useWork} from "/renderer/hook/work";
 import {Issue} from "/renderer/type";
 
@@ -23,19 +23,19 @@ export const IssueController = create(
     const startWork = useCallback(async function (): Promise<void> {
       if (work === null) {
         await window.api.changeIssueStatus({id: issue.id, status: "progress"});
-        await invalidateQueries("fetchIssue", (arg) => arg.id === issue.id);
+        await invalidateResponses("fetchIssue", (arg) => arg.id === issue.id);
         setWork({issue, startDate: dayjs(), additionalTime: 0});
       }
     }, [issue, work, setWork]);
 
     const changeIssueStatusToClosed = useCallback(async function (): Promise<void> {
       await window.api.changeIssueStatus({id: issue.id, status: "closed"});
-      await invalidateQueries("fetchIssue", (arg) => arg.id === issue.id);
+      await invalidateResponses("fetchIssue", (arg) => arg.id === issue.id);
     }, [issue]);
 
     const changeIssueStatusToRejected = useCallback(async function (): Promise<void> {
       await window.api.changeIssueStatus({id: issue.id, status: "rejected"});
-      await invalidateQueries("fetchIssue", (arg) => arg.id === issue.id);
+      await invalidateResponses("fetchIssue", (arg) => arg.id === issue.id);
     }, [issue]);
 
     return (

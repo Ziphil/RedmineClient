@@ -5,7 +5,7 @@ import {ReactElement} from "react";
 import {Markdown} from "/renderer/component/atom/markdown";
 import {create} from "/renderer/component/create";
 import {DateView} from "/renderer/component/module/date-view";
-import {useSuspenseQuery} from "/renderer/hook/request";
+import {useSuspenseResponse} from "/renderer/hook/request";
 import {Issue} from "/renderer/type";
 
 
@@ -17,7 +17,7 @@ export const NoteView = create(
     issue: Issue
   }): ReactElement {
 
-    const [notes] = useSuspenseQuery("fetchNotes", window.api.fetchNotes, {issueId: issue.id});
+    const [notes] = useSuspenseResponse("fetchNotes", window.api.fetchNotes, {issueId: issue.id});
 
     return (
       <div styleName="root">

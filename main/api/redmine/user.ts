@@ -2,22 +2,22 @@
 
 import {client} from "/main/api/client";
 import {Id} from "/renderer/type/common";
-import {DetailedUser} from "/renderer/type/user";
+import {UserWithDetails} from "/renderer/type/user";
 
 
-export async function fetchUser({id}: {id: Id}): Promise<DetailedUser> {
+export async function fetchUser({id}: {id: Id}): Promise<UserWithDetails> {
   const response = await client.get(`/users/${id}.json`, {});
   const rawUser = response.data["user"];
-  const user = createDetailedUser(rawUser);
+  const user = createUserWithDetails(rawUser);
   return user;
 }
 
-function createDetailedUser(rawUser: Record<string, any>): DetailedUser {
+function createUserWithDetails(rawUser: Record<string, any>): UserWithDetails {
   const user = {
     id: rawUser["id"],
     name: rawUser["lastname"] + " " + rawUser["firstname"],
     email: rawUser["mail"],
     avatarUrl: rawUser["avatarUrl"]
-  };
+  } satisfies UserWithDetails;
   return user;
 }

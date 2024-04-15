@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import {ReactElement} from "react";
 import {create} from "/renderer/component/create";
 import {DateView} from "/renderer/component/module/date-view";
-import {useQuery} from "/renderer/hook/request";
+import {useResponse} from "/renderer/hook/request";
 import {Id, IssueWithDetails} from "/renderer/type";
 import {data} from "/renderer/util/data";
 
@@ -23,8 +23,8 @@ export const IssueInfoView = create(
     environment?: "light" | "dark"
   }): ReactElement {
 
-    const [assignedUser] = useQuery("fetchUser", window.api.fetchUser, {id: issue.assignedUser?.id ?? 1 as Id}, {enabled: issue.assignedUser !== null});
-    const [requestedUser] = useQuery("fetchUser", window.api.fetchUser, {id: issue.requestedUser?.id ?? 1 as Id}, {enabled: issue.requestedUser !== null});
+    const [assignedUser] = useResponse("fetchUser", window.api.fetchUser, {id: issue.assignedUser?.id ?? 1 as Id}, {enabled: issue.assignedUser !== null});
+    const [requestedUser] = useResponse("fetchUser", window.api.fetchUser, {id: issue.requestedUser?.id ?? 1 as Id}, {enabled: issue.requestedUser !== null});
 
     return (
       <div styleName="root" {...data({size})}>
