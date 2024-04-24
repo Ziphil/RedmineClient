@@ -11,6 +11,8 @@ import {
 } from "electron";
 import {client} from "electron-connect";
 import {join as joinPath} from "path";
+import {APIS, ApiTypes} from "/main/api";
+import {Settings} from "/main/api/settings";
 
 
 dotenv.config({path: "./variable.env"});
@@ -45,13 +47,15 @@ const PRODUCTION_WINDOW_OPTIONS = {
 
 export class Main {
 
-  public readonly app: App;
+  private readonly app: App;
+  private settings: Settings | null;
   public windows: Map<number, BrowserWindow>;
   public mainWindow: BrowserWindow | undefined;
   public props: Map<number, object>;
 
   public constructor(app: App) {
     this.app = app;
+    this.settings = null;
     this.windows = new Map();
     this.mainWindow = undefined;
     this.props = new Map();
@@ -100,6 +104,11 @@ export class Main {
       if (window !== undefined) {
         window.webContents.openDevTools();
       }
+    });
+    ipcMain.handle("api", (event, name, arg) => {
+      const castName = name as keyof ApiTypes;
+      const result = APIS[castName](arg);
+      return result;
     });
   }
 

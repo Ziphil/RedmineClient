@@ -4,5 +4,6 @@ dist
 *.code-workspace
 *.env
 .vscode
+settings.json
 desktop.ini
 Thumbs.db

@@ -2,7 +2,9 @@
 
 import axios, {Axios} from "axios";
 import applyCaseConverter from "axios-case-converter";
+import {app as electronApp} from "electron";
 import fs from "fs/promises";
+import {join as joinPath} from "path";
 import {Id} from "/renderer/type";
 
 
@@ -56,7 +58,7 @@ let settings = null as Settings | null;
 
 export async function getSettings(): Promise<Settings> {
   if (settings === null) {
-    const path = (process.env.DEVELOPPING === "true") ? "./dist/settings.json" : "./settings.json";
+    const path = (process.env.DEVELOPPING === "true") ? "./settings.json" : joinPath(electronApp.getPath("userData"), "settings.json");
     settings = await Settings.load(path);
   }
   return settings;
