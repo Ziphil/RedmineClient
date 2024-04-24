@@ -15,7 +15,12 @@ Redmine のマイページを開き、ページ右部に記載されている AP
 5. 中にあるインストーラを起動
 
 ### 設定
-実行ファイルと同じ階層に `settings.json` を作り、以下の内容を書き込んでください。
+以下の場所に `settings.json` を作ってください。
+
+- Windows — `%APPDATA%/redmine-client`
+- Mac OS — `~/Library/Application Support/redmine-client`
+
+その上で、以下の内容を書き込んでください。
 
 ```json
 {
