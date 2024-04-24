@@ -1,0 +1,49 @@
+on:
+  - push
+  - pull_request
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Node 18.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+      - name: Install packages
+        run: npm ci
+        env:
+          FONTAWESOME_KEY: ${{ secrets.FONTAWESOME_KEY }}
+      - name: Build
+        run: npm run build
+      - name: Pack for Windows
+        run: npm run pack:windows
+      - name: Upload for Windows
+        uses: actions/upload-artifact@v2
+        with:
+          name: redmine-client-windows
+          path: product/*.exe
+  build-mac:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Node 18.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+      - name: Install packages
+        run: npm ci
+        env:
+          FONTAWESOME_KEY: ${{ secrets.FONTAWESOME_KEY }}
+      - name: Build
+        run: npm run build
+      - name: Pack for Mac
+        run: npm run pack:mac
+      - name: Upload for Mac
+        uses: actions/upload-artifact@v2
+        with:
+          name: redmine-client-mac
+          path: product/*.dmg
