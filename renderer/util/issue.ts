@@ -1,18 +1,12 @@
 //
 
 import dayjs from "dayjs";
-import {HierarchicalIssue, HierarchicalIssueGroup} from "/renderer/type";
+import {HierarchicalIssue, HierarchicalIssueGroup, Id} from "/renderer/type";
 
 
-const PROJECT_PRIORITIES = new Map([
-  [13, -1],  // じふぃたすく
-  [6, -2],  // アプリケーション開発部
-  [8, -2]  // アプリケーション開発部
-]);
-
-export function compareIssueGroup(firstGroup: HierarchicalIssueGroup, secondGroup: HierarchicalIssueGroup): number {
-  const firstPriority = PROJECT_PRIORITIES.get(firstGroup.id) ?? 0;
-  const secondPriority = PROJECT_PRIORITIES.get(secondGroup.id) ?? 0;
+export function compareIssueGroup(firstGroup: HierarchicalIssueGroup, secondGroup: HierarchicalIssueGroup, projectPriorities: Array<[Id, number]>): number {
+  const firstPriority = projectPriorities.find(([id]) => id === firstGroup.id)?.[1] ?? 0;
+  const secondPriority = projectPriorities.find(([id]) => id === secondGroup.id)?.[1] ?? 0;
   if (firstPriority !== secondPriority) {
     return secondPriority - firstPriority;
   } else {

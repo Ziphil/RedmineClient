@@ -1,20 +1,24 @@
 //
 
-import {client} from "/main/api/client";
+import {getSettings} from "/main/api/settings";
 import {renderMarkdown} from "/main/util/markdown";
 import {Id} from "/renderer/type/common";
 import {Note} from "/renderer/type/note";
 
 
 export async function fetchNotes({issueId}: {issueId: Id}): Promise<Array<Note>> {
-  const response = await client.get(`/issues/${issueId}.json`, {params: {include: "journals"}});
+  console.log("api called", "fetchNotes");
+  const settings = await getSettings();
+  const response = await settings.client.get(`/issues/${issueId}.json`, {params: {include: "journals"}});
   const rawJournals = response.data.issue.journals as Array<any>;
   const notes = rawJournals.filter((rawJournal) => !!rawJournal.notes).map(createNote);
   return notes;
 }
 
 export async function addNote({issueId, content}: {issueId: Id, content: string}): Promise<void> {
-  await client.put(`/issues/${issueId}.json`, {issue: {notes: content}});
+  console.log("api called", "addNote");
+  const settings = await getSettings();
+  await settings.client.put(`/issues/${issueId}.json`, {issue: {notes: content}});
 }
 
 function createNote(rawJoural: Record<string, any>): Note {

@@ -9,12 +9,8 @@ import {
   ipcMain,
   shell
 } from "electron";
-import {
-  client
-} from "electron-connect";
-import {
-  join as joinPath
-} from "path";
+import {client} from "electron-connect";
+import {join as joinPath} from "path";
 
 
 dotenv.config({path: "./variable.env"});
@@ -61,7 +57,7 @@ export class Main {
     this.props = new Map();
   }
 
-  public main(): void {
+  public async main(): Promise<void> {
     this.setupEventHandlers();
     this.setupIpc();
   }
