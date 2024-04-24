@@ -3,8 +3,9 @@
 import {
   changeIssueStatus,
   fetchAncestorIssues,
+  fetchChildIssues,
   fetchDescendantIssues,
-  fetchHierarchicalIssues,
+  fetchHierarchicalIssueGroups,
   fetchIssue,
   fetchIssueHasChildren
 } from "/main/api/redmine/issue";
@@ -21,8 +22,9 @@ import {
 
 
 export const APIS = {
-  fetchHierarchicalIssues,
+  fetchHierarchicalIssueGroups,
   fetchAncestorIssues,
+  fetchChildIssues,
   fetchDescendantIssues,
   fetchIssue,
   fetchIssueHasChildren,

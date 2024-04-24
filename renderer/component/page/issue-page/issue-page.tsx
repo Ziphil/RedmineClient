@@ -20,11 +20,10 @@ export const IssuePage = create(
 
     const [issue] = useSuspenseResponse("fetchIssue", window.api.fetchIssue, {id});
     const [ancestorIssues] = useSuspenseResponse("fetchAncestorIssues", window.api.fetchAncestorIssues, {id});
-    const [childIssues] = useSuspenseResponse("fetchDescendantIssues", window.api.fetchDescendantIssues, {id});
 
     return (
       <PageContainer>
-        <IssueView issue={issue} ancestorIssues={ancestorIssues} childIssues={childIssues}/>
+        <IssueView issue={issue} ancestorIssues={ancestorIssues}/>
       </PageContainer>
     );
 

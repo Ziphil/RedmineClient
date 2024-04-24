@@ -25,7 +25,7 @@ export const WorkController = create(
         const time = ((work.startDate !== null) ? dayjs().diff(work.startDate, "millisecond") : 0) + work.additionalTime;
         await window.api.addSpentTime({issueId: work.issue.id, time});
         await Promise.all([
-          invalidateResponses("fetchHierarchicalIssues"),
+          invalidateResponses("fetchHierarchicalIssueGroups"),
           invalidateResponses("fetchIssue", (arg) => arg.id === work.issue.id)
         ]);
         setWork(null);

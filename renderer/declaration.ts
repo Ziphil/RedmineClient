@@ -1,11 +1,7 @@
 //
 
-import {
-  IpcRenderer
-} from "electron";
-import type {
-  ApiTypes
-} from "/main/api";
+import {IpcRenderer} from "electron";
+import type {ApiTypes} from "/main/api";
 
 
 declare global {

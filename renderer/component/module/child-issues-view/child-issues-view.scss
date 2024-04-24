@@ -19,15 +19,40 @@
   flex-shrink: 1;
 }
 
+.inner {
+  padding-block: 10px;
+  row-gap: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
 .label {
   font-size: 12px;
   font-weight: bold;
   color: hsla(260, 30%, 60%, 0.9);
 }
 
-.list {
-  padding-block: 10px;
+.value {
   row-gap: 6px;
   display: flex;
   flex-direction: column;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+}
+
+.id {
+  margin-inline-end: 4px;
+}
+
+.link {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  cursor: pointer;
+  transition: text-decoration-color 0.2s ease;
+  &:hover {
+    text-decoration-color: hsla(260, 90%, 70%, 0.5);
+  }
 }

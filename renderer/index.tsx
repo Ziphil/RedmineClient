@@ -2,9 +2,7 @@
 
 import dayjs from "dayjs";
 import dayjsJa from "dayjs/locale/ja";
-import {
-  createRoot
-} from "react-dom/client";
+import {createRoot} from "react-dom/client";
 import Root from "/renderer/component/root";
 
 

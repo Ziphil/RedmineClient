@@ -7,7 +7,7 @@ import {create} from "/renderer/component/create";
 import {ChildIssuesView} from "/renderer/component/module/child-issues-view";
 import {IssueInfoView} from "/renderer/component/module/issue-info-view";
 import {IssueSubjectView} from "/renderer/component/module/issue-subject-view";
-import {Issue, IssueWithChildren, IssueWithDetails} from "/renderer/type";
+import {Issue, IssueWithDetails} from "/renderer/type";
 import {IssueController} from "./issue-controller";
 import {NoteView} from "./note-view";
 
@@ -16,12 +16,10 @@ export const IssueView = create(
   require("./issue-view.scss"), "IssueView",
   function ({
     issue,
-    ancestorIssues,
-    childIssues
+    ancestorIssues
   }: {
     issue: IssueWithDetails,
-    ancestorIssues: Array<Issue>,
-    childIssues: Array<IssueWithChildren>
+    ancestorIssues: Array<Issue>
   }): ReactElement {
 
     return (
@@ -31,7 +29,7 @@ export const IssueView = create(
             <IssueSubjectView issue={issue} ancestorIssues={ancestorIssues} size="medium"/>
             <div styleName="subject-row">
               <IssueInfoView issue={issue} size="medium"/>
-              <ChildIssuesView childIssues={childIssues}/>
+              <ChildIssuesView issue={issue}/>
             </div>
           </div>
           <IssueController issue={issue}/>

@@ -27,58 +27,48 @@ export const IssueInfoView = create(
     const [requestedUser] = useResponse("fetchUser", window.api.fetchUser, {id: issue.requestedUser?.id ?? 1 as Id}, {enabled: issue.requestedUser !== null});
 
     return (
-      <div styleName="root" {...data({size})}>
+      <article styleName="root" {...data({size})}>
         <div styleName="row">
-          <div styleName="item">
-            <div styleName="label">
-              期間
-            </div>
+          <section styleName="item">
+            <h3 styleName="label">期間</h3>
             <div styleName="value" {...data({orientation: "vertical"})}>
               {(issue.startDate !== null) ? <DateView date={dayjs(issue.startDate)} orientation="horizontal"/> : "未定"}
               <FontAwesomeIcon styleName="arrow" icon={faAngleDown}/>
               {(issue.dueDate !== null) ? <DateView date={dayjs(issue.dueDate)} orientation="horizontal"/> : "未定"}
             </div>
-          </div>
+          </section>
         </div>
         <div styleName="row">
-          <div styleName="item">
-            <div styleName="label">
-              担当者
-            </div>
+          <section styleName="item">
+            <h3 styleName="label">担当者</h3>
             <div styleName="value">
               <img styleName="avatar" src={assignedUser?.avatarUrl ?? ""} alt=""/>
               {issue.assignedUser?.name ?? "⸺"}
             </div>
-          </div>
-          <div styleName="item">
-            <div styleName="label">
-              依頼者
-            </div>
+          </section>
+          <section styleName="item">
+            <h3 styleName="label">依頼者</h3>
             <div styleName="value">
               <img styleName="avatar" src={requestedUser?.avatarUrl ?? ""} alt=""/>
               {issue.requestedUser?.name ?? "⸺"}
             </div>
-          </div>
+          </section>
         </div>
         <div styleName="row">
-          <div styleName="item">
-            <div styleName="label">
-              バージョン
-            </div>
+          <section styleName="item">
+            <h3 styleName="label">バージョン</h3>
             <div styleName="value">
               {issue.version?.name ?? "⸺"}
             </div>
-          </div>
-          <div styleName="item">
-            <div styleName="label">
-              カテゴリ
-            </div>
+          </section>
+          <section styleName="item">
+            <h3 styleName="label">カテゴリ</h3>
             <div styleName="value">
               {issue.category?.name ?? "⸺"}
             </div>
-          </div>
+          </section>
         </div>
-      </div>
+      </article>
     );
 
   }

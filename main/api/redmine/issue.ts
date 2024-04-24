@@ -17,7 +17,7 @@ import {Id} from "/renderer/type/common";
 /** 自分担当のオープンなイシューを全て取得します。
  * イシューはプロジェクトごとにグループ化されます。
  * イシューやイシューグループの順番は一定とは限らないので、適宜ソートしてください。 */
-export async function fetchHierarchicalIssues({}: {}): Promise<Array<HierarchicalIssueGroup>> {
+export async function fetchHierarchicalIssueGroups({}: {}): Promise<Array<HierarchicalIssueGroup>> {
   const response = await client.get("/issues.json", {params: {
     assignedToId: "me",
     limit: 100
@@ -45,6 +45,15 @@ export async function fetchAncestorIssues({id}: {id: Id}): Promise<Array<Issue>>
   };
   const issues = await fetchAncestorIssuesRecursively(id);
   issues.pop();
+  return issues;
+}
+
+/** 指定されたイシューの子イシューを全て取得します。
+ * 孫イシュー (子イシューの子イシュー) 以降は取得しません。*/
+export async function fetchChildIssues({id}: {id: Id}): Promise<Array<Issue>> {
+  const response = await client.get("/issues.json", {params: {parentId: id}});
+  const rawIssues = response.data["issues"] as Array<any>;
+  const issues = rawIssues.map(createIssue);
   return issues;
 }
 
