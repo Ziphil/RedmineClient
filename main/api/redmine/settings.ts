@@ -8,6 +8,7 @@ export async function fetchSettings({}: {}): Promise<Settings> {
   console.log("api called", "fetchSettings");
   const rawSettings = await getSettings();
   const settings = {
+    redmineUrl: rawSettings.redmineUrl,
     activityId: rawSettings.activityId,
     exceptionalOffDates: rawSettings.exceptionalOffDates,
     projectPriorities: rawSettings.projectPriorities

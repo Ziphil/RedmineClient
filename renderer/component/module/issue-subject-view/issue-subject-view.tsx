@@ -9,6 +9,7 @@ import {TransitionLink} from "/renderer/component/atom/transition-link";
 import {create} from "/renderer/component/create";
 import {IdView} from "/renderer/component/module/id-view";
 import {StatusView} from "/renderer/component/module/status-view";
+import {useSettings} from "/renderer/hook/settings";
 import {Issue} from "/renderer/type";
 import {data} from "/renderer/util/data";
 
@@ -27,9 +28,11 @@ export const IssueSubjectView = create(
     environment?: "light" | "dark"
   }): ReactElement {
 
+    const {redmineUrl} = useSettings();
+
     const openExternal = useCallback(function (): void {
-      window.api.send("open-external", `${process.env["REDMINE_URL"]}/issues/${issue.id}`);
-    }, [issue.id]);
+      window.api.send("open-external", `${redmineUrl}/issues/${issue.id}`);
+    }, [issue.id, redmineUrl]);
 
     return (
       <div styleName="root">

@@ -9,8 +9,8 @@ import {Id} from "/renderer/type";
 export class Settings {
 
   public client!: Axios;
-  private redmineUrl: string;
-  private redmineKey: string;
+  public redmineUrl: string;
+  public redmineKey: string;
 
   public activityId: number;
   public exceptionalOffDates: Array<string>;
