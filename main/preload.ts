@@ -1,12 +1,7 @@
 //
 
-import {
-  contextBridge,
-  ipcRenderer
-} from "electron";
-import {
-  APIS
-} from "/main/api";
+import {contextBridge, ipcRenderer} from "electron";
+import {APIS} from "/main/api";
 
 
 const send = ipcRenderer.send.bind(ipcRenderer);

@@ -1,6 +1,6 @@
 //
 
-import {getSettings} from "/main/api/settings";
+import {Settings} from "/main/api/settings";
 import {renderMarkdown} from "/main/util/markdown";
 import type {
   HierarchicalIssue,
@@ -19,7 +19,7 @@ import {Id} from "/renderer/type/common";
  * イシューやイシューグループの順番は一定とは限らないので、適宜ソートしてください。 */
 export async function fetchHierarchicalIssueGroups({}: {}): Promise<Array<HierarchicalIssueGroup>> {
   console.log("api called", "fetchHierarchicalIssueGroups");
-  const settings = await getSettings();
+  const settings = await Settings.get();
   const response = await settings.client.get("/issues.json", {params: {
     assignedToId: "me",
     limit: 100
@@ -35,7 +35,7 @@ export async function fetchHierarchicalIssueGroups({}: {}): Promise<Array<Hierar
  * 返される配列に、指定されたイシュー自身は含まれません。*/
 export async function fetchAncestorIssues({id}: {id: Id}): Promise<Array<Issue>> {
   console.log("api called", "fetchAncestorIssues");
-  const settings = await getSettings();
+  const settings = await Settings.get();
   const fetchAncestorIssuesRecursively = async function (id: Id): Promise<Array<Issue>> {
     const response = await settings.client.get(`/issues/${id}.json`);
     const rawIssue = response.data["issue"];
@@ -56,7 +56,7 @@ export async function fetchAncestorIssues({id}: {id: Id}): Promise<Array<Issue>>
  * 孫イシュー (子イシューの子イシュー) 以降は取得しません。*/
 export async function fetchChildIssues({id}: {id: Id}): Promise<Array<Issue>> {
   console.log("api called", "fetchChildIssues");
-  const settings = await getSettings();
+  const settings = await Settings.get();
   const response = await settings.client.get("/issues.json", {params: {parentId: id}});
   const rawIssues = response.data["issues"] as Array<any>;
   const issues = rawIssues.map(createIssue);
@@ -65,7 +65,7 @@ export async function fetchChildIssues({id}: {id: Id}): Promise<Array<Issue>> {
 
 /** 指定されたイシューの子孫イシューを全て取得します。*/
 export async function fetchDescendantIssues({id}: {id: Id}): Promise<Array<IssueWithChildren>> {
-  const settings = await getSettings();
+  const settings = await Settings.get();
   const fetchDescendantIssuesRecursively = async function (id: Id): Promise<Array<IssueWithChildren>> {
     const response = await settings.client.get("/issues.json", {params: {parentId: id}});
     const rawIssues = response.data["issues"] as Array<any>;
@@ -82,7 +82,7 @@ export async function fetchDescendantIssues({id}: {id: Id}): Promise<Array<Issue
 
 export async function fetchIssue({id}: {id: Id}): Promise<IssueWithDetails> {
   console.log("api called", "fetchIssue");
-  const settings = await getSettings();
+  const settings = await Settings.get();
   const response = await settings.client.get(`/issues/${id}.json`, {params: {include: "children,relations,journals"}});
   const rawIssue = response.data["issue"];
   const issue = await createIssueWithDetails(rawIssue);
@@ -91,7 +91,7 @@ export async function fetchIssue({id}: {id: Id}): Promise<IssueWithDetails> {
 
 export async function fetchIssueHasChildren({id}: {id: Id}): Promise<boolean> {
   console.log("api called", "fetchIssueHasChildren");
-  const settings = await getSettings();
+  const settings = await Settings.get();
   const response = await settings.client.get("/issues.json", {params: {
     parentId: id,
     statusId: "*",
@@ -103,7 +103,7 @@ export async function fetchIssueHasChildren({id}: {id: Id}): Promise<boolean> {
 
 export async function changeIssueStatus({id, status}: {id: Id, status: Status}): Promise<void> {
   console.log("api called", "changeIssueStatus");
-  const settings = await getSettings();
+  const settings = await Settings.get();
   await settings.client.put(`/issues/${id}.json`, {issue: {statusId: fromStatus(status)}});
 }
 
@@ -132,7 +132,7 @@ function createIssue(rawIssue: Record<string, any>): Issue {
 }
 
 async function createIssueWithDetails(rawIssue: Record<string, any>): Promise<IssueWithDetails> {
-  const settings = await getSettings();
+  const settings = await Settings.get();
   const customFields = rawIssue["customFields"] as Array<any> | undefined;
   const requestCustomField = customFields?.find((field) => field["id"] === 3);
   const fetchRequestedUser = async function (): Promise<{id: Id, name: string} | null> {

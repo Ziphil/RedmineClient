@@ -1,17 +1,17 @@
 //
 
-import {getSettings} from "/main/api/settings";
-import {Settings} from "/renderer/type/settings";
+import {Settings} from "/main/api/settings";
+import type {Settings as SkeletalSettings} from "/renderer/type";
 
 
-export async function fetchSettings({}: {}): Promise<Settings> {
+export async function fetchSettings({}: {}): Promise<SkeletalSettings> {
   console.log("api called", "fetchSettings");
-  const rawSettings = await getSettings();
-  const settings = {
-    redmineUrl: rawSettings.redmineUrl,
-    activityId: rawSettings.activityId,
-    exceptionalOffDates: rawSettings.exceptionalOffDates,
-    projectPriorities: rawSettings.projectPriorities
-  } satisfies Settings;
-  return settings;
+  const settings = await Settings.get();
+  const skeletalSettings = {
+    redmineUrl: settings.redmineUrl,
+    activityId: settings.activityId,
+    exceptionalOffDates: settings.exceptionalOffDates,
+    projectPriorities: settings.projectPriorities
+  } satisfies SkeletalSettings;
+  return skeletalSettings;
 }

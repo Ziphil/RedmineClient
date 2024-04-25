@@ -1,13 +1,12 @@
 //
 
-import {getSettings} from "/main/api/settings";
-import {Id} from "/renderer/type/common";
-import {UserWithDetails} from "/renderer/type/user";
+import {Settings} from "/main/api/settings";
+import type {Id, UserWithDetails} from "/renderer/type";
 
 
 export async function fetchUser({id}: {id: Id}): Promise<UserWithDetails> {
   console.log("api called", "fetchUser");
-  const settings = await getSettings();
+  const settings = await Settings.get();
   const response = await settings.client.get(`/users/${id}.json`, {});
   const rawUser = response.data["user"];
   const user = createUserWithDetails(rawUser);

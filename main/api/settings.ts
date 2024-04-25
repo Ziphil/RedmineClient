@@ -10,6 +10,8 @@ import {Id} from "/renderer/type";
 
 export class Settings {
 
+  private static instance: Settings | null = null;
+
   public client!: Axios;
   public redmineUrl: string;
   public redmineKey: string;
@@ -18,7 +20,7 @@ export class Settings {
   public exceptionalOffDates: Array<string>;
   public projectPriorities: Array<[Id, number]>;
 
-  public constructor() {
+  private constructor() {
     this.redmineUrl = "";
     this.redmineKey = "";
     this.activityId = 9;
@@ -26,7 +28,15 @@ export class Settings {
     this.projectPriorities = [];
   }
 
-  public static async load(path: string): Promise<Settings> {
+  public static async get(): Promise<Settings> {
+    if (this.instance === null) {
+      const path = (process.env.DEVELOPPING === "true") ? "./settings.json" : joinPath(electronApp.getPath("userData"), "settings.json");
+      this.instance = await Settings.load(path);
+    }
+    return this.instance;
+  }
+
+  private static async load(path: string): Promise<Settings> {
     const string = await fs.readFile(path, {encoding: "utf-8"}).catch(() => "{}");
     const json = JSON.parse(string);
     const settings = new Settings();
@@ -51,15 +61,4 @@ export class Settings {
     this.client = applyCaseConverter(client);
   }
 
-}
-
-
-let settings = null as Settings | null;
-
-export async function getSettings(): Promise<Settings> {
-  if (settings === null) {
-    const path = (process.env.DEVELOPPING === "true") ? "./settings.json" : joinPath(electronApp.getPath("userData"), "settings.json");
-    settings = await Settings.load(path);
-  }
-  return settings;
 }
