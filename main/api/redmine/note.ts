@@ -22,10 +22,10 @@ export async function addNote({issueId, content}: {issueId: Id, content: string}
 
 function createNote(rawJoural: Record<string, any>): Note {
   const note = {
-    id: rawJoural.id,
-    content: renderMarkdown(rawJoural.notes),
-    user: {id: rawJoural.user.id, name: rawJoural.user.name},
-    createdDate: rawJoural.createdOn
+    id: rawJoural["id"],
+    content: renderMarkdown(rawJoural["notes"]),
+    user: {id: rawJoural["user"]["id"], name: rawJoural["user"]["name"]},
+    createdDate: rawJoural["createdOn"]
   } satisfies Note;
   return note;
 }

@@ -109,7 +109,7 @@ export async function changeIssueStatus({id, status}: {id: Id, status: Status}):
 
 type InnerHierarchicalIssue = HierarchicalIssue & {parentIssueId: Id | null, actualParentIssueId: Id | null};
 
-function createIssue(rawIssue: Record<string, any>): Issue {
+export function createIssue(rawIssue: Record<string, any>): Issue {
   const customFields = rawIssue["customFields"] as Array<any> | undefined;
   const requirementCustomField = customFields?.find((field) => field["id"] === 6);
   const issue = {
