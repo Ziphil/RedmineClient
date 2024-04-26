@@ -3,7 +3,7 @@
 import {ReactElement} from "react";
 import {create} from "/renderer/component/create";
 import {IssueChart} from "/renderer/component/module/issue-chart";
-import {PageContainer} from "/renderer/component/module/page-container";
+import {Page} from "/renderer/component/module/page";
 import {useSuspenseResponse} from "/renderer/hook/request";
 
 
@@ -16,9 +16,9 @@ export const ChartPage = create(
     const [issueGroups] = useSuspenseResponse("fetchHierarchicalIssueGroups", window.api.fetchHierarchicalIssueGroups, {});
 
     return (
-      <PageContainer>
+      <Page>
         <IssueChart issueGroups={issueGroups} dateCount={20}/>
-      </PageContainer>
+      </Page>
     );
 
   }

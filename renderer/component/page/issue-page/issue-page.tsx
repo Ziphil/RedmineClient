@@ -4,7 +4,7 @@ import {ReactElement} from "react";
 import {useParams} from "react-router-dom";
 import {create} from "/renderer/component/create";
 import {IssueView} from "/renderer/component/module/issue-view";
-import {PageContainer} from "/renderer/component/module/page-container";
+import {Page} from "/renderer/component/module/page";
 import {useSuspenseResponse} from "/renderer/hook/request";
 import {Id} from "/renderer/type/common";
 
@@ -22,9 +22,9 @@ export const IssuePage = create(
     const [ancestorIssues] = useSuspenseResponse("fetchAncestorIssues", window.api.fetchAncestorIssues, {id});
 
     return (
-      <PageContainer>
+      <Page>
         <IssueView issue={issue} ancestorIssues={ancestorIssues}/>
-      </PageContainer>
+      </Page>
     );
 
   }

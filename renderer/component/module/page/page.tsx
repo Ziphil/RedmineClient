@@ -6,8 +6,8 @@ import {Header} from "/renderer/component/module/header";
 import {WorkPlayer} from "/renderer/component/module/work-player";
 
 
-export const PageContainer = create(
-  require("./page-container.scss"), "PageContainer",
+export const Page = create(
+  require("./page.scss"), "Page",
   function ({
     menuNode,
     children
