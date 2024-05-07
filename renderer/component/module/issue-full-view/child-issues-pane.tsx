@@ -10,8 +10,8 @@ import {useResponse} from "/renderer/hook/request";
 import {Issue} from "/renderer/type";
 
 
-export const ChildIssuesView = create(
-  require("./child-issues-view.scss"), "ChildIssuesView",
+export const ChildIssuesPane = create(
+  require("./child-issues-pane.scss"), "ChildIssuesPane",
   function ({
     issue
   }: {

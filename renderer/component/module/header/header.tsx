@@ -29,10 +29,10 @@ export const Header = create(
             <FontAwesomeIcon styleName="icon" icon={faRocketLaunch}/>
             プロジェクト
           </div>
-          <div styleName="link">
+          <TransitionLink styleName="link" to="/activity/2024-05-02">
             <FontAwesomeIcon styleName="icon" icon={faWavePulse}/>
             活動
-          </div>
+          </TransitionLink>
         </div>
         <div styleName="right">
           <DateView date={today} orientation="horizontal"/>

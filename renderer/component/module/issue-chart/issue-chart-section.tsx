@@ -6,11 +6,11 @@ import {SingleLineText} from "/renderer/component/atom/single-line-text";
 import {create} from "/renderer/component/create";
 import {HierarchicalIssueGroup} from "/renderer/type";
 import {compareIssue} from "/renderer/util/issue";
-import {IssueChartIssue} from "./issue-chart-issue";
+import {IssueChartItem} from "./issue-chart-item";
 
 
-export const IssueChartIssueGroup = create(
-  require("./issue-chart-issue-group.scss"), "IssueChartIssueGroup",
+export const IssueChartSection = create(
+  require("./issue-chart-section.scss"), "IssueChartSection",
   function ({
     issueGroup,
     businessDates
@@ -28,7 +28,7 @@ export const IssueChartIssueGroup = create(
         </SingleLineText>
         <div styleName="list">
           {sortedIssues.map((issue) => (
-            <IssueChartIssue key={issue.id} issue={issue} level={0} businessDates={businessDates}/>
+            <IssueChartItem key={issue.id} issue={issue} level={0} businessDates={businessDates}/>
           ))}
         </div>
       </section>

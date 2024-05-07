@@ -1,6 +1,9 @@
 //
 
 import {
+  fetchActivities
+} from "/main/api/redmine/activity";
+import {
   changeIssueStatus,
   fetchAncestorIssues,
   fetchChildIssues,
@@ -36,6 +39,7 @@ export const APIS = {
   fetchNotes,
   addNote,
   fetchUser,
+  fetchActivities,
   fetchSettings
 };
 

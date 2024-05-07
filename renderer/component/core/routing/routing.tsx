@@ -5,6 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {ReactElement, Suspense} from "react";
 import {RouterProvider, createHashRouter} from "react-router-dom";
 import {create} from "/renderer/component/create";
+import {ActivityPage} from "/renderer/component/page/activity-page";
 import {ChartPage} from "/renderer/component/page/chart-page";
 import {IssuePage} from "/renderer/component/page/issue-page";
 import {useAutoUpdateToday} from "/renderer/hook/today";
@@ -12,7 +13,8 @@ import {useAutoUpdateToday} from "/renderer/hook/today";
 
 const router = createHashRouter([
   {path: "/chart", element: <ChartPage/>},
-  {path: "issue/:idString", element: <IssuePage/>}
+  {path: "issue/:idString", element: <IssuePage/>},
+  {path: "activity/:date", element: <ActivityPage/>}
 ]);
 
 

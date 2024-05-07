@@ -9,8 +9,8 @@ import {compareIssue} from "/renderer/util/issue";
 import {IssueChartRow} from "./issue-chart-row";
 
 
-export const IssueChartIssue = create(
-  require("./issue-chart-issue.scss"), "IssueChartIssue",
+export const IssueChartItem = create(
+  require("./issue-chart-item.scss"), "IssueChartItem",
   function ({
     issue,
     level,
@@ -31,7 +31,7 @@ export const IssueChartIssue = create(
       <>
         <IssueChartRow issue={issue} level={level} parent={hasChildren} businessDates={businessDates}/>
         {sortedChildIssues.map((childIssue) => (
-          <IssueChartIssue key={childIssue.id} issue={childIssue} level={level + 1} businessDates={businessDates}/>
+          <IssueChartItem key={childIssue.id} issue={childIssue} level={level + 1} businessDates={businessDates}/>
         ))}
       </>
     );

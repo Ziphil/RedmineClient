@@ -4,16 +4,16 @@ import {ReactElement} from "react";
 import SimpleBar from "simplebar-react";
 import {Markdown} from "/renderer/component/atom/markdown";
 import {create} from "/renderer/component/create";
-import {ChildIssuesView} from "/renderer/component/module/child-issues-view";
-import {IssueInfoView} from "/renderer/component/module/issue-info-view";
 import {IssueSubjectView} from "/renderer/component/module/issue-subject-view";
 import {Issue, IssueWithDetails} from "/renderer/type";
+import {ChildIssuesPane} from "./child-issues-pane";
 import {IssueController} from "./issue-controller";
-import {NoteView} from "./note-view";
+import {IssueInfoPane} from "./issue-info-pane";
+import {NoteList} from "./note-list";
 
 
-export const IssueView = create(
-  require("./issue-view.scss"), "IssueView",
+export const IssueFullView = create(
+  require("./issue-full-view.scss"), "IssueFullView",
   function ({
     issue,
     ancestorIssues
@@ -28,8 +28,8 @@ export const IssueView = create(
           <div styleName="subject">
             <IssueSubjectView issue={issue} ancestorIssues={ancestorIssues} size="medium"/>
             <div styleName="subject-row">
-              <IssueInfoView issue={issue} size="medium"/>
-              <ChildIssuesView issue={issue}/>
+              <IssueInfoPane issue={issue} size="medium"/>
+              <ChildIssuesPane issue={issue}/>
             </div>
           </div>
           <IssueController issue={issue}/>
@@ -58,7 +58,7 @@ export const IssueView = create(
           <SimpleBar styleName="scroll">
             <section styleName="article">
               <h3 styleName="heading">コメント</h3>
-              <NoteView issue={issue}/>
+              <NoteList issue={issue}/>
             </section>
           </SimpleBar>
         </div>

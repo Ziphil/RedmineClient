@@ -11,12 +11,11 @@ import {Id, IssueWithDetails} from "/renderer/type";
 import {data} from "/renderer/util/data";
 
 
-export const IssueInfoView = create(
-  require("./issue-info-view.scss"), "IssueInfoView",
+export const IssueInfoPane = create(
+  require("./issue-info-pane.scss"), "IssueInfoPane",
   function ({
     issue,
-    size,
-    environment = "light"
+    size
   }: {
     issue: IssueWithDetails,
     size: "medium" | "large",

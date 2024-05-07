@@ -9,8 +9,8 @@ import {useSuspenseResponse} from "/renderer/hook/request";
 import {Issue} from "/renderer/type";
 
 
-export const NoteView = create(
-  require("./note-view.scss"), "NoteView",
+export const NoteList = create(
+  require("./note-list.scss"), "NoteList",
   function ({
     issue
   }: {

@@ -9,7 +9,7 @@ import {HierarchicalIssueGroup} from "/renderer/type";
 import {getBusinessDates} from "/renderer/util/date";
 import {compareIssueGroup} from "/renderer/util/issue";
 import {IssueChartHeader} from "./issue-chart-header";
-import {IssueChartIssueGroup} from "./issue-chart-issue-group";
+import {IssueChartSection} from "./issue-chart-section";
 
 
 export const IssueChart = create(
@@ -38,7 +38,7 @@ export const IssueChart = create(
         <SimpleBar styleName="scroll">
           <div styleName="list">
             {sortedIssueGroups.map((issueGroup) => (
-              <IssueChartIssueGroup key={issueGroup.id} issueGroup={issueGroup} businessDates={businessDates}/>
+              <IssueChartSection key={issueGroup.id} issueGroup={issueGroup} businessDates={businessDates}/>
             ))}
           </div>
         </SimpleBar>
