@@ -66,3 +66,33 @@
   font-weight: bold;
   color: hsla(260, 30%, 60%, 0.9);
 }
+
+.total {
+  margin-block-start: -8px;
+  margin-block-end: 16px;
+  display: flex;
+  align-items: flex-end;
+  flex: 0 0 auto;
+}
+
+.time-icon {
+  margin-inline-end: 0.3em;
+  translate: 0em -0.1em;
+  color: hsla(260, 30%, 60%, 0.9);
+  flex: 0 0 auto;
+}
+
+.time-label {
+  margin-inline-end: 0.3em;
+  translate: 0em -0.1em;
+  color: hsla(260, 30%, 60%, 0.9);
+  flex: 0 0 auto;
+}
+
+.time {
+  width: 3.8em;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: end;
+  flex: 0 0 auto;
+}

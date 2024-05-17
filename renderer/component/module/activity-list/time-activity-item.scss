@@ -2,7 +2,7 @@
 
 
 .root {
-  row-gap: 2px;
+  row-gap: 0px;
   display: flex;
   flex-direction: column;
 }
@@ -14,23 +14,24 @@
 .main {
   column-gap: 8px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .time-container {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   flex: 0 0 auto;
 }
 
 .time-icon {
   margin-inline-end: 0.3em;
+  translate: 0em -0.1em;
   color: hsla(260, 30%, 60%, 0.9);
   flex: 0 0 auto;
 }
 
 .time {
-  width: 3.7em;
+  width: 3.8em;
   font-size: 24px;
   font-weight: bold;
   text-align: end;
@@ -38,9 +39,11 @@
 }
 
 .arrow {
+  translate: 0em -0.1em;
   color: hsla(260, 90%, 70%, 0.5);
 }
 
 .issue {
+  translate: 0em -0.1em;
   flex: 1 1 auto;
 }

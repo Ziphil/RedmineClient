@@ -1,6 +1,6 @@
 //
 
-import {faArrowLeft, faArrowRight} from "@fortawesome/pro-regular-svg-icons";
+import {faArrowLeft, faArrowRight, faClock} from "@fortawesome/pro-regular-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Dayjs} from "dayjs";
 import {ReactElement} from "react";
@@ -9,7 +9,8 @@ import {TransitionLink} from "/renderer/component/atom/transition-link";
 import {create} from "/renderer/component/create";
 import {ActivityList} from "/renderer/component/module/activity-list";
 import {DateView} from "/renderer/component/module/date-view";
-import {Activity} from "/renderer/type";
+import {TimeView} from "/renderer/component/module/time-view";
+import {Activity, TimeActivity} from "/renderer/type";
 import {data} from "/renderer/util/data";
 
 
@@ -22,6 +23,9 @@ export const ActivityFullView = create(
     date: Dayjs,
     activities: Array<Activity>
   }): ReactElement {
+
+    const timeActivities = activities.filter((activity) => activity.type === "time") as Array<TimeActivity>;
+    const totalTime = timeActivities.reduce((total, activity) => total + activity.time, 0);
 
     return (
       <div styleName="root">
@@ -45,6 +49,15 @@ export const ActivityFullView = create(
           <SimpleBar styleName="scroll">
             <article styleName="article">
               <h3 styleName="heading">作業時間記録</h3>
+              <div styleName="total">
+                <FontAwesomeIcon styleName="time-icon" icon={faClock}/>
+                <span styleName="time-label">
+                  合計
+                </span>
+                <span styleName="time">
+                  <TimeView time={totalTime}/>
+                </span>
+              </div>
               <ActivityList activities={activities}/>
             </article>
           </SimpleBar>

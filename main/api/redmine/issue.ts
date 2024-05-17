@@ -119,7 +119,7 @@ export function createIssue(rawIssue: Record<string, any>): Issue {
     requirement: requirementCustomField ? renderMarkdown(requirementCustomField["value"] ?? "") : null,
     project: {
       id: rawIssue["project"]["id"],
-      name: rawIssue["project"]["name"].replace(/^(.+?)-\s*/, "")
+      name: rawIssue["project"]["name"].replace(/^(\d+?)(-|_)\s*/, "")
     },
     tracker: toTracker(rawIssue["tracker"]["id"]),
     status: toStatus(rawIssue["status"]["id"]),
