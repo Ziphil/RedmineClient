@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+
+.root {
+  display: flex;
+  flex-direction: row;
+}
+
+.id {
+  margin-inline-end: 4px;
+  flex: 0 0 auto;
+}
+
+.link {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  cursor: pointer;
+  transition: text-decoration-color 0.2s ease;
+  &:hover {
+    text-decoration-color: hsla(260, 90%, 70%, 0.5);
+  }
+}

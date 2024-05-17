@@ -3,10 +3,10 @@
 import {ReactElement} from "react";
 import {useParams} from "react-router-dom";
 import {create} from "/renderer/component/create";
+import {IssueFullView} from "/renderer/component/module/issue-full-view";
 import {Page} from "/renderer/component/module/page";
 import {useSuspenseResponse} from "/renderer/hook/request";
 import {Id} from "/renderer/type/common";
-import {IssueFullView} from "../../module/issue-full-view";
 
 
 export const IssuePage = create(

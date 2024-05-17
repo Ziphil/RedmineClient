@@ -39,20 +39,4 @@
 }
 
 .item {
-  display: flex;
-  flex-direction: row;
-}
-
-.id {
-  margin-inline-end: 4px;
-}
-
-.link {
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  cursor: pointer;
-  transition: text-decoration-color 0.2s ease;
-  &:hover {
-    text-decoration-color: hsla(260, 90%, 70%, 0.5);
-  }
 }

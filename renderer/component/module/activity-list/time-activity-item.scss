@@ -1,0 +1,46 @@
+@charset "utf-8";
+
+
+.root {
+  row-gap: 2px;
+  display: flex;
+  flex-direction: column;
+}
+
+.clock {
+  font-size: 12px;
+}
+
+.main {
+  column-gap: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.time-container {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.time-icon {
+  margin-inline-end: 0.3em;
+  color: hsla(260, 30%, 60%, 0.9);
+  flex: 0 0 auto;
+}
+
+.time {
+  width: 3.7em;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: end;
+  flex: 0 0 auto;
+}
+
+.arrow {
+  color: hsla(260, 90%, 70%, 0.5);
+}
+
+.issue {
+  flex: 1 1 auto;
+}

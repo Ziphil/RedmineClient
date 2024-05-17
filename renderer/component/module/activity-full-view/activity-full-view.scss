@@ -1,0 +1,47 @@
+@charset "utf-8";
+
+
+.root {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.top {
+  padding-block-end: 16px;
+  border-block-end: 1px solid rgba(white, 0.5);
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.bottom {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.date {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.scroll {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.article {
+  padding-block-start: 16px;
+  padding-block-end: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  margin-block-end: 16px;
+  font-size: 20px;
+  font-weight: bold;
+  color: hsla(260, 30%, 60%, 0.9);
+}

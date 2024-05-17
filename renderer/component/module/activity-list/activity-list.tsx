@@ -3,7 +3,7 @@
 import {ReactElement} from "react";
 import {create} from "/renderer/component/create";
 import {Activity} from "/renderer/type";
-import {ActivityItem} from "./activity-item";
+import {TimeActivityItem} from "./time-activity-item";
 
 
 export const ActivityList = create(
@@ -16,9 +16,9 @@ export const ActivityList = create(
 
     return (
       <div styleName="root">
-        {activities.map((activity) => (
-          <ActivityItem key={`${activity.type}-${activity.id}`} activity={activity}/>
-        ))}
+        {activities.map((activity) => activity.type === "time" ? (
+          <TimeActivityItem key={`${activity.type}-${activity.id}`} activity={activity}/>
+        ) : null)}
       </div>
     );
 

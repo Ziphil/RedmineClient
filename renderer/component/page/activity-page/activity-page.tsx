@@ -1,9 +1,10 @@
 //
 
+import dayjs from "dayjs";
 import {ReactElement} from "react";
 import {useParams} from "react-router-dom";
 import {create} from "/renderer/component/create";
-import {ActivityList} from "/renderer/component/module/activity-list";
+import {ActivityFullView} from "/renderer/component/module/activity-full-view/activity-full-view";
 import {Page} from "/renderer/component/module/page";
 import {useSuspenseResponse} from "/renderer/hook/request";
 
@@ -20,7 +21,7 @@ export const ActivityPage = create(
 
     return (
       <Page>
-        <ActivityList activities={activities}/>
+        <ActivityFullView date={dayjs(date)} activities={activities}/>
       </Page>
     );
 
