@@ -8,11 +8,13 @@ import {create} from "/renderer/component/create";
 import {ActivityPage} from "/renderer/component/page/activity-page";
 import {ChartPage} from "/renderer/component/page/chart-page";
 import {IssuePage} from "/renderer/component/page/issue-page";
+import {ProjectPage} from "/renderer/component/page/project-page";
 import {useAutoUpdateToday} from "/renderer/hook/today";
 
 
 const router = createHashRouter([
   {path: "/chart", element: <ChartPage/>},
+  {path: "/project", element: <ProjectPage/>},
   {path: "issue/:idString", element: <IssuePage/>},
   {path: "activity/:date", element: <ActivityPage/>}
 ]);

@@ -25,10 +25,10 @@ export const Header = create(
             <FontAwesomeIcon styleName="icon" icon={faTasks}/>
             タスク
           </TransitionLink>
-          <div styleName="link">
+          <TransitionLink styleName="link" to="/project">
             <FontAwesomeIcon styleName="icon" icon={faRocketLaunch}/>
             プロジェクト
-          </div>
+          </TransitionLink>
           <TransitionLink styleName="link" to={`/activity/${today.format("YYYY-MM-DD")}`}>
             <FontAwesomeIcon styleName="icon" icon={faWavePulse}/>
             活動
