@@ -2,6 +2,7 @@
 
 
 .root {
+  font-family: "Reddit Sans";
   row-gap: 0.2em;
   column-gap: 0.3em;
   display: flex;
@@ -20,7 +21,7 @@
 }
 
 .slash {
-  margin-inline: 0.1em;
+  margin-inline: 0.05em;
   font-size: 80%;
 }
 

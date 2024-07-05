@@ -30,16 +30,16 @@ export const IssueChartHeader = create(
           <div styleName="count">
             <div styleName="total-count">
               <FontAwesomeIcon styleName="count-icon" icon={faTasks}/>
-              {counts.late + counts.now}
+              <span styleName="count-number">{counts.late + counts.now}</span>
             </div>
             <div styleName="count-table">
               <div styleName="count-item" {...data({type: "now"})}>
                 <span styleName="count-label">今日</span>
-                <span>{counts.now}</span>
+                <span styleName="count-number">{counts.now}</span>
               </div>
               <div styleName="count-item" {...data({type: "late"})}>
                 <span styleName="count-label">遅延</span>
-                <span>{counts.late}</span>
+                <span styleName="count-number">{counts.late}</span>
               </div>
             </div>
           </div>
