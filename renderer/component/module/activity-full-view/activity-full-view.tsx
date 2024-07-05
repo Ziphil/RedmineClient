@@ -10,7 +10,7 @@ import {create} from "/renderer/component/create";
 import {ActivityList} from "/renderer/component/module/activity-list";
 import {DateView} from "/renderer/component/module/date-view";
 import {TimeView} from "/renderer/component/module/time-view";
-import {Activity, TimeActivity} from "/renderer/type";
+import {Activity, CloseActivity, TimeActivity} from "/renderer/type";
 import {data} from "/renderer/util/data";
 
 
@@ -25,6 +25,7 @@ export const ActivityFullView = create(
   }): ReactElement {
 
     const timeActivities = activities.filter((activity) => activity.type === "time") as Array<TimeActivity>;
+    const closeActivities = activities.filter((activity) => activity.type === "close") as Array<CloseActivity>;
     const totalTime = timeActivities.reduce((total, activity) => total + activity.time, 0);
 
     return (
@@ -58,7 +59,13 @@ export const ActivityFullView = create(
                   <TimeView time={totalTime}/>
                 </span>
               </div>
-              <ActivityList activities={activities}/>
+              <ActivityList activities={timeActivities}/>
+            </article>
+          </SimpleBar>
+          <SimpleBar styleName="scroll">
+            <article styleName="article">
+              <h3 styleName="heading">完了タスク</h3>
+              <ActivityList activities={closeActivities}/>
             </article>
           </SimpleBar>
         </div>

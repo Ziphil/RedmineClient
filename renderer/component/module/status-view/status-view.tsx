@@ -28,7 +28,7 @@ export const StatusView = create(
 );
 
 
-function getStatusSpec(status: Status): [IconDefinition, string] {
+export function getStatusSpec(status: Status): [IconDefinition, string] {
   if (status === "new") {
     return [faSparkles, "新規"];
   } else if (status === "progress") {

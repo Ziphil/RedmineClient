@@ -17,7 +17,7 @@ export const ActivityPage = create(
 
     const {date} = useParams();
 
-    const [activities] = useSuspenseResponse("fetchIssue", window.api.fetchActivities, {date: date!});
+    const [activities] = useSuspenseResponse("fetchActivities", window.api.fetchActivities, {date: date!});
 
     return (
       <Page>

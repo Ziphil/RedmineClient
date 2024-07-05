@@ -3,47 +3,60 @@
 
 .root {
   row-gap: 0px;
+  border-radius: 6px;
+  background-image: linear-gradient(to right bottom, hsla(320, 90%, 70%, 0.1), hsla(260, 90%, 70%, 0.1) 40%, hsla(200, 90%, 65%, 0.1));
+  background-attachment: fixed;
+  display: flex;
+  overflow: hidden;
+}
+
+.left {
+  padding-inline: 6px;
+  color: hsla(260, 30%, 60%, 0.9);
+  background-image: linear-gradient(to right bottom, hsla(320, 90%, 70%, 0.2), hsla(260, 90%, 70%, 0.2) 40%, hsla(200, 90%, 65%, 0.2));
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.right {
+  padding-block: 10px;
+  padding-inline: 10px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.date {
+  margin-bottom: 8px;
+  column-gap: 0.3em;
+  font-size: 12px;
+  display: flex;
+  align-items: baseline;
+}
+
+.main {
+  row-gap: 4px;
   display: flex;
   flex-direction: column;
 }
 
-.clock {
-  font-size: 12px;
-}
-
-.main {
-  column-gap: 8px;
-  display: flex;
-  align-items: flex-end;
-}
-
 .time-container {
+  column-gap: 0.3em;
   display: flex;
   align-items: flex-end;
-  flex: 0 0 auto;
-}
-
-.time-icon {
-  margin-inline-end: 0.3em;
-  translate: 0em -0.1em;
-  color: hsla(260, 30%, 60%, 0.9);
   flex: 0 0 auto;
 }
 
 .time {
-  width: 3.8em;
   font-size: 24px;
   font-weight: bold;
-  text-align: end;
   flex: 0 0 auto;
 }
 
 .arrow {
   translate: 0em -0.1em;
   color: hsla(260, 90%, 70%, 0.5);
-}
-
-.issue {
-  translate: 0em -0.1em;
-  flex: 1 1 auto;
 }

@@ -7,9 +7,11 @@ import {create} from "/renderer/component/create";
 export const TimeView = create(
   require("./time-view.scss"), "TimeView",
   function ({
-    time
+    time,
+    className
   }: {
-    time: number
+    time: number,
+    className?: string
   }): ReactElement {
 
     const hour = Math.floor(time / 1000 / 60 / 60);
@@ -20,7 +22,7 @@ export const TimeView = create(
     const secondString = second.toString().padStart(2, "0");
 
     return (
-      <span styleName="root">
+      <span styleName="root" className={className}>
         {(hour > 0) && (
           <>
             {[...hourString].map((digit, index) => (

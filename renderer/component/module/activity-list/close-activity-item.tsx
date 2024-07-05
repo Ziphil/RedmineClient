@@ -1,30 +1,31 @@
 //
 
-import {faClock, faRight} from "@fortawesome/pro-regular-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import {ReactElement} from "react";
 import {create} from "/renderer/component/create";
 import {IssueView} from "/renderer/component/module/issue-view";
-import {TimeView} from "/renderer/component/module/time-view";
+import {getStatusSpec} from "/renderer/component/module/status-view";
 import {useResponse} from "/renderer/hook/request";
-import {TimeActivity} from "/renderer/type";
+import {CloseActivity} from "/renderer/type";
 
 
-export const TimeActivityItem = create(
-  require("./time-activity-item.scss"), "TimeActivityItem",
+export const CloseActivityItem = create(
+  require("./close-activity-item.scss"), "CloseActivityItem",
   function ({
     activity
   }: {
-    activity: TimeActivity
+    activity: CloseActivity
   }): ReactElement {
 
     const [issue] = useResponse("fetchIssue", window.api.fetchIssue, {id: activity.issue.id});
 
+    const [icon, label] = (issue !== undefined) ? getStatusSpec(issue.status) : [undefined, ""];
+
     return (
       <div styleName="root">
         <div styleName="left">
-          <FontAwesomeIcon styleName="icon" icon={faClock}/>
+          {(icon !== undefined) && <FontAwesomeIcon styleName="icon" icon={icon}/>}
         </div>
         <div styleName="right">
           <div styleName="date">
@@ -32,13 +33,7 @@ export const TimeActivityItem = create(
           </div>
           <div styleName="main">
             <div styleName="issue">
-              {(issue !== undefined) && (
-                <IssueView issue={issue}/>
-              )}
-            </div>
-            <div styleName="time-container">
-              <FontAwesomeIcon styleName="arrow" icon={faRight}/>
-              <TimeView styleName="time" time={activity.time}/>
+              {(issue !== undefined) && <IssueView issue={issue}/>}
             </div>
           </div>
         </div>
