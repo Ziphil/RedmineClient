@@ -27,7 +27,7 @@ import {
 } from "/main/api/redmine/user";
 
 
-export const APIS = {
+export const API_CATALOG = {
   fetchHierarchicalIssueGroups,
   fetchAncestorIssues,
   fetchChildIssues,
@@ -43,4 +43,4 @@ export const APIS = {
   fetchSettings
 };
 
-export type ApiTypes = typeof APIS;
+export type ApiCatalog = typeof API_CATALOG;

@@ -11,7 +11,7 @@ import {
 } from "electron";
 import {client} from "electron-connect";
 import {join as joinPath} from "path";
-import {APIS, ApiTypes} from "/main/api";
+import {API_CATALOG, ApiCatalog} from "/main/api";
 import {Settings} from "/main/api/settings";
 
 
@@ -106,8 +106,8 @@ export class Main {
       }
     });
     ipcMain.handle("api", (event, name, arg) => {
-      const castName = name as keyof ApiTypes;
-      const result = APIS[castName](arg);
+      const castName = name as keyof ApiCatalog;
+      const result = API_CATALOG[castName](arg);
       return result;
     });
   }

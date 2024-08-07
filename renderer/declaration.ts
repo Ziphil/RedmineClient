@@ -1,12 +1,12 @@
 //
 
 import {IpcRenderer} from "electron";
-import type {ApiTypes} from "/main/api";
+import type {ApiCatalog} from "/main/api";
 
 
 declare global {
 
-  type WindowApi = ApiTypes & {
+  type WindowApi = ApiCatalog & {
     send: IpcRenderer["send"],
     on: IpcRenderer["on"],
     invoke: IpcRenderer["invoke"]
